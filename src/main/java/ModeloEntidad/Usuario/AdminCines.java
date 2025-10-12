@@ -13,7 +13,7 @@ import EnumOpciones.Rol;
 public class AdminCines extends Usuario{
 
     public AdminCines(String userName, String password) {
-        super(userName, password, Rol.Admin_Cines);
+        super(userName, password, Rol.ADMIN_CINES);
     }
     
     

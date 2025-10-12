@@ -10,8 +10,8 @@ package EnumOpciones;
  */
 public enum Rol {
     
-    Usuario_Comun,
-    Anunciante,
-    Admin_Cines,
-    Admin_Sistema
+    USUARIO_COMUN,
+    ANUNCIANTE,
+    ADMIN_CINES,
+    ADMIN_SISTEMA
 }

@@ -14,6 +14,6 @@ import java.time.LocalDate;
 public class Anunciante extends Usuario {
 
     public Anunciante(String userName, String password) {
-        super(userName, password, Rol.Anunciante);
+        super(userName, password, Rol.ANUNCIANTE);
     }
 }
