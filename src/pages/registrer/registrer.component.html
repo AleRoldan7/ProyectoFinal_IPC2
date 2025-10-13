@@ -1,0 +1,47 @@
+<div class="login-container">
+  <div class="empty-spacer"></div>
+  <div class="login-title">Registrar Usuario</div>
+
+  <form (ngSubmit)="registrerUser()" #formRegistro="ngForm">
+    <fieldset>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre Completo</label>
+        <input type="text" class="form-control" id="nombre" name="nombre_completo"
+          required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{3,50}" 
+          title="Solo letras y espacios (3-50 caracteres)" 
+          [(ngModel)]="nombre"/>
+      </div>
+
+      <div class="mb-3">
+        <label for="userName" class="form-label">Nombre de Usuario</label>
+        <input type="text" class="form-control" id="userName" name="user_name"
+          required pattern="[A-Za-z0-9]{3,20}" title="3-20 caracteres alfanuméricos"
+          [(ngModel)]="userName"/>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" name="password"
+          required pattern=".{6,20}" title="6-20 caracteres"
+          [(ngModel)]="password"/>
+      </div>
+
+      <div class="mb-3">
+        <label for="rol" class="form-label">Rol de Usuario</label>
+        <select class="form-select" id="rol" name="rol_usuario" required
+          [(ngModel)]="rolUsuario">
+          <option value="" disabled selected>Seleccione un rol</option>
+          <option value="USUARIO_COMUN">Usuario Común</option>
+          <option value="ANUNCIANTE">Anunciante</option>
+          <option value="ADMIN_CINES">Administrador Cine</option>
+          <option value="ADMIN_SISTEMA">Administrador Sistema</option>
+        </select>
+      </div>
+    </fieldset>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary" [disabled]="formRegistro.invalid">Registrar Usuario</button>
+      <a routerLink="/login" class="btn btn-secondary">Regresar</a>
+    </div>
+  </form>
+</div>

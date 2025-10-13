@@ -1,0 +1,129 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('https://images8.alphacoders.com/431/thumb-1920-431311.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f0f0f0;
+    image-rendering: auto;
+    font-family: 'Arial', sans-serif;
+}
+
+
+/* Contenedor del login */
+.login-container {
+    background: rgba(0, 0, 0, 0.6);
+    /* fondo semi-translúcido para destacar */
+    padding: 2rem;
+    border-radius: 2.5rem;
+    color: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    width: 25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Espacio superior */
+.empty-spacer {
+    height: 1rem;
+}
+
+/* Título */
+.login-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Grupo de input */
+.input-group {
+    display: flex;
+    margin-top: 1rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+/* Icono dentro del input */
+.input-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.input-img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Inputs */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ced4da;
+    padding: 0.5rem;
+    flex-grow: 1;
+    color: #000;
+    font-size: 1rem;
+}
+
+.form-control::placeholder {
+    color: #555;
+}
+
+/* Botón de login */
+.login-btn {
+    background-color: #17a2b8;
+    color: #fff;
+    width: 100%;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+    padding: 0.75rem;
+    text-align: center;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #138496;
+    transform: translateY(-2px);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
+}
+
+/* Mensaje de error */
+.error-msg {
+    margin-top: 1rem;
+    text-align: center;
+    color: #ff4d4d;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Sección de registro */
+.register-section {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.register-section .link-danger {
+    text-decoration: none;
+    color: #17a2b8;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.register-section .link-danger:hover {
+    text-decoration: underline;
+}
