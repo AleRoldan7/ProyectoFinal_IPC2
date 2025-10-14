@@ -4,7 +4,7 @@
  */
 package ModeloEntidad.Usuario;
 
-import EnumOpciones.Rol;
+import EnumOptions.Rol;
 
 /**
  *

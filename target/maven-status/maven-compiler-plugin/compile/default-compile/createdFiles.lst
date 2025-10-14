@@ -1,4 +1,13 @@
-EnumOpciones/RolSistema.class
+EnumOpciones/Rol.class
+ModeloEntidad/Usuario/AdminCines.class
 ConexionDBA/Conexion.class
+ModeloEntidad/Usuario/AdminSistema.class
+ModeloEntidad/Usuario/UsuarioComun.class
+ModeloEntidad/Cine/Cine.class
+ModeloEntidad/Usuario/Anunciante.class
+ModeloEntidad/Cine/Sala.class
+Controller/LoginController.class
+ConexionDBA/UsuarioDBA.class
+ModeloEntidad/Usuario/Usuario.class
 com/mycompany/proyecto2_ipc2/JakartaRestConfiguration.class
 com/mycompany/proyecto2_ipc2/resources/JakartaEE10Resource.class

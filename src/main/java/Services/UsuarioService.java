@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package EnumOpciones;
+package Services;
 
 /**
  *
  * @author alejandro
  */
-public enum Rol {
+public class UsuarioService {
     
-    USUARIO_COMUN,
-    ANUNCIANTE,
-    ADMIN_CINES,
-    ADMIN_SISTEMA
+    
+    
+    
+    
 }
