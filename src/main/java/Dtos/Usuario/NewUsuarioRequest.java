@@ -14,10 +14,8 @@ import java.time.LocalDate;
  *
  * @author alejandro
  */
-
 public class NewUsuarioRequest {
 
-    private Integer idUsuario;
     private String nombre;
     private String userName;
     private String password;
@@ -27,14 +25,7 @@ public class NewUsuarioRequest {
     @JsonDeserialize (using = LocalDateDeserializer.class)
     private LocalDate fechaRegistro;
 
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
+    
     public String getNombre() {
         return nombre;
     }
