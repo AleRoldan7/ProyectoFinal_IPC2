@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 public class Usuario {
     
-    private int idUsuario;
+    private Integer idUsuario;
     private String nombre;
     private String userName;
     private String password;
