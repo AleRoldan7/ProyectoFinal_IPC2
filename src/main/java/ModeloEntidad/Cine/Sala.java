@@ -4,24 +4,19 @@
  */
 package ModeloEntidad.Cine;
 
-import EnumOpciones.Rol;
-import java.time.LocalDate;
 
 /**
  *
  * @author alejandro
  */
-public class Sala extends Cine{
+public class Sala {
     
     private String nombreSala;
-    private Rol rol;
     private int filaSala;
     private int columnaSala;
 
-    public Sala(String nombreSala, int filaSala, int columnaSala, String nombreCine, LocalDate fechaCreacion) {
-        super(nombreCine, fechaCreacion);
+    public Sala(String nombreSala, int filaSala, int columnaSala) {
         this.nombreSala = nombreSala;
-        this.rol = Rol.ADMIN_CINES;
         this.filaSala = filaSala;
         this.columnaSala = columnaSala;
     }
@@ -32,14 +27,6 @@ public class Sala extends Cine{
 
     public void setNombreSala(String nombreSala) {
         this.nombreSala = nombreSala;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
     }
 
     public int getFilaSala() {
@@ -58,6 +45,7 @@ public class Sala extends Cine{
         this.columnaSala = columnaSala;
     }
 
+   
    
     
     

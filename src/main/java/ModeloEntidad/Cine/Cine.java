@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 public class Cine {
     
-    private int idCine;
+    private Integer idCine;
     private String nombreCine;
     private int idUsuario;
     private LocalDate fechaCreacion;
