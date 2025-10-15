@@ -1,0 +1,10 @@
+GET http://localhost/api/v1/login
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-10-14T102526.404.html
+
+###
+
