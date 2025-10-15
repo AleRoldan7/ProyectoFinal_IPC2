@@ -5,6 +5,7 @@
 package ModeloEntidad.Usuario;
 
 import EnumOptions.Rol;
+import org.apache.commons.lang3.StringUtils;
 import java.time.LocalDate;
 
 /**
@@ -26,7 +27,17 @@ public class Usuario {
         this.password = password;
         this.rolUsuario = rolUsuario;
     }
-        
+
+    public Usuario(String nombre, String userName, String password, Rol rolUsuario, double dineroCartera, LocalDate fechaRegistro) {
+        this.nombre = nombre;
+        this.userName = userName;
+        this.password = password;
+        this.rolUsuario = rolUsuario;
+        this.dineroCartera = dineroCartera;
+        this.fechaRegistro = fechaRegistro;
+    }
+    
+    
     public Usuario() {
     }
   
@@ -98,7 +109,14 @@ public class Usuario {
     }
 
     
-    
+     public boolean esValido() {
+        return StringUtils.isNotBlank(nombre)
+                && StringUtils.isNotBlank(userName)
+                && StringUtils.isNotBlank(password)
+                && rolUsuario != null
+                && dineroCartera > 0
+                && fechaRegistro != null;
+    }
     
     
 }
