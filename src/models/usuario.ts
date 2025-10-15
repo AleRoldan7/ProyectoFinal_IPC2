@@ -1,10 +1,10 @@
-import { TipoUsuario } from "./tipo.usuario";
+import { Rol } from "./tipo.usuario";
 
 export interface Usuario {
 
     nombre: string;
     userName: string;
     password: string;
-    rolUsuario: TipoUsuario;
+    rolUsuario: Rol;
     fechaRegistro: Date;
 }

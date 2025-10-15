@@ -6,30 +6,49 @@
     <fieldset>
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre Completo</label>
-        <input type="text" class="form-control" id="nombre" name="nombre_completo"
-          required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{3,50}" 
-          title="Solo letras y espacios (3-50 caracteres)" 
-          [(ngModel)]="nombre"/>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre_completo"
+          required
+          pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]{3,50}"
+          title="Solo letras y espacios (3-50 caracteres)"
+          [(ngModel)]="nombre"
+        />
       </div>
 
       <div class="mb-3">
         <label for="userName" class="form-label">Nombre de Usuario</label>
-        <input type="text" class="form-control" id="userName" name="user_name"
-          required pattern="[A-Za-z0-9]{3,20}" title="3-20 caracteres alfanuméricos"
-          [(ngModel)]="userName"/>
+        <input
+          type="text"
+          class="form-control"
+          id="userName"
+          name="user_name"
+          required
+          pattern="[A-Za-z0-9]{3,20}"
+          title="3-20 caracteres alfanuméricos"
+          [(ngModel)]="userName"
+        />
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" name="password"
-          required pattern=".{6,20}" title="6-20 caracteres"
-          [(ngModel)]="password"/>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          required
+          pattern=".{6,20}"
+          title="6-20 caracteres"
+          [(ngModel)]="password"
+        />
       </div>
 
       <div class="mb-3">
         <label for="rol" class="form-label">Rol de Usuario</label>
-        <select class="form-select" id="rol" name="rol_usuario" required
-          [(ngModel)]="rolUsuario">
+        <select class="form-select" id="rol" name="rol_usuario" required [(ngModel)]="rolUsuario">
           <option value="" disabled selected>Seleccione un rol</option>
           <option value="USUARIO_COMUN">Usuario Común</option>
           <option value="ANUNCIANTE">Anunciante</option>
@@ -40,8 +59,12 @@
     </fieldset>
 
     <div class="d-flex justify-content-between">
-      <button type="submit" class="btn btn-primary" [disabled]="formRegistro.invalid">Registrar Usuario</button>
+      <button type="submit" class="btn btn-primary" [disabled]="formRegistro.invalid">
+        Registrar Usuario
+      </button>
       <a routerLink="/login" class="btn btn-secondary">Regresar</a>
     </div>
+
+    <p *ngIf="errorMessage" class="text-danger mt-3">{{ errorMessage }}</p>
   </form>
 </div>

@@ -13,10 +13,8 @@
 }
 
 
-/* Contenedor del login */
 .login-container {
     background: rgba(0, 0, 0, 0.6);
-    /* fondo semi-translúcido para destacar */
     padding: 2rem;
     border-radius: 2.5rem;
     color: #fff;
@@ -26,12 +24,10 @@
     overflow: hidden;
 }
 
-/* Espacio superior */
 .empty-spacer {
     height: 1rem;
 }
 
-/* Título */
 .login-title {
     text-align: center;
     font-size: 2rem;
@@ -40,7 +36,6 @@
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-/* Grupo de input */
 .input-group {
     display: flex;
     margin-top: 1rem;
@@ -48,7 +43,6 @@
     overflow: hidden;
 }
 
-/* Icono dentro del input */
 .input-icon {
     width: 2.5rem;
     height: 2.5rem;
@@ -64,7 +58,6 @@
     object-fit: contain;
 }
 
-/* Inputs */
 .form-control {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid #ced4da;
@@ -78,7 +71,6 @@
     color: #555;
 }
 
-/* Botón de login */
 .login-btn {
     background-color: #17a2b8;
     color: #fff;
@@ -100,7 +92,6 @@
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
 }
 
-/* Mensaje de error */
 .error-msg {
     margin-top: 1rem;
     text-align: center;
@@ -109,7 +100,6 @@
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Sección de registro */
 .register-section {
     display: flex;
     gap: 0.25rem;

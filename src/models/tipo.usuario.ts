@@ -1,6 +1,6 @@
-export enum TipoUsuario {
+export enum Rol {
     ADMIN_SISTEMA = 'ADMIN_SISTEMA',
     ANUNCIANTE = 'ANUNCIANTE',
-    ADMIN_CINES = 'ADMIN_CINES',
+    ADMIN_CINE = 'ADMIN_CINE',
     USUARIO_COMUN = 'USUARIO_COMUN'
 }   

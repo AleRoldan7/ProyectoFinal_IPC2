@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LoginServices } from '../../services/login/login-services';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,23 @@ export class Login {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private services: LoginServices) { }
 
   login() {
-
+    this.services.mensaje().subscribe({
+      next: (data) => {
+        console.log(data);
+        data.nombre;
+      },
+      error: (error) => {
+        console.error('Error during login:', error);
+        this.errorMessage = 'Login failed. Please check your credentials.';
+      }
+    });
   }
-
+  
 
 }
+
+
+
