@@ -2,37 +2,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ModeloEntidad.Usuario;
+package Dtos.Usuario;
 
 import EnumOptions.Rol;
+import ModeloEntidad.Usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.time.LocalDate;
 
 /**
  *
  * @author alejandro
  */
-public class Usuario {
+public class UsuarioResponse {
     
-    private Integer idUsuario;
     private String nombre;
     private String userName;
     private String password;
     private Rol rolUsuario;
     private double dineroCartera;
+    @JsonFormat (pattern = "yyyy-MM-dd")
+    @JsonSerialize (using = LocalDateSerializer.class)
     private LocalDate fechaRegistro;
 
-    public Usuario(String userName, String password, Rol rolUsuario) {
-        this.userName = userName;
-        this.password = password;
-        this.rolUsuario = rolUsuario;
-    }
-        
-    public Usuario() {
-    }
-  
-    public Usuario(int idUsuario, String nombre, String userName, String password, Rol rolUsuario, double dineroCartera, 
-            LocalDate fechaRegistro) {
-        this.idUsuario = idUsuario;
+    public UsuarioResponse(Usuario usuario) {
         this.nombre = nombre;
         this.userName = userName;
         this.password = password;
@@ -41,14 +37,9 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
+    
+    
+    
     public String getNombre() {
         return nombre;
     }
@@ -97,8 +88,6 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    
-    
     
     
 }

@@ -2,53 +2,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ModeloEntidad.Usuario;
+package Dtos.Usuario;
 
 import EnumOptions.Rol;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import java.time.LocalDate;
 
 /**
  *
  * @author alejandro
  */
-public class Usuario {
-    
-    private Integer idUsuario;
+public class NewUsuarioRequest {
+
     private String nombre;
     private String userName;
     private String password;
     private Rol rolUsuario;
     private double dineroCartera;
+    @JsonFormat (pattern = "yyyy-MM-dd")
+    @JsonDeserialize (using = LocalDateDeserializer.class)
     private LocalDate fechaRegistro;
 
-    public Usuario(String userName, String password, Rol rolUsuario) {
-        this.userName = userName;
-        this.password = password;
-        this.rolUsuario = rolUsuario;
-    }
-        
-    public Usuario() {
-    }
-  
-    public Usuario(int idUsuario, String nombre, String userName, String password, Rol rolUsuario, double dineroCartera, 
-            LocalDate fechaRegistro) {
-        this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.userName = userName;
-        this.password = password;
-        this.rolUsuario = rolUsuario;
-        this.dineroCartera = dineroCartera;
-        this.fechaRegistro = fechaRegistro;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
+    
     public String getNombre() {
         return nombre;
     }
@@ -73,14 +50,6 @@ public class Usuario {
         this.password = password;
     }
 
-    public Rol getRolUsuario() {
-        return rolUsuario;
-    }
-
-    public void setRolUsuario(Rol rolUsuario) {
-        this.rolUsuario = rolUsuario;
-    }
-
     public double getDineroCartera() {
         return dineroCartera;
     }
@@ -97,8 +66,11 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    
-    
-    
-    
+    public Rol getRolUsuario() {
+        return rolUsuario;
+    }
+
+    public void setRolUsuario(Rol rolUsuario) {
+        this.rolUsuario = rolUsuario;
+    }
 }
