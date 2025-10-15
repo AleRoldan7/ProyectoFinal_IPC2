@@ -114,7 +114,6 @@ public class Usuario {
                 && StringUtils.isNotBlank(userName)
                 && StringUtils.isNotBlank(password)
                 && rolUsuario != null
-                && dineroCartera > 0
                 && fechaRegistro != null;
     }
     
