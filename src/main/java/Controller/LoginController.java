@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import ModeloEntidad.Usuario.Usuario;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -29,4 +30,6 @@ public class LoginController {
     public String createEvent() {
         return "hola";
     }
+    
+    
 }
