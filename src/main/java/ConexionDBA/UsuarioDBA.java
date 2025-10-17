@@ -25,8 +25,9 @@ public class UsuarioDBA {
     private static final String ENCONTRAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ?";
     private static final String VERIFICAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ? AND password = ?";
 
-    public void agregarUsuario(Usuario usuario) {
 
+    
+    public void agregarUsuario(Usuario usuario) {
         Connection connection = Conexion.getInstance().getConnect();
 
         try (PreparedStatement insert = connection.prepareStatement(CREAR_USUARIO_QUERY)) {
