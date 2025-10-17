@@ -15,20 +15,10 @@ import ModeloEntidad.Usuario.Usuario;
  */
 public class LoginService {
     
-    public Usuario loginUsuario(String userName, String password, Rol rol) throws DatosInvalidos {
+    public Usuario loginUsuario(String userName, String password) throws DatosInvalidos {
         UsuarioDBA usuarioDBA = new UsuarioDBA();
+        return usuarioDBA.verificarUsuario(userName, password);
         
-        Usuario usuario = usuarioDBA.verificarUsuario(userName, password, rol);
-        
-        if (usuario == null) {
-            throw new DatosInvalidos("El usuario no existe");
-            
-        } 
-        
-        if (!usuario.getPassword().equals(password) && !usuario.getRolUsuario().equals(rol)) {
-            throw new DatosInvalidos("Contraseña o Rol incorrectos");
-        }
-        
-        return usuario;
+      
     }
 }

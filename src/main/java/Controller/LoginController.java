@@ -4,9 +4,9 @@
  */
 package Controller;
 
+import Dtos.Usuario.LoginResponse;
 import Dtos.Usuario.NewLoginRequest;
-import EnumOptions.Rol;
-import Excepciones.DatosInvalidos;
+import Dtos.Usuario.UsuarioResponse;
 import ModeloEntidad.Usuario.Usuario;
 import Services.LoginService;
 import jakarta.ws.rs.Consumes;
@@ -23,33 +23,38 @@ import jakarta.ws.rs.core.UriInfo;
  *
  * @author alejandro
  */
-
 @Path("/login")
 public class LoginController {
-    
+
     @Context
     UriInfo uriInfo;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response loginUsuario(NewLoginRequest newLoginRequest){
-        LoginService loginService = new LoginService();
+    public Response loginUsuario(NewLoginRequest newLoginRequest) {
         
+
         try {
-            Usuario usuario = loginService.loginUsuario(newLoginRequest.getUserName(), newLoginRequest.getPassword(), 
-                    newLoginRequest.getRol());
-            
-            return Response.ok(usuario).build();
-            
-        } catch (DatosInvalidos e) {
-            
-            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
-        } catch (Exception e){
-            
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error en el servidorrrr").build();
+            LoginService loginService = new LoginService();
+            Usuario usuario = loginService.loginUsuario(
+                    newLoginRequest.getUserName(),
+                    newLoginRequest.getPassword()
+            );
+
+            if (usuario != null) {
+                return Response.ok(new LoginResponse(usuario.getUserName(), usuario.getPassword())).build();
+
+            } else {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity("{\"message\": \"Datos incorrectos\"}")
+                        .build();
+            }
+        } catch (Exception e) {
+              return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
         }
     }
-    
-    
+
 }

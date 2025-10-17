@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * @author alejandro
  */
 public class Usuario {
-    
+
     private Integer idUsuario;
     private String nombre;
     private String userName;
@@ -36,12 +36,11 @@ public class Usuario {
         this.dineroCartera = dineroCartera;
         this.fechaRegistro = fechaRegistro;
     }
-    
-    
+
     public Usuario() {
     }
-  
-    public Usuario(int idUsuario, String nombre, String userName, String password, Rol rolUsuario, double dineroCartera, 
+
+    public Usuario(int idUsuario, String nombre, String userName, String password, Rol rolUsuario, double dineroCartera,
             LocalDate fechaRegistro) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -52,11 +51,11 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -108,14 +107,12 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    
-     public boolean esValido() {
+    public boolean esValido() {
         return StringUtils.isNotBlank(nombre)
                 && StringUtils.isNotBlank(userName)
                 && StringUtils.isNotBlank(password)
                 && rolUsuario != null
                 && fechaRegistro != null;
     }
-    
-    
+
 }

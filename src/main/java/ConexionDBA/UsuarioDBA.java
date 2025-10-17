@@ -23,7 +23,7 @@ public class UsuarioDBA {
             + "VALUES (?,?,?,?,?)";
 
     private static final String ENCONTRAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ?";
-    private static final String VERIFICAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ?, password = ?, rol_usuario = ?";
+    private static final String VERIFICAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ? AND password = ?";
 
     public void agregarUsuario(Usuario usuario) {
 
@@ -59,7 +59,7 @@ public class UsuarioDBA {
         return false;
     }
 
-    public Usuario verificarUsuario(String userName, String password, Rol rol) {
+    public Usuario verificarUsuario(String userName, String password) {
 
         Connection connection = Conexion.getInstance().getConnect();
 
@@ -67,13 +67,13 @@ public class UsuarioDBA {
 
             query.setString(1, userName);
             query.setString(2, password);
-            query.setString(3, rol.name());
             ResultSet resultSet = query.executeQuery();
+            System.out.println(userName);
+            System.out.println(password);
 
             if (resultSet.next()) {
 
                 Usuario usuario = new Usuario();
-                usuario.setIdUsuario(resultSet.getInt("id_usuario"));
                 usuario.setNombre(resultSet.getString("nombre"));
                 usuario.setUserName(resultSet.getString("user_name"));
                 usuario.setPassword(resultSet.getString("password"));
@@ -82,16 +82,13 @@ public class UsuarioDBA {
                 usuario.setFechaRegistro(resultSet.getDate("fecha_registro").toLocalDate());
 
                 return usuario;
-                
-            } else {
-                return null;
+
             }
-            
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
-            
         }
+
+        return null;
 
     }
 }

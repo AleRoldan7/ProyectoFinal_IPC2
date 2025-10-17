@@ -14,7 +14,6 @@ public class NewLoginRequest {
     
     private String userName;
     private String password;
-    private Rol rol;
 
     public String getUserName() {
         return userName;
@@ -32,13 +31,7 @@ public class NewLoginRequest {
         this.password = password;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
+   
     
     
 }

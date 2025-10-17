@@ -1,4 +1,5 @@
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/ModeloEntidad/Anuncio/AnuncioTexto.java
+/home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Dtos/Usuario/NewLoginRequest.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/ModeloEntidad/Usuario/AdminCines.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Dtos/Usuario/UsuarioResponse.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/ConexionDBA/Conexion.java
@@ -7,6 +8,7 @@
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Dtos/Cine/SalaResponse.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/ModeloEntidad/Usuario/Anunciante.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Dtos/Cine/NewPeliculaRequest.java
+/home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Dtos/Usuario/LoginResponse.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Controller/LoginController.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/ModeloEntidad/Usuario/UsuarioComun.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/ConexionDBA/UsuarioDBA.java
@@ -19,6 +21,7 @@
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Services/UsuarioService.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Controller/UsuariosController.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Dtos/Cine/CineResponse.java
+/home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Services/LoginService.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/ModeloEntidad/Usuario/AdminSistema.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/Excepciones/DatosInvalidos.java
 /home/alejandro/NetBeansProjects/Proyecto2_IPC2/src/main/java/ModeloEntidad/Anuncio/Anuncio.java

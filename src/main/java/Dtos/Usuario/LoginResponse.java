@@ -14,12 +14,10 @@ public class LoginResponse {
     
     private String userName;
     private String password;
-    private Rol rol;
 
-    public LoginResponse(String userName, String password, Rol rol) {
+    public LoginResponse(String userName, String password) {
         this.userName = userName;
         this.password = password;
-        this.rol = rol;
     }
 
     public String getUserName() {
@@ -38,13 +36,6 @@ public class LoginResponse {
         this.password = password;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
     
     
 }
