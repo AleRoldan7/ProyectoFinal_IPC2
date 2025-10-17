@@ -18,10 +18,13 @@ Dtos/Cine/SalaResponse.class
 ModeloEntidad/Anuncio/AnuncioImagen.class
 ModeloEntidad/Usuario/Usuario.class
 Services/UsuarioService.class
+Services/LoginService.class
 Dtos/Cine/NewSalaRequest.class
 ModeloEntidad/Anuncio/AnuncioTexto.class
 Dtos/Usuario/UsuarioResponse.class
 ConexionDBA/Conexion.class
+Dtos/Usuario/LoginResponse.class
+Dtos/Usuario/NewLoginRequest.class
 ModeloEntidad/Cine/Cine.class
 Controller/LoginController.class
 EnumOptions/Rol.class
