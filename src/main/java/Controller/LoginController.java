@@ -43,7 +43,7 @@ public class LoginController {
             );
 
             if (usuario != null) {
-                return Response.ok(new LoginResponse(usuario.getUserName(), usuario.getPassword())).build();
+                return Response.ok(new UsuarioResponse(usuario)).build();
 
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED)
