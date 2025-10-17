@@ -5,23 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c6cc600-d6ca-41f9-990f-8b09e3b2f23b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Dtos/Usuario/NewUsuarioRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ModeloEntidad/Usuario/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ModeloEntidad/Usuario/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ConexionDBA/Conexion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ConexionDBA/UsuarioDBA.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/LoginController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/EnumOpciones/Rol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Cine/Cine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Cine/Sala.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Usuario/AdminCines.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Usuario/AdminSistema.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Usuario/Anunciante.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Usuario/Usuario.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Usuario/UsuarioComun.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/proyecto2_ipc2/JakartaRestConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/proyecto2_ipc2/resources/JakartaEE10Resource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ConexionDBA/UsuarioDBA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ConexionDBA/UsuarioDBA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Services/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ConexionDBA/UsuarioDBA.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ConexionDBA/UsuarioDBA.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ConexionDBA/UsuarioDBA.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ConexionDBA/UsuarioDBA.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,12 +36,12 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HttpClientOnboardingState"><![CDATA[{
-  "isOnboardingCommentShown": true
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="HttpClientOnboardingState">{
+  &quot;isOnboardingCommentShown&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="3443X40oJbAHi4jvb33kx3MDqjr" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -60,7 +53,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Dtos",
+    "git-widget-placeholder": "Controller",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/alejandro/NetBeansProjects/Proyecto2_IPC2",
     "node.js.detected.package.eslint": "true",
@@ -110,6 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1760459052616</updated>
       <workItem from="1760459053877" duration="1931000" />
+      <workItem from="1760633832273" duration="15000" />
     </task>
     <servers />
   </component>

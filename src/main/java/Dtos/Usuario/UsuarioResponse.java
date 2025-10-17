@@ -7,9 +7,7 @@ package Dtos.Usuario;
 import EnumOptions.Rol;
 import ModeloEntidad.Usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.time.LocalDate;
 
@@ -18,28 +16,25 @@ import java.time.LocalDate;
  * @author alejandro
  */
 public class UsuarioResponse {
-    
+
     private String nombre;
     private String userName;
     private String password;
     private Rol rolUsuario;
     private double dineroCartera;
-    @JsonFormat (pattern = "yyyy-MM-dd")
-    @JsonSerialize (using = LocalDateSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate fechaRegistro;
 
     public UsuarioResponse(Usuario usuario) {
-        this.nombre = nombre;
-        this.userName = userName;
-        this.password = password;
-        this.rolUsuario = rolUsuario;
-        this.dineroCartera = dineroCartera;
-        this.fechaRegistro = fechaRegistro;
+        this.nombre = usuario.getNombre();
+        this.userName = usuario.getUserName();
+        this.password = usuario.getPassword();
+        this.rolUsuario = usuario.getRolUsuario();
+        this.dineroCartera = usuario.getDineroCartera();
+        this.fechaRegistro = usuario.getFechaRegistro();
     }
 
-    
-    
-    
     public String getNombre() {
         return nombre;
     }
@@ -88,6 +83,4 @@ public class UsuarioResponse {
         this.fechaRegistro = fechaRegistro;
     }
 
-    
-    
 }
