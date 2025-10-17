@@ -4,7 +4,7 @@
  */
 package ModeloEntidad.Usuario;
 
-import EnumOpciones.Rol;
+import EnumOptions.Rol;
 
 /**
  *
@@ -13,7 +13,7 @@ import EnumOpciones.Rol;
 public class AdminCines extends Usuario{
 
     public AdminCines(String userName, String password) {
-        super(userName, password, Rol.ADMIN_CINES);
+        super(userName, password, Rol.ADMIN_CINE);
     }
     
     

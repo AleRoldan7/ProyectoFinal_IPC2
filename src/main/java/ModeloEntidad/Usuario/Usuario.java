@@ -4,7 +4,8 @@
  */
 package ModeloEntidad.Usuario;
 
-import EnumOpciones.Rol;
+import EnumOptions.Rol;
+import org.apache.commons.lang3.StringUtils;
 import java.time.LocalDate;
 
 /**
@@ -12,8 +13,8 @@ import java.time.LocalDate;
  * @author alejandro
  */
 public class Usuario {
-    
-    private int idUsuario;
+
+    private Integer idUsuario;
     private String nombre;
     private String userName;
     private String password;
@@ -26,11 +27,20 @@ public class Usuario {
         this.password = password;
         this.rolUsuario = rolUsuario;
     }
-        
+
+    public Usuario(String nombre, String userName, String password, Rol rolUsuario, double dineroCartera, LocalDate fechaRegistro) {
+        this.nombre = nombre;
+        this.userName = userName;
+        this.password = password;
+        this.rolUsuario = rolUsuario;
+        this.dineroCartera = dineroCartera;
+        this.fechaRegistro = fechaRegistro;
+    }
+
     public Usuario() {
     }
-  
-    public Usuario(int idUsuario, String nombre, String userName, String password, Rol rolUsuario, double dineroCartera, 
+
+    public Usuario(int idUsuario, String nombre, String userName, String password, Rol rolUsuario, double dineroCartera,
             LocalDate fechaRegistro) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -41,11 +51,11 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -97,8 +107,12 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    
-    
-    
-    
+    public boolean esValido() {
+        return StringUtils.isNotBlank(nombre)
+                && StringUtils.isNotBlank(userName)
+                && StringUtils.isNotBlank(password)
+                && rolUsuario != null
+                && fechaRegistro != null;
+    }
+
 }
