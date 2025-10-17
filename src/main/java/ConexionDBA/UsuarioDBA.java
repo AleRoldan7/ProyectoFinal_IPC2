@@ -22,7 +22,7 @@ public class UsuarioDBA {
     private static final String CREAR_USUARIO_QUERY = "INSERT INTO usuario (nombre, user_name, password, rol_usuario, fecha_registro)"
             + "VALUES (?,?,?,?,?)";
 
-    private static final String AGREGAR_DINERO_QUERY = "UPDATE usuario SET dinero_cartera = dinero_cartera + ? WHERE user_name";
+    private static final String AGREGAR_DINERO_QUERY = "UPDATE usuario SET dinero_cartera = dinero_cartera + ? WHERE user_name = ?";
 
     private static final String ENCONTRAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ?";
     private static final String VERIFICAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ? AND password = ?";
@@ -54,8 +54,8 @@ public class UsuarioDBA {
 
         try (PreparedStatement insert = connection.prepareStatement(AGREGAR_DINERO_QUERY)) {
 
-            insert.setString(1, userName);
-            insert.setDouble(2, dineroCartera);
+            insert.setDouble(1, dineroCartera);
+            insert.setString(2, userName);
             int fila = insert.executeUpdate();
 
             if (fila > 0) {
