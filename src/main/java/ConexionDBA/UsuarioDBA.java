@@ -22,6 +22,8 @@ public class UsuarioDBA {
     private static final String CREAR_USUARIO_QUERY = "INSERT INTO usuario (nombre, user_name, password, rol_usuario, fecha_registro)"
             + "VALUES (?,?,?,?,?)";
 
+    private static final String AGREGAR_DINERO_QUERY = "UPDATE usuario SET dinero_cartera = dinero_cartera + ? WHERE user_name";
+
     private static final String ENCONTRAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ?";
     private static final String VERIFICAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ? AND password = ?";
 
@@ -38,6 +40,29 @@ public class UsuarioDBA {
             insert.setString(4, usuario.getRolUsuario().name());
             insert.setDate(5, Date.valueOf(usuario.getFechaRegistro()));
             insert.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void recargarCartera(String userName, double dineroCartera) {
+
+        Connection connection = Conexion.getInstance().getConnect();
+
+        try (PreparedStatement insert = connection.prepareStatement(AGREGAR_DINERO_QUERY)) {
+
+            insert.setString(1, userName);
+            insert.setDouble(2, dineroCartera);
+            int fila = insert.executeUpdate();
+
+            if (fila > 0) {
+                System.out.println("Se agrego dinero");
+            } else {
+                System.out.println("No se agrego nada");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
