@@ -5,37 +5,55 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LoginServices } from '../../services/login/login-services';
+import { Rol } from '../../models/tipo.usuario';
 
 @Component({
   selector: 'app-login',
   imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
-
 export class Login {
-
   userName: string = '';
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router, private services: LoginServices) { }
+  constructor(private router: Router, private loginService: LoginServices) { }
 
   login() {
-    this.services.mensaje().subscribe({
-      next: (data) => {
-        console.log(data);
-        data.nombre;
+    const loginUsuario = {
+      userName: this.userName,
+      password: this.password,
+    };
+
+    this.loginService.loginUsuario(loginUsuario).subscribe({
+      next: (response) => {
+        console.log('Si entro:', response);
+
+        sessionStorage.setItem('userName', response.userName);
+        sessionStorage.setItem('rolUsuario', response.rolUsuario);
+        
+        switch (response.rolUsuario) {
+          case 'USUARIO_COMUN':
+            this.router.navigate(['/usuario-comun']);
+            break;
+          case 'ANUNCIANTE':
+            this.router.navigate(['/anunciante']);
+            break;
+          case 'ADMIN_CINE':
+            this.router.navigate(['/admin-cine']);
+            break;
+          case 'ADMIN_SISTEMA':
+            this.router.navigate(['/admin-sistema']);
+            break;
+          default:
+            this.errorMessage = 'Rol desconocido';
+            console.log('usuario: ', response.rolUsuario);
+        }
       },
-      error: (error) => {
-        console.error('Error during login:', error);
-        this.errorMessage = 'Login failed. Please check your credentials.';
-      }
+      error: (err) => {
+        this.errorMessage = 'Credenciales incorrectas';
+      },
     });
   }
-  
-
 }
-
-
-

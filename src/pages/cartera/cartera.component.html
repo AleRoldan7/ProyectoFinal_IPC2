@@ -1,0 +1,20 @@
+<div class="container-cartera">
+    <div class="cartera-container">
+        <div class="cartera-title">
+            Recargar Cuenta
+        </div>
+        <form (ngSubmit)="agregarDinero()">
+            <div class="input-group mt-3">
+                <input type="number" id="dinero_cartera" name="dinero_cartera" [(ngModel)]="cantidadDinero" required
+                    min="1" step="0.5" class="form-control" placeholder="Cantidad a recargar" />
+            </div>
+
+            <button type="submit" class="cartera-btn mt-3">Agregar Dinero</button>
+
+            <a [routerLink]="rolUsuarioRuta" class="cartera-back mt-2">Regresar</a>
+
+            <p class="message-success mt-2" *ngIf="messageExito">{{ messageExito }}</p>
+            <p class="message-error mt-2" *ngIf="errorMessage">{{ errorMessage }}</p>
+        </form>
+    </div>
+</div>

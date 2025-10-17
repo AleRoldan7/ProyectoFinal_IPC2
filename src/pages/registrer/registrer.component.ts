@@ -6,22 +6,22 @@ import { RouterLink } from '@angular/router';
 import { UsuarioService } from '../../services/usuario/usuario-services';
 import { Rol } from '../../models/tipo.usuario';
 @Component({
-    selector: 'app-registrer',
-    imports: [FormsModule, CommonModule, RouterLink],
-    templateUrl: './registrer.component.html',
-    styleUrl: './registrer.component.css'
+  selector: 'app-registrer',
+  imports: [FormsModule, CommonModule, RouterLink],
+  templateUrl: './registrer.component.html',
+  styleUrl: './registrer.component.css'
 })
 
 export class Registrer {
 
-    nombre: string = '';
+  nombre: string = '';
   userName: string = '';
   password: string = '';
   rolUsuario: string = '';
   fechaRegistro: Date = new Date();
   errorMessage: string = '';
 
-  constructor(private UsuarioService: UsuarioService, private router: Router) {}
+  constructor(private UsuarioService: UsuarioService, private router: Router) { }
 
   registrerUser() {
     const nuevoUsuario = {
@@ -29,7 +29,7 @@ export class Registrer {
       userName: this.userName,
       password: this.password,
       rolUsuario: this.rolUsuario,
-      fechaRegistro: this.fechaRegistro.toISOString().split('T')[0] 
+      fechaRegistro: this.fechaRegistro.toISOString().split('T')[0]
     };
 
     this.UsuarioService.crearUsuario(nuevoUsuario).subscribe({

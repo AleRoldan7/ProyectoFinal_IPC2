@@ -16,4 +16,8 @@ export class LoginServices {
   public mensaje(): Observable<Usuario> {
     return this.http.get<Usuario>(this.apiUrl);
   }
+
+  loginUsuario(data: any): Observable<any> {
+    return this.http.post(this.apiUrl, data);
+  }
 }
