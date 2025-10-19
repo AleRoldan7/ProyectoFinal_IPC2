@@ -1,0 +1,49 @@
+<div
+  *ngIf="mensaje"
+  class="alert"
+  [ngClass]="{
+    'alert-success': tipoMensaje === 'success',
+    'alert-danger': tipoMensaje === 'danger'
+  }"
+>
+  {{ mensaje }}
+</div>
+
+<div class="container mt-4">
+  <h3>Crear Sala</h3>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label class="form-label">Nombre de la sala:</label>
+      <input type="text" [(ngModel)]="nombreSala" class="form-control" />
+
+      <label class="form-label mt-2">Filas de asientos:</label>
+      <input type="number" [(ngModel)]="filaSala" class="form-control" (input)="actualizarVista()" />
+
+      <label class="form-label mt-2">Columnas de asientos:</label>
+      <input type="number" [(ngModel)]="columnaSala" class="form-control" (input)="actualizarVista()" />
+
+      <label class="form-label mt-2">Fecha creación:</label>
+      <input type="date" [(ngModel)]="fechaCreacion" class="form-control" />
+
+      <button class="btn btn-primary mt-3" (click)="crearSala()">Crear Sala</button>
+      <a routerLink="/admin-cine" class="cartera-back mt-2 d-block">Regresar</a>
+    </div>
+
+    <div class="col-md-6 text-center mt-4">
+      <h5>Vista previa de la sala</h5>
+      <div
+        class="sala-preview"
+        [style.gridTemplateRows]="'repeat(' + filaSala + ', 40px)'"
+        [style.gridTemplateColumns]="'repeat(' + columnaSala + ', 40px)'"
+      >
+        <div
+          class="asiento"
+          *ngFor="let asiento of asientos"
+        >
+          <img src="https://media.istockphoto.com/id/615615944/es/foto/rojo-teatro-licencia.jpg?s=1024x1024&w=is&k=20&c=VIQZtYNR8bnHqT9-LCJZX63THP08P3EhUD-lCkM3lFM=" alt="asiento" class="asiento-img" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -28,11 +28,10 @@ export class Login {
 
     this.loginService.loginUsuario(loginUsuario).subscribe({
       next: (response) => {
-        console.log('Si entro:', response);
+        console.log('Respuesta del backend:', response);
 
-        sessionStorage.setItem('userName', response.userName);
-        sessionStorage.setItem('rolUsuario', response.rolUsuario);
-        
+        localStorage.setItem('usuario', JSON.stringify(response));
+
         switch (response.rolUsuario) {
           case 'USUARIO_COMUN':
             this.router.navigate(['/usuario-comun']);
@@ -48,10 +47,11 @@ export class Login {
             break;
           default:
             this.errorMessage = 'Rol desconocido';
-            console.log('usuario: ', response.rolUsuario);
+            console.warn('Rol desconocido:', response.rolUsuario);
         }
       },
       error: (err) => {
+        console.error('Error en login:', err);
         this.errorMessage = 'Credenciales incorrectas';
       },
     });
