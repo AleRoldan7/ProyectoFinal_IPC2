@@ -17,6 +17,7 @@ public class NewCineRequest {
 
     private String nombreCine;
     private double costoCine;
+    private int idUsuario;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate fechaCreacion;
@@ -37,6 +38,14 @@ public class NewCineRequest {
         this.costoCine = costoCine;
     }
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
@@ -44,7 +53,5 @@ public class NewCineRequest {
     public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
-    
-    
 
 }
