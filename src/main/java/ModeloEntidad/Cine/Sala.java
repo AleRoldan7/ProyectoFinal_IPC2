@@ -6,13 +6,6 @@ package ModeloEntidad.Cine;
 
 import java.time.LocalDate;
 
-
-
-<<<<<<< HEAD
-
-=======
->>>>>>> Conexion
-
 /**
  *
  * @author alejandro
