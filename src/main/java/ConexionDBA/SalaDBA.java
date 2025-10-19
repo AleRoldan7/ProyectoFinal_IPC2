@@ -8,6 +8,7 @@ import ModeloEntidad.Cine.Sala;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -17,8 +18,10 @@ import java.sql.SQLException;
 public class SalaDBA {
 
     private static final String CREAR_SALA_QUERY = "INSERT INTO sala (id_usuario, nombre_sala, asiento_fila, asiento_columna, fecha_creacion) "
-            + "VALUES (?,?,?,?)";
+            + "VALUES (?,?,?,?,?)";
 
+    private static final String ENCONTRAR_SALA_QUERY = "SELECT * FROM sala WHERE nombre_sala = ?";
+    
     public void crearSala(Sala sala) {
         Connection connection = Conexion.getInstance().getConnect();
 
@@ -34,5 +37,21 @@ public class SalaDBA {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public boolean existeSala(String nombreSala) {
+
+        Connection connection = Conexion.getInstance().getConnect();
+
+        try (PreparedStatement query = connection.prepareStatement(ENCONTRAR_SALA_QUERY)) {
+
+            query.setString(1, nombreSala);
+            ResultSet resultSet = query.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

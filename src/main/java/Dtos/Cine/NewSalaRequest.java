@@ -14,13 +14,22 @@ import java.time.LocalDate;
  * @author alejandro
  */
 public class NewSalaRequest {
-    
+
+    private int idUsuario;
     private String nombreSala;
     private int filaSala;
     private int columnaSala;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate fechaCreacion;
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public String getNombreSala() {
         return nombreSala;
@@ -53,6 +62,5 @@ public class NewSalaRequest {
     public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
-    
-    
+
 }

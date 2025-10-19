@@ -20,9 +20,11 @@ ModeloEntidad/Anuncio/AnuncioVideo.class
 Dtos/Cine/SalaResponse.class
 ModeloEntidad/Anuncio/AnuncioImagen.class
 ModeloEntidad/Usuario/Usuario.class
+ConexionDBA/SalaDBA.class
 ConexionDBA/CineDBA.class
 Services/UsuarioService.class
 Services/LoginService.class
+Services/SalaService.class
 ConexionDBA/ListasDBA.class
 Dtos/Cine/NewSalaRequest.class
 ModeloEntidad/Anuncio/AnuncioTexto.class
@@ -30,6 +32,7 @@ Dtos/Usuario/UsuarioResponse.class
 ConexionDBA/Conexion.class
 Dtos/Usuario/LoginResponse.class
 Dtos/Usuario/NewLoginRequest.class
+Controller/SalaController.class
 ModeloEntidad/Cine/Cine.class
 Controller/LoginController.class
 prueba.class

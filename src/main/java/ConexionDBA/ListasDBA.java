@@ -5,6 +5,7 @@
 package ConexionDBA;
 
 import EnumOptions.Rol;
+import ModeloEntidad.Cine.Sala;
 import ModeloEntidad.Usuario.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,10 @@ public class ListasDBA {
 
     private static final String LISTA_USUARIOS_QUERY = "SELECT * FROM usuario";
     private static final String LISTA_ADMIN_CINE_QUERY = "SELECT * FROM usuario WHERE rol_usuario = 'ADMIN_CINE'";
-
+    private static final String LISTA_CINES_QUERY = "SELECT * FROM cine";
+    private static final String LISTA_SALAS_QUERY = "SELECT * FROM sala";
+    private static final String LISTA_SALAS_ADMIN_QUERY = "SELECT * FROM sala WHERE id_usuario = ?";
+    
     public List<Usuario> listaUsuarios() {
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -85,4 +89,32 @@ public class ListasDBA {
 
     }
 
+    public List<Sala> listaSala() {
+
+        List<Sala> salas = new ArrayList<>();
+        Connection connection = Conexion.getInstance().getConnect();
+
+        try (PreparedStatement query = connection.prepareStatement(LISTA_SALAS_QUERY)) {
+
+            ResultSet resultSet = query.executeQuery();
+
+            while (resultSet.next()) {
+                Sala sala = new Sala(
+                        resultSet.getInt("id_sala"),
+                        resultSet.getInt("id_usuario"),
+                        resultSet.getString("nombre_sala"),
+                        resultSet.getInt("asiento_fila"),
+                        resultSet.getInt("asiento_columna"),
+                        LocalDate.parse(resultSet.getString("fecha_registro"))
+                );
+                salas.add(sala);
+                System.out.println("Encontradas" + salas.size());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Salas:" + salas.size());
+        return salas;
+    }
 }

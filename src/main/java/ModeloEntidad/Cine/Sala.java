@@ -5,6 +5,7 @@
 package ModeloEntidad.Cine;
 
 import java.time.LocalDate;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -18,6 +19,14 @@ public class Sala {
     private int filaSala;
     private int columnaSala;
     private LocalDate fechaCreacion;
+
+    public Sala(int idUsuario, String nombreSala, int filaSala, int columnaSala, LocalDate fechaCreacion) {
+        this.idUsuario = idUsuario;
+        this.nombreSala = nombreSala;
+        this.filaSala = filaSala;
+        this.columnaSala = columnaSala;
+        this.fechaCreacion = fechaCreacion;
+    }
 
     public Sala() {
     }
@@ -78,5 +87,10 @@ public class Sala {
     public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
+    
+     public boolean esValido() {
+        return StringUtils.isNotBlank(nombreSala);
+    }
+
 
 }

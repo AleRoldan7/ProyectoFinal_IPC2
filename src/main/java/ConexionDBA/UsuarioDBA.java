@@ -100,6 +100,7 @@ public class UsuarioDBA {
             if (resultSet.next()) {
 
                 Usuario usuario = new Usuario();
+                usuario.setIdUsuario(resultSet.getInt("id_usuario"));
                 usuario.setNombre(resultSet.getString("nombre"));
                 usuario.setUserName(resultSet.getString("user_name"));
                 usuario.setPassword(resultSet.getString("password"));
