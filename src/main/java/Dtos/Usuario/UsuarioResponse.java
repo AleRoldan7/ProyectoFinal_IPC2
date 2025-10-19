@@ -17,6 +17,7 @@ import java.time.LocalDate;
  */
 public class UsuarioResponse {
 
+    private Integer idUsuario;
     private String nombre;
     private String userName;
     private String password;
@@ -27,6 +28,7 @@ public class UsuarioResponse {
     private LocalDate fechaRegistro;
 
     public UsuarioResponse(Usuario usuario) {
+        this.idUsuario = usuario.getIdUsuario();
         this.nombre = usuario.getNombre();
         this.userName = usuario.getUserName();
         this.password = usuario.getPassword();
@@ -35,6 +37,14 @@ public class UsuarioResponse {
         this.fechaRegistro = usuario.getFechaRegistro();
     }
 
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
     public String getNombre() {
         return nombre;
     }
