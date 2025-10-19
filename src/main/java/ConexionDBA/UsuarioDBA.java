@@ -26,7 +26,7 @@ public class UsuarioDBA {
 
     private static final String ENCONTRAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ?";
     private static final String VERIFICAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ? AND password = ?";
-
+    
 
     
     public void agregarUsuario(Usuario usuario) {

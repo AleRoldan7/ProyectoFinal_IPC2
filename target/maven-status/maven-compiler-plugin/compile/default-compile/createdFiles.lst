@@ -1,5 +1,7 @@
 Dtos/Usuario/NewUsuarioRequest.class
 Excepciones/EntidadNotFound.class
+Services/CineService.class
+Controller/CineController.class
 ModeloEntidad/Usuario/AdminCines.class
 Controller/UsuariosController.class
 Dtos/Cine/CineResponse.class
@@ -8,6 +10,7 @@ Dtos/Cine/NewPeliculaRequest.class
 ModeloEntidad/Usuario/UsuarioComun.class
 Excepciones/EntityExists.class
 Excepciones/DatosInvalidos.class
+Controller/ListasController.class
 ModeloEntidad/Usuario/Anunciante.class
 ModeloEntidad/Cine/Pelicula.class
 ModeloEntidad/Cine/Sala.class
@@ -17,8 +20,10 @@ ModeloEntidad/Anuncio/AnuncioVideo.class
 Dtos/Cine/SalaResponse.class
 ModeloEntidad/Anuncio/AnuncioImagen.class
 ModeloEntidad/Usuario/Usuario.class
+ConexionDBA/CineDBA.class
 Services/UsuarioService.class
 Services/LoginService.class
+ConexionDBA/ListasDBA.class
 Dtos/Cine/NewSalaRequest.class
 ModeloEntidad/Anuncio/AnuncioTexto.class
 Dtos/Usuario/UsuarioResponse.class
@@ -27,6 +32,8 @@ Dtos/Usuario/LoginResponse.class
 Dtos/Usuario/NewLoginRequest.class
 ModeloEntidad/Cine/Cine.class
 Controller/LoginController.class
+prueba.class
+Services/ListaService.class
 EnumOptions/Rol.class
 Dtos/Cine/PeliculaResponse.class
 EnumOptions/TipoAnuncio.class

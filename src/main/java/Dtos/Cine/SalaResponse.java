@@ -24,10 +24,10 @@ public class SalaResponse {
     private LocalDate fechaCreacion;
 
     public SalaResponse(Sala sala) {
-        this.nombreSala = nombreSala;
-        this.filaSala = filaSala;
-        this.columnaSala = columnaSala;
-        this.fechaCreacion = fechaCreacion;
+        this.nombreSala = sala.getNombreSala();
+        this.filaSala = sala.getFilaSala();
+        this.columnaSala = sala.getColumnaSala();
+        this.fechaCreacion = sala.getFechaCreacion();
     }
 
     public String getNombreSala() {

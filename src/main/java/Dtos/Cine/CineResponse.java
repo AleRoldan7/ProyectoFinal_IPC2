@@ -15,17 +15,19 @@ import java.time.LocalDate;
  * @author alejandro
  */
 public class CineResponse {
-    
+
     private String nombreCine;
     private double costoCine;
+    private int idUsuario;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate fechaCreacion;
 
     public CineResponse(Cine cine) {
-        this.nombreCine = nombreCine;
-        this.costoCine = costoCine;
-        this.fechaCreacion = fechaCreacion;
+        this.nombreCine = cine.getNombreCine();
+        this.costoCine = cine.getCostoCine();
+        this.idUsuario = cine.getIdUsuario();
+        this.fechaCreacion = cine.getFechaCreacion();
     }
 
     public String getNombreCine() {
@@ -44,6 +46,14 @@ public class CineResponse {
         this.costoCine = costoCine;
     }
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
@@ -51,6 +61,5 @@ public class CineResponse {
     public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
-    
-    
+
 }

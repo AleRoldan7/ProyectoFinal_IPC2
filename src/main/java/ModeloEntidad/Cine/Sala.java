@@ -4,6 +4,8 @@
  */
 package ModeloEntidad.Cine;
 
+import java.time.LocalDate;
+
 
 /**
  *
@@ -14,13 +16,15 @@ public class Sala {
     private String nombreSala;
     private int filaSala;
     private int columnaSala;
+    private LocalDate fechaCreacion;
 
-    public Sala(String nombreSala, int filaSala, int columnaSala) {
+    public Sala(String nombreSala, int filaSala, int columnaSala, LocalDate fechaCreacion) {
         this.nombreSala = nombreSala;
         this.filaSala = filaSala;
         this.columnaSala = columnaSala;
+        this.fechaCreacion = fechaCreacion;
     }
-
+    
     public String getNombreSala() {
         return nombreSala;
     }
@@ -43,6 +47,14 @@ public class Sala {
 
     public void setColumnaSala(int columnaSala) {
         this.columnaSala = columnaSala;
+    }
+
+    public LocalDate getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
    
