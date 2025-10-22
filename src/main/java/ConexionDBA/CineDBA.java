@@ -20,7 +20,8 @@ public class CineDBA {
     private static final String CREAR_CINE_QUERY = "INSERT INTO cine (nombre_cine, id_usuario, fecha_creacion) VALUES (?,?,?)";
     private static final String ENCONTRAR_CINE_QUERY = "SELECT * FROM cine WHERE nombre_cine = ?";
     private static final String VERIFICAR_USUARIO_CINE_QUERY = "SELECT * FROM cine WHERE id_usuario = ?";
-
+    private static final String OBTENER_CINE_ADMINISTRADOR_QUERY = "SELECT id_cine FROM cine WHERE id_usuario = ?";
+    
     public void crearCine(Cine cine) {
 
         Connection connection = Conexion.getInstance().getConnect();
@@ -69,5 +70,23 @@ public class CineDBA {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public Integer obtenerIdCineAdmin(int idUsuario) {
+        
+        Connection connection = Conexion.getInstance().getConnect();
+        
+        try (PreparedStatement query = connection.prepareStatement(OBTENER_CINE_ADMINISTRADOR_QUERY)){
+            
+            query.setInt(1, idUsuario);
+            ResultSet resultSet = query.executeQuery();
+            
+            if (resultSet.next()) {
+                return  resultSet.getInt("id_cine");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

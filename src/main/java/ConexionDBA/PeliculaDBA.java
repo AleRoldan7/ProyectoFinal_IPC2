@@ -16,47 +16,75 @@ import java.sql.Time;
  * @author alejandro
  */
 public class PeliculaDBA {
-    
+
     private static final String AGREGAR_PELICULA_QUERY = "INSERT INTO pelicula (titulo_pelicula, sinopsis, duracion, cast_pelicula, "
             + "director_pelicula, poster_pelicula) VALUES (?,?,?,?,?,?)";
-    
+
     private static final String EXISTE_PELICULA_QUERY = "SELECT * FROM pelicula WHERE titulo_pelicula = ?";
-    
-    
+    private static final String ASIGNAR_PELICULA_SALA_QUERY = "INSERT INTO pelicula_sala_cine (id_sala_cine, id_pelicula) VALUES (?,?)";
+
     public void agregarPelicula(Pelicula pelicula) {
-        
+
         Connection connection = Conexion.getInstance().getConnect();
-        
-        try (PreparedStatement insert = connection.prepareStatement(AGREGAR_PELICULA_QUERY)){
-            
+
+        try (PreparedStatement insert = connection.prepareStatement(AGREGAR_PELICULA_QUERY)) {
+
             insert.setString(1, pelicula.getTituloPelicula());
-            insert.setString(2, pelicula.getSinopsinPelicula());
+            insert.setString(2, pelicula.getSinopsisPelicula());
             insert.setTime(3, Time.valueOf(pelicula.getDuracionPelicula()));
             insert.setString(4, pelicula.getCastPelicula());
             insert.setString(5, pelicula.getDirectorPelicula());
             insert.setBytes(6, pelicula.getPosterPelicula());
             insert.executeUpdate();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
-    
+
     public boolean existePelicula(String tituloPelicula) {
-        
+
         Connection connection = Conexion.getInstance().getConnect();
-        
-        try (PreparedStatement query = connection.prepareStatement(EXISTE_PELICULA_QUERY)){
-            
+
+        try (PreparedStatement query = connection.prepareStatement(EXISTE_PELICULA_QUERY)) {
+
             query.setString(1, tituloPelicula);
             ResultSet resultSet = query.executeQuery();
             return resultSet.next();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
-    
+
+    public Integer obtenerIdSalaCine(Integer idSala) {
+        Connection connection = Conexion.getInstance().getConnect();
+        String query = "SELECT id_sala_cine FROM sala_cine WHERE id_sala = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, idSala);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id_sala_cine");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void asignarPeliculaSala(Integer idSalaCine, Integer idPelicula) {
+
+        Connection connection = Conexion.getInstance().getConnect();
+
+        try (PreparedStatement insert = connection.prepareStatement(ASIGNAR_PELICULA_SALA_QUERY)) {
+
+            insert.setInt(1, idSalaCine);
+            insert.setInt(2, idPelicula);
+            insert.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

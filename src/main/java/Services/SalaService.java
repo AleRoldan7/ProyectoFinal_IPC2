@@ -4,6 +4,7 @@
  */
 package Services;
 
+import ConexionDBA.CineDBA;
 import ConexionDBA.SalaDBA;
 import Dtos.Cine.NewSalaRequest;
 import Excepciones.DatosInvalidos;
@@ -24,12 +25,22 @@ public class SalaService {
 
         if (salaDBA.existeSala(entidadSala.getNombreSala())) {
             throw new EntityExists(
-                    String.format("El usuario con user name %s ya existe", entidadSala.getNombreSala())
+                    String.format("La sala con nombre %s ya existe", entidadSala.getNombreSala())
             );
         }
 
         salaDBA.crearSala(entidadSala);
 
+        Integer idCine = new CineDBA().obtenerIdCineAdmin(entidadSala.getIdUsuario());
+
+        if (idCine != null) {
+
+            salaDBA.asignarSalaCine(entidadSala.getIdSala(), idCine);
+
+        } else {
+            throw new DatosInvalidos("El administrador no tiene un cine asignado");
+
+        }
         return entidadSala;
     }
 

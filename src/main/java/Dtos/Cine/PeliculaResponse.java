@@ -29,7 +29,7 @@ public class PeliculaResponse {
     public PeliculaResponse(Pelicula pelicula) {
         this.idPelicula = pelicula.getIdPelicula();
         this.tituloPelicula = pelicula.getTituloPelicula();
-        this.sinopsisPelicula = pelicula.getSinopsinPelicula();
+        this.sinopsisPelicula = pelicula.getSinopsisPelicula();
         this.duracionPelicula = pelicula.getDuracionPelicula();
         this.castPelicula = pelicula.getCastPelicula();
         this.directorPelicula = pelicula.getDirectorPelicula();

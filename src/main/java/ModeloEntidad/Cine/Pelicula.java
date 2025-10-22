@@ -5,41 +5,41 @@
 package ModeloEntidad.Cine;
 
 import java.time.LocalTime;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author alejandro
  */
 public class Pelicula {
-    
+
     private Integer idPelicula;
     private String tituloPelicula;
-    private String sinopsinPelicula;
+    private String sinopsisPelicula;
     private LocalTime duracionPelicula;
     private String castPelicula;
     private String directorPelicula;
-    private byte [] posterPelicula;
+    private byte[] posterPelicula;
 
-    public Pelicula(String tituloPelicula, String sinopsinPelicula, LocalTime duracionPelicula, String castPelicula, 
+    public Pelicula(String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula, String castPelicula,
             String directorPelicula, byte[] posterPelicula) {
         this.tituloPelicula = tituloPelicula;
-        this.sinopsinPelicula = sinopsinPelicula;
+        this.sinopsisPelicula = sinopsisPelicula;
         this.duracionPelicula = duracionPelicula;
         this.castPelicula = castPelicula;
         this.directorPelicula = directorPelicula;
         this.posterPelicula = posterPelicula;
     }
 
-    
     public Pelicula() {
-        
+
     }
-    
-    public Pelicula(Integer idPelicula, String tituloPelicula, String sinopsinPelicula, LocalTime duracionPelicula, 
+
+    public Pelicula(Integer idPelicula, String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula,
             String castPelicula, String directorPelicula, byte[] posterPelicula) {
         this.idPelicula = idPelicula;
         this.tituloPelicula = tituloPelicula;
-        this.sinopsinPelicula = sinopsinPelicula;
+        this.sinopsisPelicula = sinopsisPelicula;
         this.duracionPelicula = duracionPelicula;
         this.castPelicula = castPelicula;
         this.directorPelicula = directorPelicula;
@@ -62,12 +62,12 @@ public class Pelicula {
         this.tituloPelicula = tituloPelicula;
     }
 
-    public String getSinopsinPelicula() {
-        return sinopsinPelicula;
+    public String getSinopsisPelicula() {
+        return sinopsisPelicula;
     }
 
-    public void setSinopsinPelicula(String sinopsinPelicula) {
-        this.sinopsinPelicula = sinopsinPelicula;
+    public void setSinopsisPelicula(String sinopsinPelicula) {
+        this.sinopsisPelicula = sinopsinPelicula;
     }
 
     public LocalTime getDuracionPelicula() {
@@ -101,6 +101,12 @@ public class Pelicula {
     public void setPosterPelicula(byte[] posterPelicula) {
         this.posterPelicula = posterPelicula;
     }
-    
-    
+
+    public boolean esValido() {
+        return StringUtils.isNotBlank(tituloPelicula)
+                && StringUtils.isNotBlank(sinopsisPelicula)
+                && duracionPelicula != null
+                && StringUtils.isNotBlank(castPelicula)
+                && StringUtils.isNotBlank(directorPelicula);
+    }
 }

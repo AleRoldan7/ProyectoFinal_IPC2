@@ -6,6 +6,8 @@ package Services;
 
 import ConexionDBA.ListasDBA;
 import EnumOptions.Rol;
+import ModeloEntidad.Cine.Pelicula;
+import ModeloEntidad.Cine.Sala;
 import ModeloEntidad.Usuario.Usuario;
 import java.util.List;
 
@@ -26,5 +28,15 @@ public class ListaService {
         
         return listasDBA.listaAdminCine();
         
+    }
+    
+    public List<Pelicula> obtenerPeliculas() {
+        
+        return listasDBA.listaPeliculas();
+    }
+    
+    public List<Sala> obtenerSala(Integer idUsuario) {
+        
+        return listasDBA.listaSalasAdmin(idUsuario);
     }
 }

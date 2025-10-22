@@ -5,6 +5,7 @@
 package ConexionDBA;
 
 import EnumOptions.Rol;
+import ModeloEntidad.Cine.Pelicula;
 import ModeloEntidad.Cine.Sala;
 import ModeloEntidad.Usuario.Usuario;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,8 @@ public class ListasDBA {
     private static final String LISTA_CINES_QUERY = "SELECT * FROM cine";
     private static final String LISTA_SALAS_QUERY = "SELECT * FROM sala";
     private static final String LISTA_SALAS_ADMIN_QUERY = "SELECT * FROM sala WHERE id_usuario = ?";
-    
+    private static final String LISTA_PELICULAS_QUERY = "SELECT * FROM pelicula";
+
     public List<Usuario> listaUsuarios() {
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -106,6 +109,66 @@ public class ListasDBA {
                         resultSet.getInt("asiento_fila"),
                         resultSet.getInt("asiento_columna"),
                         LocalDate.parse(resultSet.getString("fecha_registro"))
+                );
+                salas.add(sala);
+                System.out.println("Encontradas" + salas.size());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Salas:" + salas.size());
+        return salas;
+    }
+
+    public List<Pelicula> listaPeliculas() {
+
+        List<Pelicula> peliculas = new ArrayList<>();
+        Connection connection = Conexion.getInstance().getConnect();
+
+        try (PreparedStatement query = connection.prepareStatement(LISTA_PELICULAS_QUERY)) {
+
+            ResultSet resultSet = query.executeQuery();
+
+            while (resultSet.next()) {
+                Pelicula pelicula = new Pelicula(
+                        resultSet.getInt("id_pelicula"),
+                        resultSet.getString("titulo_pelicula"),
+                        resultSet.getString("sinopsis"),
+                        LocalTime.parse(resultSet.getString("duracion")),
+                        resultSet.getString("cast_pelicula"),
+                        resultSet.getString("director_pelicula"),
+                        resultSet.getBytes("poster_pelicula")
+                );
+                peliculas.add(pelicula);
+                System.out.println("Encontradas" + peliculas.size());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Salas:" + peliculas.size());
+        return peliculas;
+    }
+
+    public List<Sala> listaSalasAdmin(Integer idUsuario) {
+
+        List<Sala> salas = new ArrayList<>();
+        Connection connection = Conexion.getInstance().getConnect();
+
+        try (PreparedStatement query = connection.prepareStatement(LISTA_SALAS_ADMIN_QUERY)) {
+
+            query.setInt(1, idUsuario);
+            ResultSet resultSet = query.executeQuery();
+
+            while (resultSet.next()) {
+                Sala sala = new Sala(
+                        resultSet.getInt("id_sala"),
+                        resultSet.getInt("id_usuario"),
+                        resultSet.getString("nombre_sala"),
+                        resultSet.getInt("asiento_fila"),
+                        resultSet.getInt("asiento_columna"),
+                        LocalDate.parse(resultSet.getString("fecha_creacion"))
                 );
                 salas.add(sala);
                 System.out.println("Encontradas" + salas.size());
