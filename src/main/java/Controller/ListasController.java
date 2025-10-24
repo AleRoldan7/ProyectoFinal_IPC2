@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Dtos.Cine.PeliculaResponse;
+import Dtos.Cine.SalaResponse;
 import Dtos.Usuario.UsuarioResponse;
 import EnumOptions.Rol;
 import Excepciones.EntidadNotFound;
@@ -40,7 +42,7 @@ public class ListasController {
                 .stream()
                 .map(UsuarioResponse::new)
                 .toList();
-        System.out.println("Usuarios"+ usuarios.size());
+        System.out.println("Usuarios" + usuarios.size());
         return Response.ok(usuarios).build();
     }
 
@@ -56,6 +58,33 @@ public class ListasController {
 
         return Response.ok(usuarioCine).build();
 
+    }
+
+    @GET
+    @Path("/peliculas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPeliculas() {
+        System.out.println("SI jalaaa");
+        List<PeliculaResponse> peliculaLista = listaService.obtenerPeliculas()
+                .stream()
+                .map(PeliculaResponse::new)
+                .toList();
+
+        return Response.ok(peliculaLista).build();
+    }
+
+    @GET
+    @Path("/salas/{idUsuario}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerSalas(@PathParam("idUsuario") Integer idUsuario) {
+        System.out.println("ID usuario recibido: " + idUsuario);
+        List<SalaResponse> salaLista = listaService.obtenerSala(idUsuario)
+                .stream()
+                .map(SalaResponse::new)
+                .toList();
+
+        System.out.println("Salas encontradas: " + salaLista.size());
+        return Response.ok(salaLista).build();
     }
 
 }

@@ -12,14 +12,14 @@ import org.apache.commons.lang3.StringUtils;
  * @author alejandro
  */
 public class Cine {
-    
+
     private Integer idCine;
     private String nombreCine;
     private int idUsuario;
     private LocalDate fechaCreacion;
     private double costoCine;
 
-    public Cine(String nombreCine,  LocalDate fechaCreacion) {
+    public Cine(String nombreCine, LocalDate fechaCreacion) {
         this.nombreCine = nombreCine;
         this.fechaCreacion = fechaCreacion;
     }
@@ -31,10 +31,8 @@ public class Cine {
         this.costoCine = costoCine;
     }
 
-    
-    
     public Cine() {
-        
+
     }
 
     public Cine(int idCine, String nombreCine, int idUsuario, LocalDate fechaCreacion, double costoCine) {
@@ -84,8 +82,8 @@ public class Cine {
     public void setCostoCine(double costoCine) {
         this.costoCine = costoCine;
     }
-    
-     public boolean esValido() {
+
+    public boolean esValido() {
         return StringUtils.isNotBlank(nombreCine)
                 && fechaCreacion != null;
     }

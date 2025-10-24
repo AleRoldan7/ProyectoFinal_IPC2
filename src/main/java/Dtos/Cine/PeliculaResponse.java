@@ -15,23 +15,33 @@ import java.time.LocalTime;
  * @author alejandro
  */
 public class PeliculaResponse {
-    
+
+    private Integer idPelicula;
     private String tituloPelicula;
     private String sinopsisPelicula;
     @JsonFormat(pattern = "HH:mm")
-    @JsonSerialize (using = LocalTimeSerializer.class)
+    @JsonSerialize(using = LocalTimeSerializer.class)
     private LocalTime duracionPelicula;
     private String castPelicula;
     private String directorPelicula;
-    private byte [] posterPelicula;
+    private byte[] posterPelicula;
 
     public PeliculaResponse(Pelicula pelicula) {
-        this.tituloPelicula = tituloPelicula;
-        this.sinopsisPelicula = sinopsisPelicula;
-        this.duracionPelicula = duracionPelicula;
-        this.castPelicula = castPelicula;
-        this.directorPelicula = directorPelicula;
-        this.posterPelicula = posterPelicula;
+        this.idPelicula = pelicula.getIdPelicula();
+        this.tituloPelicula = pelicula.getTituloPelicula();
+        this.sinopsisPelicula = pelicula.getSinopsisPelicula();
+        this.duracionPelicula = pelicula.getDuracionPelicula();
+        this.castPelicula = pelicula.getCastPelicula();
+        this.directorPelicula = pelicula.getDirectorPelicula();
+        this.posterPelicula = pelicula.getPosterPelicula();
+    }
+
+    public Integer getIdPelicula() {
+        return idPelicula;
+    }
+
+    public void setIdPelicula(Integer idPelicula) {
+        this.idPelicula = idPelicula;
     }
 
     public String getTituloPelicula() {
@@ -81,7 +91,5 @@ public class PeliculaResponse {
     public void setPosterPelicula(byte[] posterPelicula) {
         this.posterPelicula = posterPelicula;
     }
-    
-    
-    
+
 }
