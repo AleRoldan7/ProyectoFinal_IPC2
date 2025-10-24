@@ -5,30 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c6cc600-d6ca-41f9-990f-8b09e3b2f23b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ConexionDBA/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ConexionDBA/Conexion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ConexionDBA/UsuarioDBA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ConexionDBA/UsuarioDBA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dtos/Cine/CineResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dtos/Cine/CineResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dtos/Cine/NewCineRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dtos/Cine/NewCineRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dtos/Cine/SalaResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dtos/Cine/SalaResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dtos/Usuario/UsuarioResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dtos/Usuario/UsuarioResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ModeloEntidad/Cine/Cine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ModeloEntidad/Cine/Cine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ModeloEntidad/Cine/Sala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ModeloEntidad/Cine/Sala.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Dtos/Cine/CineResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Dtos/Cine/CineResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Dtos/Cine/NewCineRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Dtos/Cine/NewCineRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Dtos/Cine/SalaResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Dtos/Cine/SalaResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Dtos/Usuario/UsuarioResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/Dtos/Usuario/UsuarioResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ModeloEntidad/Cine/Cine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ModeloEntidad/Cine/Cine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ModeloEntidad/Cine/Sala.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ModeloEntidad/Cine/Sala.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Dtos/Cine/CineResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Dtos/Cine/CineResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Dtos/Cine/NewCineRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Dtos/Cine/NewCineRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Dtos/Cine/SalaResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Dtos/Cine/SalaResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Dtos/Usuario/UsuarioResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Dtos/Usuario/UsuarioResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Cine/Cine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ModeloEntidad/Cine/Cine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModeloEntidad/Cine/Sala.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ModeloEntidad/Cine/Sala.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ConexionDBA/Conexion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ConexionDBA/Conexion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ConexionDBA/UsuarioDBA.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Proyecto2_IPC2-1.0-SNAPSHOT/WEB-INF/classes/ConexionDBA/UsuarioDBA.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ConexionDBA/Conexion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ConexionDBA/Conexion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ConexionDBA/UsuarioDBA.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ConexionDBA/UsuarioDBA.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +104,7 @@
       <workItem from="1760633832273" duration="15000" />
       <workItem from="1760714212146" duration="293000" />
       <workItem from="1760860131491" duration="2000" />
+      <workItem from="1761237592688" duration="15000" />
     </task>
     <servers />
   </component>

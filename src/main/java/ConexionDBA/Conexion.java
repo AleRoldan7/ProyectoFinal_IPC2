@@ -7,13 +7,15 @@ package ConexionDBA;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 
 /**
  *
  * @author alejandro
  */
 public class Conexion {
-    
+
     private static final String IP = "localhost";
     private static final int PUERTO = 3306;
     private static final String SCHEMA = "Proyecto_Cines";
@@ -22,37 +24,64 @@ public class Conexion {
     private static final String URL = "jdbc:mysql://" + IP + ":" + PUERTO + "/" + SCHEMA;
 
     private static Conexion instance;
+    private DataSource dataSource;
+
     private Connection connection;
 
     private Conexion() {
+
         try {
+
             Class.forName("com.mysql.cj.jdbc.Driver");
+            PoolProperties p = new PoolProperties();
+            p.setUrl(URL);
+            p.setDriverClassName("com.mysql.cj.jdbc.Driver");
+            p.setUsername(USER);
+            p.setPassword(PASSWORD);
+            p.setJmxEnabled(true);
+            p.setTestWhileIdle(false);
+            p.setTestOnBorrow(true);
+            p.setValidationQuery("SELECT 1");
+            p.setTestOnReturn(false);
+            p.setValidationInterval(30000);
+            p.setTimeBetweenEvictionRunsMillis(30000);
+            p.setMaxActive(100);
+            p.setInitialSize(10);
+            p.setMaxWait(10000);
+            p.setRemoveAbandonedTimeout(60);
+            p.setMinEvictableIdleTimeMillis(30000);
+            p.setMinIdle(10);
+            p.setLogAbandoned(true);
+            p.setRemoveAbandoned(true);
+            p.setJdbcInterceptors(
+                    "org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"
+                    + "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
+            dataSource = new DataSource(p);
+            dataSource.setPoolProperties(p);
 
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Se conceto a la base " + SCHEMA);
-
-        } catch (ClassNotFoundException e) {
-            System.out.println("Sin driver de MYSQL");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("No se conecto a la base " + SCHEMA);
-            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(Conexion.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
-    
-    public java.sql.Connection getConnect() {
-        return connection;
+    public Connection getConnect() {
+        
+        try {
+            return dataSource.getConnection();
+        } catch (SQLException ex) {
+            System.getLogger(Conexion.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        return null;
     }
-    
+
     public static Conexion getInstance() {
         if (instance == null) {
             instance = new Conexion();
         }
         return instance;
     }
-    
-     public void closeConnection() {
+
+    public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
@@ -64,5 +93,5 @@ public class Conexion {
             e.printStackTrace();
         }
     }
-    
+
 }

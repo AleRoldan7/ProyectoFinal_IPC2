@@ -16,18 +16,38 @@ import java.time.LocalDate;
  */
 public class SalaResponse {
 
+    private Integer idSala;
+    private int idUsuario;
     private String nombreSala;
     private int filaSala;
     private int columnaSala;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonSerialize (using = LocalDateSerializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate fechaCreacion;
 
     public SalaResponse(Sala sala) {
+        this.idSala = sala.getIdSala();
+        this.idUsuario = sala.getIdUsuario();
         this.nombreSala = sala.getNombreSala();
         this.filaSala = sala.getFilaSala();
         this.columnaSala = sala.getColumnaSala();
         this.fechaCreacion = sala.getFechaCreacion();
+    }
+
+    public Integer getIdSala() {
+        return idSala;
+    }
+
+    public void setIdSala(Integer idSala) {
+        this.idSala = idSala;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombreSala() {
@@ -61,7 +81,5 @@ public class SalaResponse {
     public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
-    
-    
-    
+
 }

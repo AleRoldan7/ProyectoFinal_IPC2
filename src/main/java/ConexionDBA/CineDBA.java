@@ -20,12 +20,12 @@ public class CineDBA {
     private static final String CREAR_CINE_QUERY = "INSERT INTO cine (nombre_cine, id_usuario, fecha_creacion) VALUES (?,?,?)";
     private static final String ENCONTRAR_CINE_QUERY = "SELECT * FROM cine WHERE nombre_cine = ?";
     private static final String VERIFICAR_USUARIO_CINE_QUERY = "SELECT * FROM cine WHERE id_usuario = ?";
+    private static final String OBTENER_CINE_ADMINISTRADOR_QUERY = "SELECT id_cine FROM cine WHERE id_usuario = ?";
 
     public void crearCine(Cine cine) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement insert = connection.prepareStatement(CREAR_CINE_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement insert = connection.prepareStatement(CREAR_CINE_QUERY)) {
 
             insert.setString(1, cine.getNombreCine());
             insert.setInt(2, cine.getIdUsuario());
@@ -39,35 +39,56 @@ public class CineDBA {
 
     public boolean existeCine(String nombreCine) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(ENCONTRAR_CINE_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement query = connection.prepareStatement(ENCONTRAR_CINE_QUERY)) {
 
             query.setString(1, nombreCine);
-            ResultSet resultSet = query.executeQuery();
-            return resultSet.next();
+
+            try (ResultSet resultSet = query.executeQuery();) {
+                return resultSet.next();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
-    
-    public boolean adminAsigandoCine(int idUsuario){
-        
-        Connection connection = Conexion.getInstance().getConnect();
-        
-        try (PreparedStatement query = connection.prepareStatement(VERIFICAR_USUARIO_CINE_QUERY)){
-            
+
+    public boolean adminAsigandoCine(int idUsuario) {
+
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement query = connection.prepareStatement(VERIFICAR_USUARIO_CINE_QUERY)) {
+
             query.setInt(1, idUsuario);
-            ResultSet resultSet = query.executeQuery();
-            
-            if (resultSet.next()) {
-                return resultSet.getInt(1) > 0;
+
+            try (ResultSet resultSet = query.executeQuery();) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Integer obtenerIdCineAdmin(int idUsuario) {
+
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement query = connection.prepareStatement(OBTENER_CINE_ADMINISTRADOR_QUERY)) {
+
+            query.setInt(1, idUsuario);
+
+            try (ResultSet resultSet = query.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id_cine");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -26,13 +26,11 @@ public class UsuarioDBA {
 
     private static final String ENCONTRAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ?";
     private static final String VERIFICAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ? AND password = ?";
-    
 
-    
     public void agregarUsuario(Usuario usuario) {
-        Connection connection = Conexion.getInstance().getConnect();
 
-        try (PreparedStatement insert = connection.prepareStatement(CREAR_USUARIO_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement insert = connection.prepareStatement(CREAR_USUARIO_QUERY)) {
 
             insert.setString(1, usuario.getNombre());
             insert.setString(2, usuario.getUserName());
@@ -46,13 +44,10 @@ public class UsuarioDBA {
         }
     }
 
-
-
     public void recargarCartera(String userName, double dineroCartera) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement insert = connection.prepareStatement(AGREGAR_DINERO_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement insert = connection.prepareStatement(AGREGAR_DINERO_QUERY)) {
 
             insert.setDouble(1, dineroCartera);
             insert.setString(2, userName);
@@ -71,13 +66,14 @@ public class UsuarioDBA {
 
     public boolean existeUsuario(String userName) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(ENCONTRAR_USUARIO_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement query = connection.prepareStatement(ENCONTRAR_USUARIO_QUERY)) {
 
             query.setString(1, userName);
-            ResultSet resultSet = query.executeQuery();
-            return resultSet.next();
+
+            try (ResultSet resultSet = query.executeQuery();) {
+                return resultSet.next();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,29 +83,33 @@ public class UsuarioDBA {
 
     public Usuario verificarUsuario(String userName, String password) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(VERIFICAR_USUARIO_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement query = connection.prepareStatement(VERIFICAR_USUARIO_QUERY)) {
 
             query.setString(1, userName);
             query.setString(2, password);
-            ResultSet resultSet = query.executeQuery();
+
             System.out.println(userName);
             System.out.println(password);
 
-            if (resultSet.next()) {
+            try (ResultSet resultSet = query.executeQuery()) {
 
-                Usuario usuario = new Usuario();
-                usuario.setNombre(resultSet.getString("nombre"));
-                usuario.setUserName(resultSet.getString("user_name"));
-                usuario.setPassword(resultSet.getString("password"));
-                usuario.setRolUsuario(Rol.valueOf(resultSet.getString("rol_usuario")));
-                usuario.setDineroCartera(resultSet.getDouble("dinero_cartera"));
-                usuario.setFechaRegistro(resultSet.getDate("fecha_registro").toLocalDate());
+                if (resultSet.next()) {
 
-                return usuario;
+                    Usuario usuario = new Usuario();
+                    usuario.setIdUsuario(resultSet.getInt("id_usuario"));
+                    usuario.setNombre(resultSet.getString("nombre"));
+                    usuario.setUserName(resultSet.getString("user_name"));
+                    usuario.setPassword(resultSet.getString("password"));
+                    usuario.setRolUsuario(Rol.valueOf(resultSet.getString("rol_usuario")));
+                    usuario.setDineroCartera(resultSet.getDouble("dinero_cartera"));
+                    usuario.setFechaRegistro(resultSet.getDate("fecha_registro").toLocalDate());
 
+                    return usuario;
+
+                }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
