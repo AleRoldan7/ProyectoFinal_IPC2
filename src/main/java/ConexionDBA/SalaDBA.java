@@ -26,9 +26,9 @@ public class SalaDBA {
     private static final String OBTENER_IDSALACINE_QUERY = "SELECT id_sala_cine FROM sala_cine WHERE id_sala = ? AND id_cine = ?";
     
     public void crearSala(Sala sala) {
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement insert = connection.prepareStatement(CREAR_SALA_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
+       
+        try ( Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement insert = connection.prepareStatement(CREAR_SALA_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             insert.setInt(1, sala.getIdUsuario());
             insert.setString(2, sala.getNombreSala());
@@ -52,9 +52,8 @@ public class SalaDBA {
 
     public boolean existeSala(String nombreSala) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(ENCONTRAR_SALA_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(ENCONTRAR_SALA_QUERY)) {
 
             query.setString(1, nombreSala);
             ResultSet resultSet = query.executeQuery();
@@ -67,10 +66,9 @@ public class SalaDBA {
     }
 
     public void asignarSalaCine(Integer idSala, Integer idCine) {
-
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement insert = connection.prepareStatement(ASIGNAR_SALA_CINE_QUERY)) {
+      
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement insert = connection.prepareStatement(ASIGNAR_SALA_CINE_QUERY)) {
 
             insert.setInt(1, idSala);
             insert.setInt(2, idCine);
@@ -83,9 +81,8 @@ public class SalaDBA {
     
     public Integer obtenerIdSalaCine(Integer idSala, Integer idCine) {
         
-        Connection connection = Conexion.getInstance().getConnect();
-        
-        try (PreparedStatement query = connection.prepareStatement(OBTENER_IDSALACINE_QUERY)){
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(OBTENER_IDSALACINE_QUERY)){
             
             query.setInt(1, idSala);
             query.setInt(2, idCine);

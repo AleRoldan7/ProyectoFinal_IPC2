@@ -25,9 +25,8 @@ public class PeliculaDBA {
 
     public void agregarPelicula(Pelicula pelicula) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement insert = connection.prepareStatement(AGREGAR_PELICULA_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement insert = connection.prepareStatement(AGREGAR_PELICULA_QUERY)) {
 
             insert.setString(1, pelicula.getTituloPelicula());
             insert.setString(2, pelicula.getSinopsisPelicula());
@@ -44,9 +43,8 @@ public class PeliculaDBA {
 
     public boolean existePelicula(String tituloPelicula) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(EXISTE_PELICULA_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(EXISTE_PELICULA_QUERY)) {
 
             query.setString(1, tituloPelicula);
             ResultSet resultSet = query.executeQuery();
@@ -59,9 +57,10 @@ public class PeliculaDBA {
     }
 
     public Integer obtenerIdSalaCine(Integer idSala) {
-        Connection connection = Conexion.getInstance().getConnect();
+        
         String query = "SELECT id_sala_cine FROM sala_cine WHERE id_sala = ?";
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, idSala);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -75,9 +74,8 @@ public class PeliculaDBA {
 
     public void asignarPeliculaSala(Integer idSalaCine, Integer idPelicula) {
 
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement insert = connection.prepareStatement(ASIGNAR_PELICULA_SALA_QUERY)) {
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement insert = connection.prepareStatement(ASIGNAR_PELICULA_SALA_QUERY)) {
 
             insert.setInt(1, idSalaCine);
             insert.setInt(2, idPelicula);

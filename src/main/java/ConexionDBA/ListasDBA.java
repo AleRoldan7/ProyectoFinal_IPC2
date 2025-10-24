@@ -33,9 +33,9 @@ public class ListasDBA {
     public List<Usuario> listaUsuarios() {
 
         List<Usuario> usuarios = new ArrayList<>();
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(LISTA_USUARIOS_QUERY)) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(LISTA_USUARIOS_QUERY)) {
 
             ResultSet resultSet = query.executeQuery();
 
@@ -63,9 +63,9 @@ public class ListasDBA {
     public List<Usuario> listaAdminCine() {
 
         List<Usuario> usuarios = new ArrayList<>();
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(LISTA_ADMIN_CINE_QUERY)) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(LISTA_ADMIN_CINE_QUERY)) {
 
             ResultSet resultSet = query.executeQuery();
 
@@ -95,9 +95,9 @@ public class ListasDBA {
     public List<Sala> listaSala() {
 
         List<Sala> salas = new ArrayList<>();
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(LISTA_SALAS_QUERY)) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(LISTA_SALAS_QUERY)) {
 
             ResultSet resultSet = query.executeQuery();
 
@@ -124,9 +124,9 @@ public class ListasDBA {
     public List<Pelicula> listaPeliculas() {
 
         List<Pelicula> peliculas = new ArrayList<>();
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(LISTA_PELICULAS_QUERY)) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(LISTA_PELICULAS_QUERY)) {
 
             ResultSet resultSet = query.executeQuery();
 
@@ -154,9 +154,9 @@ public class ListasDBA {
     public List<Sala> listaSalasAdmin(Integer idUsuario) {
 
         List<Sala> salas = new ArrayList<>();
-        Connection connection = Conexion.getInstance().getConnect();
-
-        try (PreparedStatement query = connection.prepareStatement(LISTA_SALAS_ADMIN_QUERY)) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(LISTA_SALAS_ADMIN_QUERY)) {
 
             query.setInt(1, idUsuario);
             ResultSet resultSet = query.executeQuery();

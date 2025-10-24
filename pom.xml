@@ -81,6 +81,14 @@
             <version>0.68.0.1</version>
             <type>jar</type>
         </dependency>
+        
+         <!-- Database pool -->
+         <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>11.0.13</version>
+             <type>jar</type>
+         </dependency>
     </dependencies>
     
     
