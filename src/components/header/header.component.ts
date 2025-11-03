@@ -1,20 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../../services/session-service/session-service';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnInit {
-  rol: string = '';
+  rol: string | null = null;
 
-  ngOnInit() {
-    const usuario = localStorage.getItem('usuario');
-    if (usuario) {
-      const userData = JSON.parse(usuario);
-      this.rol = userData.rol;
-    }
+  constructor(private sessionService: SessionService) { }
+
+  ngOnInit(): void {
+    this.rol = this.sessionService.obtenerRol();
+    console.log('Rol usuario', this.rol);
+  }
+
+  cerrarSesion(): void {
+    
   }
 }

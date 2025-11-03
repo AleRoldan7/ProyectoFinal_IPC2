@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CineServices } from '../../../services/cine/cine-services';
 import { Lista } from '../../../services/lista/lista';
 import { RouterLink } from '@angular/router';
+import { authGuard } from '../../../guards/auth-guard';
 
 @Component({
   selector: 'app-crear-cine',
@@ -19,10 +20,9 @@ export class CrearCineComponent {
   adminSeleccionado: any = null;
   mensaje: string = '';
   tipoMensaje: 'success' | 'danger' | '' = '';
-
   rolUsuario = 'ADMIN_CINE';
 
-  constructor(private lista: Lista, private cineService: CineServices) { }
+  constructor(private lista: Lista, private cineService: CineServices, authGuard: authGuard) {}
 
   ngOnInit(): void {
     this.cargarAdmins();

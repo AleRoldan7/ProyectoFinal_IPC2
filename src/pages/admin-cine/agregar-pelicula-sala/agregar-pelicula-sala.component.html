@@ -1,0 +1,23 @@
+<div class="container">
+  <h3>Asignar Película a Sala</h3>
+
+  <div class="mb-3">
+    <label>Sala:</label>
+    <select [(ngModel)]="salaSeleccionada" class="form-select">
+      <option *ngFor="let sala of salas" [ngValue]="sala">{{ sala.nombreSala }}</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Película:</label>
+    <select [(ngModel)]="peliculaSeleccionada" class="form-select">
+      <option *ngFor="let peli of peliculas" [ngValue]="peli">{{ peli.tituloPelicula }}</option>
+    </select>
+  </div>
+
+  <button class="btn btn-primary" (click)="asignarPelicula()">Asignar</button>
+
+  <div *ngIf="mensaje" class="mt-3 alert" [ngClass]="{'alert-success': tipoMensaje === 'success', 'alert-danger': tipoMensaje === 'danger'}">
+    {{ mensaje }}
+  </div>
+</div>

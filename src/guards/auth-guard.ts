@@ -1,27 +1,34 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from '@angular/router';
+import { SessionService } from '../services/session-service/session-service';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  const router = inject(Router);
+@Injectable({
+  providedIn: 'root'
+})
 
-  const usuario = localStorage.getItem('usuario');
+export class authGuard implements CanActivate {
 
-  if (!usuario) {
-    alert('Tienes que iniciar sesion');
-    router.navigate(["/login"]);
-    return false;
+  constructor(private router: Router, private sessionService: SessionService) { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const usuarioData = this.sessionService.obtenerUser();
+    if (!usuarioData) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+
+    const rol = usuarioData.rolUsuario;
+    const allowedRoles = route.data['roles'] as string[];
+
+    if (!allowedRoles.includes(rol)) {
+      console.warn(`Acceso denegado: rol ${rol} no permitido`);
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    console.log(`Acceso permitido para el rol: ${rol}`);
+    return true;
   }
 
-  const userData = JSON.parse(usuario);
-  const rolUsuario = userData.rolUsuario;
-
-  const expectedRoles: string[] = route.data['roles'];
-
-  if (expectedRoles && !expectedRoles.includes(rolUsuario)) {
-    alert('No tienes permiso para acceder a esta ruta');
-    router.navigate(['/']);
-    return false;
-  }
-
-  return true;
-};
+}

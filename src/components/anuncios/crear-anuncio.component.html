@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2>Crear nuevo anuncio</h2>
+
+  <form (ngSubmit)="crearAnuncio()" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label>Tipo de anuncio</label>
+      <select [(ngModel)]="anuncioSeleccionado" name="tipoAnuncio" class="form-select" (change)="calcularPrecio()">
+        <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Mensaje del anuncio</label>
+      <textarea [(ngModel)]="mensajeAnuncio" name="mensajeAnuncio" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label>Fecha de inicio</label>
+      <input type="date" [(ngModel)]="fechaInicio" name="fechaInicio" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Días de vigencia</label>
+      <input type="number" [(ngModel)]="diasVigente" name="diasVigente" class="form-control" (change)="calcularPrecio()" />
+    </div>
+
+    <div *ngIf="anuncioSeleccionado === tipoAnuncio.TEXTO_IMAGEN" class="mb-3">
+      <label>Subir imagen</label>
+      <input type="file" (change)="fileSeleccionado($event)" class="form-control" />
+    </div>
+
+    <div *ngIf="anuncioSeleccionado === tipoAnuncio.TEXTO_VIDEO" class="mb-3">
+      <label>URL del video</label>
+      <input type="text" [(ngModel)]="videoAnuncio" name="videoAnuncio" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <strong>Precio total: ${{ precio }}</strong>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear anuncio</button>
+  </form>
+ 
+  
+  <div class="mt-3 text-success">{{ mensaje }}</div>
+</div>

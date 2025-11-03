@@ -38,6 +38,7 @@ export class CrearSalaComponent {
     }
 
     const datosSala: Sala = {
+      idSala: 0,
       idUsuario: usuario.idUsuario,
       nombreSala: this.nombreSala,
       filaSala: this.filaSala,

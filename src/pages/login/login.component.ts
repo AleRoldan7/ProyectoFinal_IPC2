@@ -52,7 +52,7 @@ export class Login {
       },
       error: (err) => {
         console.error('Error en login:', err);
-        this.errorMessage = 'Credenciales incorrectas';
+        this.errorMessage = 'Datos incorrectos';
       },
     });
   }

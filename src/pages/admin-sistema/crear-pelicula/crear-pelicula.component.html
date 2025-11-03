@@ -1,0 +1,38 @@
+<div *ngIf="mensaje" class="alert" [ngClass]="{
+    'alert-success': tipoMensaje === 'success',
+    'alert-danger': tipoMensaje === 'danger'
+  }">
+    {{ mensaje }}
+</div>
+
+<form (ngSubmit)="agregarPelicula()" #peliculaForm="ngForm">
+    <div class="container mt-4">
+        <h3>Asignar Cine a Administrador</h3>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="titulo">Título:</label>
+                <input id="titulo" name="tituloPelicula" type="text" [(ngModel)]="pelicula.tituloPelicula" required />
+
+                <label for="sinopsis">Sinopsis:</label>
+                <textarea id="sinopsis" name="sinopsisPelicula" [(ngModel)]="pelicula.sinopsisPelicula"
+                    required></textarea>
+                <label for="duracion">Duración:</label>
+                <input id="duracion" name="duracionPelicula" type="time" [(ngModel)]="pelicula.duracionPelicula"
+                    required />
+                <label for="cast">Cast:</label>
+                <input id="cast" name="castPelicula" type="text" [(ngModel)]="pelicula.castPelicula" required />
+                <label for="director">Director:</label>
+                <input id="director" name="directorPelicula" type="text" [(ngModel)]="pelicula.directorPelicula"
+                    required />
+                <label for="poster">Poster:</label>
+                <input id="poster" type="file" (change)="onFileSelected($event)" accept="image/*" />
+
+                <button type="submit" [disabled]="!peliculaForm.form.valid">
+                    Crear Película
+                </button>
+                <a routerLink="/admin-sistema" class="cartera-back mt-2">Regresar</a>
+            </div>
+        </div>
+    </div>
+</form>

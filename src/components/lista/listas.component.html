@@ -1,1 +1,24 @@
-<p>listas works!</p>
+<div class="col-md-6">
+    <h5>Administradores de Cine</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Sinopsis</th>
+                <th>Duracion</th>
+                <th>Cast</th>
+                <th>Director</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pelicula of peliculas">
+                <td>{{ pelicula.idPelicula }}</td>
+                <td>{{ pelicula.tituloPelicula }}</td>
+                <td>{{ pelicula.sinopsisPelicula }}</td>
+                <td>{{ pelicula.duracionPelicula }}</td>
+                <td>{{ pelicula.castPelicula }}</td>
+                <td>{{ pelicula.directorPelicula }}</td>
+            </tr>
+        </tbody>
+    </table>

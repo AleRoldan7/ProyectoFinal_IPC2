@@ -1,0 +1,22 @@
+.sala-preview {
+  gap: 5px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.asiento {
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.asiento.ocupado {
+  background-color: #e74c3c;
+  cursor: not-allowed;
+}
+
+.asiento.seleccionado {
+  background-color: #2ecc71;
+}

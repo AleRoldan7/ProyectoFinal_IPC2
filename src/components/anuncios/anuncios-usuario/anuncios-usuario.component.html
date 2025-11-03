@@ -1,0 +1,17 @@
+<div *ngFor="let anuncio of anuncios" class="anuncio">
+  <h3>{{ anuncio.mensajeAnuncio }}</h3>
+
+  <div *ngIf="anuncio.tipoAnuncio === 'TEXTO'">
+    {{ anuncio.mensajeAnuncio }}
+  </div>
+
+  <div *ngIf="anuncio.tipoAnuncio === 'TEXTO_IMAGEN'">
+    <img [src]="getImagenUrl(anuncio.idAnuncio)" alt="Imagen Anuncio" width="200" />
+  </div>
+
+  <div *ngIf="anuncio.tipoAnuncio === 'TEXTO_VIDEO'">
+    <video width="320" height="240" controls>
+      <source [src]="anuncio.videoAnuncio" type="video/mp4" />
+    </video>
+  </div>
+</div>
