@@ -11,22 +11,26 @@ import java.time.LocalDate;
  *
  * @author alejandro
  */
-public class AnuncioVideo extends Anuncio{
-    
-    private String linkVideo;
+public class AnuncioVideo extends Anuncio {
 
-    public AnuncioVideo(String linkVideo, String mensajeAnuncio, int idUsuario, LocalDate fechaInicio, LocalDate fechaFin, Integer diasVigente) {
-        super(TipoAnuncio.TEXTO_VIDEO, mensajeAnuncio, idUsuario, fechaInicio, fechaFin, diasVigente);
-        this.linkVideo = linkVideo;
+    private String videoAnuncio;
+
+    public AnuncioVideo(Integer idAnuncio, String mensajeAnuncio, String videoAnuncio, int idUsuario,
+            LocalDate fechaInicio, Integer diasVigente, double precio) {
+        super(idAnuncio, TipoAnuncio.TEXTO_VIDEO, mensajeAnuncio, idUsuario, fechaInicio, diasVigente, precio);
+        this.videoAnuncio = videoAnuncio;
     }
 
-    public String getLinkVideo() {
-        return linkVideo;
+    public AnuncioVideo() {
+        this.tipoAnuncio = TipoAnuncio.TEXTO_VIDEO;
     }
 
-    public void setLinkVideo(String linkVideo) {
-        this.linkVideo = linkVideo;
+    public String getVideoAnuncio() {
+        return videoAnuncio;
     }
-    
-    
+
+    public void setVideoAnuncio(String videoAnuncio) {
+        this.videoAnuncio = videoAnuncio;
+    }
+
 }

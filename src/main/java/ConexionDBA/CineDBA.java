@@ -4,6 +4,7 @@
  */
 package ConexionDBA;
 
+import Dtos.Cine.UpdateCineRequest;
 import ModeloEntidad.Cine.Cine;
 import java.sql.Connection;
 import java.sql.Date;
@@ -19,9 +20,13 @@ public class CineDBA {
 
     private static final String CREAR_CINE_QUERY = "INSERT INTO cine (nombre_cine, id_usuario, fecha_creacion) VALUES (?,?,?)";
     private static final String ENCONTRAR_CINE_QUERY = "SELECT * FROM cine WHERE nombre_cine = ?";
+    private static final String EXISTE_CINEID_QUERY = "SELECT * FROM cine WHERE id_cine = ?";
     private static final String VERIFICAR_USUARIO_CINE_QUERY = "SELECT * FROM cine WHERE id_usuario = ?";
     private static final String OBTENER_CINE_ADMINISTRADOR_QUERY = "SELECT id_cine FROM cine WHERE id_usuario = ?";
-
+    private static final String ACTUALIZAR_CINE_QUERY = "UPDATE cine SET nombre_cine = ?, id_usuario = ?, fecha_creacion = ?, costo_cine = ? "
+            + "WHERE id_cine = ?";
+    private static final String ELIMINAR_CINE_QUERY = "DELETE FROM cine WHERE id_cine = ?";
+    
     public void crearCine(Cine cine) {
 
         try (Connection connection = Conexion.getInstance().getConnect(); 
@@ -54,6 +59,24 @@ public class CineDBA {
         return false;
     }
 
+    public boolean existeCineID(Integer idCine) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement query = connection.prepareStatement(EXISTE_CINEID_QUERY)) {
+
+            query.setInt(1, idCine);
+            ResultSet resultSet = query.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public boolean adminAsigandoCine(int idUsuario) {
 
         try (Connection connection = Conexion.getInstance().getConnect(); 
@@ -90,5 +113,36 @@ public class CineDBA {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public void actualizarCine(UpdateCineRequest updateCineRequest) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement update = connection.prepareStatement(ACTUALIZAR_CINE_QUERY)){
+            
+            update.setString(1, updateCineRequest.getNombreCine());
+            update.setInt(2, updateCineRequest.getIdUsuario());
+            update.setDate(3, Date.valueOf(updateCineRequest.getFechaCreacion()));
+            update.setDouble(4, updateCineRequest.getCostoCine());
+            update.setInt(5, updateCineRequest.getIdCine());
+            update.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void eliminarCine(int idCine) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect(); 
+                PreparedStatement delete = connection.prepareStatement(ELIMINAR_CINE_QUERY)) {
+
+            delete.setInt(1, idCine);
+            delete.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

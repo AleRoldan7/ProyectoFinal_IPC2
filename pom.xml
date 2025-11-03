@@ -11,6 +11,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jakartaee>10.0.0</jakartaee>
         <restapi>4.0.0-M4</restapi>
+        <jersey.version>3.1.11</jersey.version>
     </properties>
     
     <dependencies>
@@ -27,6 +28,12 @@
             <version>3.18.0</version>
         </dependency>
         
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        
         <!-- the REST API -->
         <dependency>
             <groupId>jakarta.ws.rs</groupId>
@@ -38,22 +45,23 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
-            <version>${restapi}</version>
+            <version>${jersey.version}</version>
         </dependency>
-
+        
         <!-- also needed for dependency injection -->
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
-            <version>${restapi}</version>
+            <version>${jersey.version}</version>
         </dependency>
 
         <!-- support for using Jackson (JSON) with Jersey -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${restapi}</version>
+            <version>${jersey.version}</version>
         </dependency>
+
 
         <!-- -->
         <dependency>
@@ -75,23 +83,22 @@
             <version>9.2.0</version>
         </dependency>
         
-        <dependency>
-            <groupId>com.jwebmp.jpms.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-datetime</artifactId>
-            <version>0.68.0.1</version>
-            <type>jar</type>
-        </dependency>
         
-         <!-- Database pool -->
-         <dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+
+        
+        <!-- Database pool -->
+        <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
             <version>11.0.13</version>
-             <type>jar</type>
-         </dependency>
+            <type>jar</type>
+        </dependency>
     </dependencies>
-    
-    
     
     <build>
         <plugins>

@@ -12,39 +12,29 @@ import java.time.LocalDate;
  * @author alejandro
  */
 public class Anuncio {
-    
-    private Integer idAnuncio;
-    private TipoAnuncio tipoAnuncio;
-    private String mensajeAnuncio;
-    private int idUsuario;
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
-    private Integer diasVigente;
-    private boolean anuncioVencido = false;
-    private boolean anuncioActivo = false;
 
-    public Anuncio(Integer idAnuncio, TipoAnuncio tipoAnuncio, String mensajeAnuncio, int idUsuario, LocalDate fechaInicio, 
-            LocalDate fechaFin, Integer diasVigente) {
+    protected Integer idAnuncio;
+    protected TipoAnuncio tipoAnuncio;
+    protected String mensajeAnuncio;
+    protected int idUsuario;
+    protected LocalDate fechaInicio;
+    protected Integer diasVigente;
+    protected boolean anuncioVencido = false;
+    protected boolean anuncioActivo = true;
+    protected double precio;
+
+    public Anuncio() {
+    }
+
+    public Anuncio(Integer idAnuncio, TipoAnuncio tipoAnuncio, String mensajeAnuncio, int idUsuario,
+            LocalDate fechaInicio, Integer diasVigente, double precio) {
         this.idAnuncio = idAnuncio;
         this.tipoAnuncio = tipoAnuncio;
         this.mensajeAnuncio = mensajeAnuncio;
         this.idUsuario = idUsuario;
         this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
         this.diasVigente = diasVigente;
-    }
-
-    public Anuncio() {
-    }
-
-    public Anuncio(TipoAnuncio tipoAnuncio, String mensajeAnuncio, int idUsuario, LocalDate fechaInicio, 
-            LocalDate fechaFin, Integer diasVigente) {
-        this.tipoAnuncio = tipoAnuncio;
-        this.mensajeAnuncio = mensajeAnuncio;
-        this.idUsuario = idUsuario;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.diasVigente = diasVigente;
+        this.precio = precio;
     }
 
     public Integer getIdAnuncio() {
@@ -87,14 +77,6 @@ public class Anuncio {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
     public Integer getDiasVigente() {
         return diasVigente;
     }
@@ -118,6 +100,13 @@ public class Anuncio {
     public void setAnuncioActivo(boolean anuncioActivo) {
         this.anuncioActivo = anuncioActivo;
     }
-    
-    
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
 }
