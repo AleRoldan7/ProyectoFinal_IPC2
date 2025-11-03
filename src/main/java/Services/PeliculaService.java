@@ -7,8 +7,9 @@ package Services;
 import ConexionDBA.CineDBA;
 import ConexionDBA.PeliculaDBA;
 import ConexionDBA.SalaDBA;
-import Dtos.Cine.NewPeliculaRequest;
+import Dtos.Pelicula.NewPeliculaRequest;
 import Dtos.Cine.NewPeliculaSalaRequest;
+import Dtos.Pelicula.UpdatePeliculaRequest;
 import Excepciones.DatosInvalidos;
 import Excepciones.EntidadNotFound;
 import Excepciones.EntityExists;
@@ -62,6 +63,7 @@ public class PeliculaService {
     }
 
     public void agregarPeliculaSala(NewPeliculaSalaRequest request) throws DatosInvalidos, EntidadNotFound {
+
         if (request.getIdSala() == null || request.getIdPelicula() == null) {
             throw new DatosInvalidos("Faltan datos para asignar la película");
         }
@@ -72,6 +74,22 @@ public class PeliculaService {
         }
 
         peliculaDBA.asignarPeliculaSala(idSalaCine, request.getIdPelicula());
+    }
+
+    public void actualizarPelicula(UpdatePeliculaRequest updatePeliculaRequest) throws DatosInvalidos, EntidadNotFound, EntityExists {
+
+        if (updatePeliculaRequest.getIdPelicula() == null || updatePeliculaRequest.getIdPelicula() <= 0) {
+            throw new DatosInvalidos("El ID de la película no es válido.");
+        }
+
+        if (!peliculaDBA.existePeliculaPorId(updatePeliculaRequest.getIdPelicula())) {
+            throw new EntidadNotFound(
+                    String.format("No se encontró ninguna película con ID = %d", updatePeliculaRequest.getIdPelicula())
+            );
+        }
+
+        peliculaDBA.actualizarPelicula(updatePeliculaRequest);
+
     }
 
 }

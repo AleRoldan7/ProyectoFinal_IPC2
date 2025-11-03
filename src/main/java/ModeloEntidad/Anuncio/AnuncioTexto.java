@@ -11,11 +11,15 @@ import java.time.LocalDate;
  *
  * @author alejandro
  */
-public class AnuncioTexto extends Anuncio{
+public class AnuncioTexto extends Anuncio {
 
-    public AnuncioTexto(String mensajeAnuncio, int idUsuario, LocalDate fechaInicio, LocalDate fechaFin, Integer diasVigente) {
-        super(TipoAnuncio.TEXTO, mensajeAnuncio, idUsuario, fechaInicio, fechaFin, diasVigente);
+    public AnuncioTexto(Integer idAnuncio, String mensajeAnuncio, int idUsuario,
+            LocalDate fechaInicio, Integer diasVigente, double precio) {
+        super(idAnuncio, TipoAnuncio.TEXTO, mensajeAnuncio, idUsuario, fechaInicio, diasVigente, precio);
     }
-    
-    
+
+    public AnuncioTexto() {
+        this.tipoAnuncio = TipoAnuncio.TEXTO;
+    }
+
 }

@@ -8,6 +8,7 @@ import ConexionDBA.UsuarioDBA;
 import Dtos.Usuario.NewUsuarioRequest;
 import Excepciones.DatosInvalidos;
 import Excepciones.EntityExists;
+import ModeloEntidad.Usuario.Usuario;
 import Services.UsuarioService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
@@ -32,7 +33,10 @@ public class UsuariosController {
     @Context
     UriInfo uriInfo;
 
+    private UsuarioDBA usuarioDBA = new UsuarioDBA();
+
     @POST
+    @Path("/crearUsuario")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response crearUsuario(NewUsuarioRequest newUsuarioRequest) {
         UsuarioService usuarioService = new UsuarioService();
@@ -57,8 +61,6 @@ public class UsuariosController {
             @PathParam("rolUsuario") String rol,
             @FormParam("cantidadRecarga") double cantidadRecarga) {
 
-        UsuarioDBA usuarioDBA = new UsuarioDBA();
-
         if (cantidadRecarga <= 0) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(Map.of("error", "La cantidad de recarga debe ser mayor a 0."))
@@ -68,12 +70,43 @@ public class UsuariosController {
         try {
             usuarioDBA.recargarCartera(userName, cantidadRecarga);
             return Response.ok(Map.of("message", "Cartera recargada exitosamente")).build();
-            
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity(Map.of("error", "Error inesperado: " + e.getMessage()))
                     .build();
         }
+    }
+
+    @GET
+    @Path("/{cartera-usuario}/{userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response saldoUsuario(@PathParam("userName") String userName) {
+
+        try {
+
+            Usuario usuario = usuarioDBA.obtenerUsuario(userName);
+
+            if (usuario == null) {
+
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity(Map.of("error", "No existe el usuario"))
+                        .build();
+            } else {
+
+                return Response.ok(Map.of(
+                        "usuario", usuario.getUserName(),
+                        "saldo", usuario.getDineroCartera()
+                )).build();
+
+            }
+        } catch (Exception e) {
+            
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(Map.of("error", "Error al obtener el saldo: " + e.getMessage()))
+                .build();
+        }
+
     }
 
 }
