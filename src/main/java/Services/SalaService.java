@@ -6,8 +6,10 @@ package Services;
 
 import ConexionDBA.CineDBA;
 import ConexionDBA.SalaDBA;
-import Dtos.Cine.NewSalaRequest;
+import Dtos.Sala.NewSalaRequest;
+import Dtos.Sala.UpdateSalaRequest;
 import Excepciones.DatosInvalidos;
+import Excepciones.EntidadNotFound;
 import Excepciones.EntityExists;
 import ModeloEntidad.Cine.Sala;
 import java.time.LocalDate;
@@ -18,8 +20,9 @@ import java.time.LocalDate;
  */
 public class SalaService {
 
+    private  SalaDBA salaDBA = new SalaDBA();
+    
     public Sala crearSala(NewSalaRequest newSalaRequest) throws DatosInvalidos, EntityExists {
-        SalaDBA salaDBA = new SalaDBA();
 
         Sala entidadSala = extraer(newSalaRequest);
 
@@ -63,6 +66,22 @@ public class SalaService {
         } catch (Exception e) {
             throw new DatosInvalidos("Error en los datos enviados" + e.getMessage());
         }
+
+    }
+
+    public void actualizarSala(UpdateSalaRequest updateSalaRequest) throws DatosInvalidos, EntidadNotFound, EntityExists {
+
+        if (updateSalaRequest.getIdSala() == null || updateSalaRequest.getIdSala() <= 0) {
+            throw new DatosInvalidos("El ID de la sala no es válido.");
+        }
+
+        if (!salaDBA.existeSalaID(updateSalaRequest.getIdSala())) {
+            throw new EntidadNotFound(
+                    String.format("No se encontró ninguna sala con ID = %d", updateSalaRequest.getIdSala())
+            );
+        }
+
+        salaDBA.actualizarSala(updateSalaRequest);
 
     }
 

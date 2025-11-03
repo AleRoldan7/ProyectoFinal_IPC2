@@ -26,8 +26,6 @@ public class Conexion {
     private static Conexion instance;
     private DataSource dataSource;
 
-    private Connection connection;
-
     private Conexion() {
 
         try {
@@ -80,18 +78,20 @@ public class Conexion {
         }
         return instance;
     }
-
-    public void closeConnection() {
+    
+    public void cerrarPool() {
+    if (dataSource != null) {
         try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-                connection = null;
-                instance = null;
-                System.out.println("Conexión cerrada correctamente");
-            }
-        } catch (SQLException e) {
+            dataSource.close();  // Cierra todas las conexiones activas y el pool
+            dataSource = null;
+            instance = null;     // Reinicia la instancia singleton
+            System.out.println("Pool de conexiones cerrado correctamente.");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+}
 
+
+    
 }

@@ -16,6 +16,7 @@ import java.time.LocalDate;
  */
 public class CineResponse {
 
+    private Integer idCine;
     private String nombreCine;
     private double costoCine;
     private int idUsuario;
@@ -24,10 +25,19 @@ public class CineResponse {
     private LocalDate fechaCreacion;
 
     public CineResponse(Cine cine) {
+        this.idCine = cine.getIdCine();
         this.nombreCine = cine.getNombreCine();
         this.costoCine = cine.getCostoCine();
         this.idUsuario = cine.getIdUsuario();
         this.fechaCreacion = cine.getFechaCreacion();
+    }
+
+    public Integer getIdCine() {
+        return idCine;
+    }
+
+    public void setIdCine(Integer idCine) {
+        this.idCine = idCine;
     }
 
     public String getNombreCine() {

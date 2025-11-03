@@ -4,6 +4,7 @@
  */
 package ModeloEntidad.Cine;
 
+import java.io.InputStream;
 import java.time.LocalTime;
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,10 +20,10 @@ public class Pelicula {
     private LocalTime duracionPelicula;
     private String castPelicula;
     private String directorPelicula;
-    private byte[] posterPelicula;
+    private InputStream posterPelicula;
 
-    public Pelicula(String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula, String castPelicula,
-            String directorPelicula, byte[] posterPelicula) {
+    public Pelicula(String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula, String castPelicula, String directorPelicula, 
+            InputStream posterPelicula) {
         this.tituloPelicula = tituloPelicula;
         this.sinopsisPelicula = sinopsisPelicula;
         this.duracionPelicula = duracionPelicula;
@@ -31,12 +32,13 @@ public class Pelicula {
         this.posterPelicula = posterPelicula;
     }
 
+   
     public Pelicula() {
 
     }
 
-    public Pelicula(Integer idPelicula, String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula,
-            String castPelicula, String directorPelicula, byte[] posterPelicula) {
+    public Pelicula(Integer idPelicula, String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula, String castPelicula, 
+            String directorPelicula, InputStream posterPelicula) {
         this.idPelicula = idPelicula;
         this.tituloPelicula = tituloPelicula;
         this.sinopsisPelicula = sinopsisPelicula;
@@ -94,11 +96,11 @@ public class Pelicula {
         this.directorPelicula = directorPelicula;
     }
 
-    public byte[] getPosterPelicula() {
+    public InputStream getPosterPelicula() {
         return posterPelicula;
     }
 
-    public void setPosterPelicula(byte[] posterPelicula) {
+    public void setPosterPelicula(InputStream posterPelicula) {
         this.posterPelicula = posterPelicula;
     }
 

@@ -6,7 +6,9 @@ package Services;
 
 import ConexionDBA.CineDBA;
 import Dtos.Cine.NewCineRequest;
+import Dtos.Cine.UpdateCineRequest;
 import Excepciones.DatosInvalidos;
+import Excepciones.EntidadNotFound;
 import Excepciones.EntityExists;
 import ModeloEntidad.Cine.Cine;
 import java.time.LocalDate;
@@ -17,10 +19,10 @@ import java.time.LocalDate;
  */
 public class CineService {
     
+    private CineDBA cineDBA = new CineDBA();
     
     public Cine crearCine(NewCineRequest newCineRequest) throws DatosInvalidos, EntityExists {
-        CineDBA cineDBA = new CineDBA();
-
+        
         Cine entidadCine = extraer(newCineRequest);
 
         if (cineDBA.adminAsigandoCine(entidadCine.getIdUsuario())) {
@@ -60,6 +62,22 @@ public class CineService {
         } catch (Exception e) {
             throw new DatosInvalidos("Error en los datos enviados" + e.getMessage());
         }
+
+    }
+    
+    public void actualizarCine(UpdateCineRequest updateCineRequest) throws DatosInvalidos, EntidadNotFound, EntityExists {
+
+        if (updateCineRequest.getIdCine()== null || updateCineRequest.getIdCine()<= 0) {
+            throw new DatosInvalidos("El ID de la película no es válido.");
+        }
+
+        if (!cineDBA.existeCineID(updateCineRequest.getIdCine())) {
+            throw new EntidadNotFound(
+                    String.format("No se encontró ningun cine con ID = %d", updateCineRequest.getIdCine())
+            );
+        }
+
+        cineDBA.actualizarCine(updateCineRequest);
 
     }
 
