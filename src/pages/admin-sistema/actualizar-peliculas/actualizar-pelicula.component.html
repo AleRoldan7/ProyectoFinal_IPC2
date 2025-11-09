@@ -1,0 +1,120 @@
+<div class="container">
+  <h2>Gestión de Películas</h2>
+  
+  <!-- Barra de búsqueda y acciones -->
+  <div class="toolbar">
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="terminoBusqueda" placeholder="Buscar películas por título..." 
+             (keyup.enter)="buscarPeliculas()">
+      <button (click)="buscarPeliculas()">Buscar</button>
+      <button (click)="cargarPeliculas()" class="btn-refresh">Actualizar</button>
+    </div>
+    <button class="btn-primary" (click)="nuevaPelicula()">+ Nueva Película</button>
+  </div>
+
+  <!-- Lista de Películas -->
+  <div class="peliculas-list" *ngIf="!mostrarFormulario && !mostrarAsignacion">
+    <div *ngIf="cargando" class="loading">Cargando películas...</div>
+    
+    <div *ngIf="!cargando && peliculas.length === 0" class="no-data">
+      <p>No hay películas registradas</p>
+      <button (click)="cargarPeliculas()" class="btn-refresh">Reintentar Carga</button>
+    </div>
+
+    <div class="pelicula-card" *ngFor="let pelicula of peliculas">
+      <div class="pelicula-info">
+        <h4>{{ pelicula.tituloPelicula }}</h4>
+        <p><strong>ID:</strong> {{ pelicula.idPelicula }}</p>
+        <p><strong>Duración:</strong> {{ pelicula.duracionPelicula }}</p>
+        <p><strong>Director:</strong> {{ pelicula.directorPelicula || 'No especificado' }}</p>
+        <p><strong>Cast:</strong> {{ pelicula.castPelicula || 'No especificado' }}</p>
+        <p class="sinopsis"><strong>Sinopsis:</strong> {{ (pelicula.sinopsisPelicula || 'Sin sinopsis').substring(0, 150) }}...</p>
+      </div>
+      <div class="pelicula-actions">
+        <button class="btn-editar" (click)="editarPelicula(pelicula)">Editar</button>
+        <button class="btn-asignar" (click)="abrirAsignacion(pelicula)">Asignar a Sala</button>
+        <button class="btn-eliminar" (click)="eliminarPelicula(pelicula.idPelicula, pelicula.tituloPelicula)">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario de Película -->
+  <div class="form-container" *ngIf="mostrarFormulario">
+    <h3>{{ esEdicion ? ' Editar' : ' Nueva' }} Película</h3>
+    
+    <form (ngSubmit)="guardarPelicula()">
+      <div class="form-group" *ngIf="esEdicion">
+        <label>ID Película:</label>
+        <input type="number" [(ngModel)]="peliculaSeleccionada.idPelicula" name="idPelicula" readonly class="readonly">
+      </div>
+
+      <div class="form-group">
+        <label>Título *:</label>
+        <input type="text" [(ngModel)]="peliculaSeleccionada.tituloPelicula" name="tituloPelicula" 
+               placeholder="Ingresa el título de la película" required>
+      </div>
+
+      <div class="form-group">
+        <label>Sinopsis:</label>
+        <textarea [(ngModel)]="peliculaSeleccionada.sinopsisPelicula" name="sinopsisPelicula" 
+                  rows="4" placeholder="Describe la sinopsis de la película..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Duración (HH:mm) *:</label>
+        <input type="time" [(ngModel)]="peliculaSeleccionada.duracionPelicula" name="duracionPelicula" required>
+      </div>
+
+      <div class="form-group">
+        <label>Cast (actores):</label>
+        <input type="text" [(ngModel)]="peliculaSeleccionada.castPelicula" name="castPelicula" 
+               placeholder="Ej: Actor1, Actor2, Actor3">
+      </div>
+
+      <div class="form-group">
+        <label>Director:</label>
+        <input type="text" [(ngModel)]="peliculaSeleccionada.directorPelicula" name="directorPelicula" 
+               placeholder="Nombre del director">
+      </div>
+
+      <div class="form-group">
+        <label>Poster {{ esEdicion ? '(Opcional - dejar vacío para mantener actual)' : '*' }}:</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        <small *ngIf="!esEdicion">El poster es obligatorio para crear una película</small>
+        <small>Formatos aceptados: JPG, PNG, GIF</small>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">
+          {{ esEdicion ? 'Actualizar' : 'Crear' }} Película
+        </button>
+        <button type="button" (click)="cancelar()" class="btn-secondary">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal para asignar película a sala -->
+  <div class="form-container" *ngIf="mostrarAsignacion">
+    <h3>🎭 Asignar Película a Sala</h3>
+    
+    <div class="asignacion-info">
+      <p><strong>Película ID:</strong> {{ idPeliculaAsignar }}</p>
+      <p>Ingresa el ID de la sala donde quieres asignar esta película:</p>
+    </div>
+
+    <form (ngSubmit)="asignarPeliculaSala()">
+      <div class="form-group">
+        <label>ID Sala *:</label>
+        <input type="number" [(ngModel)]="idSalaAsignar" name="idSalaAsignar" 
+               placeholder="Ej: 1, 2, 3..." min="1" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">🎭 Asignar a Sala</button>
+        <button type="button" (click)="cancelar()" class="btn-secondary">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

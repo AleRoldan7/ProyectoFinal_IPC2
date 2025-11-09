@@ -25,6 +25,7 @@ import { ReporteSalaMasGustadaComponent } from '../components/reportes/reporte-m
 import { ReporteSistemaComponent } from '../components/reportes/reportes-sistema/reporte-sistema.component';
 import { BloquearComponent } from '../pages/admin-cine/bloquear/bloquear.component';
 import { ActualizarSalaComponent } from '../pages/admin-cine/actualizar-salas/actualizar-sala.component';
+import { ActualizarPeliculaComponent } from '../pages/admin-sistema/actualizar-peliculas/actualizar-pelicula.component';
 
 export const routes: Routes = [
     {
@@ -175,6 +176,12 @@ export const routes: Routes = [
         component: ActualizarSalaComponent,
         canActivate: [authGuard],
         data: { roles: ['ADMIN_CINE'] },
+    },
+    {
+        path: 'actualizar-pelicula',
+        component: ActualizarPeliculaComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_SISTEMA'] },
     },
     {
         path: '**',
