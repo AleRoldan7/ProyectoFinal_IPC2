@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SessionService } from '../../../services/session-service/session-service';
+import { ProyeccionService } from '../../../services/proyeccion/proyeccion-service';
 
 @Component({
   selector: 'app-agregar-pelicula-sala',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './agregar-pelicula-sala.component.html',
   styleUrl: './agregar-pelicula-sala.component.css',
 })
@@ -17,10 +18,14 @@ export class AgregarPeliculaSalaComponent implements OnInit {
   salas: any[] = [];
   salaSeleccionada: any = null;
   peliculaSeleccionada: any = null;
+  horaProyeccion: string = '19:00';
+  fechaInicio: string = '';
+  fechaFin: string = '';
+  precio: number = 50.00;
   mensaje: string = '';
   tipoMensaje: 'success' | 'danger' | '' = '';
 
-  constructor(private lista: Lista, private peliculaService: PeliculaServices, private sessionService: SessionService) {}
+  constructor(private lista: Lista, private proyectar: ProyeccionService, private sessionService: SessionService) {}
 
   ngOnInit(): void {
     const usuario = this.sessionService.obtenerUser();
@@ -56,26 +61,44 @@ export class AgregarPeliculaSalaComponent implements OnInit {
     });
   }
 
-  asignarPelicula() {
+  asignarProyeccion() {
     if (!this.salaSeleccionada || !this.peliculaSeleccionada) {
-      this.mensaje = 'Debe seleccionar una sala y una película';
+      this.mensaje = 'Selecciona sala y película';
       this.tipoMensaje = 'danger';
       return;
     }
 
-    this.peliculaService
-      .agregarPeliculaSala(this.salaSeleccionada.idSala, this.peliculaSeleccionada.idPelicula)
-      .subscribe({
-        next: (response) => {
-          console.log('Respuesta backend al asignar película:', response);
-          this.mensaje = response.exito || 'Película asignada correctamente';
-          this.tipoMensaje = 'success';
-        },
-        error: (err) => {
-          console.error(err);
-          this.mensaje = 'Error al asignar la película';
-          this.tipoMensaje = 'danger';
-        },
-      });
+    const usuario = this.sessionService.obtenerUser();
+    const payload = {
+      idUsuario: usuario.idUsuario,
+      idSala: this.salaSeleccionada.idSala,
+      idPelicula: this.peliculaSeleccionada.idPelicula,
+      hora: this.horaProyeccion,
+      fechaInicio: this.fechaInicio,
+      fechaFin: this.fechaFin,
+      precio: this.precio
+    };
+
+    console.log('ENVIANDO PROYECCIÓN:', payload);
+
+    this.proyectar.crearProyeccion(payload).subscribe({
+      next: (res) => {
+        this.mensaje = res.exito || '¡Proyección creada con éxito!';
+        this.tipoMensaje = 'success';
+        this.limpiarFormulario();
+      },
+      error: (err) => {
+        this.mensaje = err.error?.error || 'Error al crear proyección';
+        this.tipoMensaje = 'danger';
+      }
+    });
   }
+
+  limpiarFormulario() {
+    this.peliculaSeleccionada = null;
+    this.horaProyeccion = '19:00';
+    this.precio = 50.00;
+  }
+
+  
 }

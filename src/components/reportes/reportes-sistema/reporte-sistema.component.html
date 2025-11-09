@@ -1,0 +1,137 @@
+<!-- src/app/components/reporte-sistema/reporte-sistema.component.html -->
+<div class="container-fluid mt-4 px-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white text-center">
+      <h1 class="mb-0">REPORTES DEL SISTEMA</h1>
+      <h4>{{ nombreCine }} | ADMINISTRADOR DEL SISTEMA</h4>
+    </div>
+
+    <div class="card-body">
+      <!-- Filtros -->
+      <form class="row g-3 mb-4" (ngSubmit)="generarReporte()">
+        <!-- Selección de Tipo de Reporte -->
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Tipo de Reporte</label>
+          <select class="form-control form-control-lg" [(ngModel)]="tipoReporte" name="tipoReporte">
+            <option value="ganancias">Reporte de Ganancias</option>
+            <option value="anuncios">Reporte de Anuncios</option>
+            <option value="ganancias-anunciante">Ganancias por Anunciante</option>
+            <option value="salas-populares">Salas Más Populares</option>
+            <option value="salas-comentadas">Salas Más Comentadas</option>
+          </select>
+        </div>
+
+        <!-- Fechas -->
+        <div class="col-md-2">
+          <label class="form-label fw-bold">Fecha Inicio</label>
+          <input type="date" class="form-control form-control-lg" [(ngModel)]="fechaInicio" name="fechaInicio">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label fw-bold">Fecha Fin</label>
+          <input type="date" class="form-control form-control-lg" [(ngModel)]="fechaFin" name="fechaFin">
+        </div>
+
+        <!-- Filtros Específicos para Reporte de Anuncios -->
+        <div class="col-md-2" *ngIf="tipoReporte === 'anuncios'">
+          <label class="form-label fw-bold">Tipo Anuncio</label>
+          <select class="form-control form-control-lg" [(ngModel)]="tipoAnuncio" name="tipoAnuncio">
+            <option value="">Todos</option>
+            <option value="TEXTO">Texto</option>
+            <option value="TEXTO_IMAGEN">Texto e Imagen</option>
+            <option value="TEXTO_VIDEO">Texto y Video</option>
+          </select>
+        </div>
+
+        <div class="col-md-2" *ngIf="tipoReporte === 'anuncios'">
+          <label class="form-label fw-bold">Periodo</label>
+          <select class="form-control form-control-lg" [(ngModel)]="periodo" name="periodo">
+            <option value="">Todos</option>
+            <option value="1">1 día</option>
+            <option value="3">3 días</option>
+            <option value="7">1 semana</option>
+            <option value="14">2 semanas</option>
+          </select>
+        </div>
+
+        <!-- Filtros para Ganancias por Anunciante -->
+        <div class="col-md-2" *ngIf="tipoReporte === 'ganancias-anunciante'">
+          <label class="form-label fw-bold">ID Anunciante</label>
+          <input type="number" class="form-control form-control-lg" [(ngModel)]="idAnunciante" name="idAnunciante" placeholder="Ej: 1">
+        </div>
+
+        <!-- Filtros para Salas -->
+        <div class="col-md-2" *ngIf="tipoReporte === 'salas-populares' || tipoReporte === 'salas-comentadas'">
+          <label class="form-label fw-bold">ID Cine</label>
+          <input type="number" class="form-control form-control-lg" [(ngModel)]="idCine" name="idCine" placeholder="Ej: 1">
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end gap-2">
+          <button type="submit" class="btn btn-success btn-lg px-4" [disabled]="isLoading">
+            {{ isLoading ? 'GENERANDO...' : 'FILTRAR' }}
+          </button>
+          <button type="button" class="btn btn-warning btn-lg px-4" (click)="limpiarFiltros()">LIMPIAR</button>
+          <button type="button" class="btn btn-danger btn-lg px-4" (click)="descargarPDF()" 
+                  [disabled]="!tieneDatosReporte()">
+            PDF
+          </button>
+          <button type="button" class="btn btn-info btn-lg px-4" routerLink="/admin-sistema">REGRESAR</button>
+        </div>
+      </form>
+
+      <!-- Resto del HTML se mantiene igual -->
+      <!-- Reporte de Anuncios -->
+      <div *ngIf="tipoReporte === 'anuncios' && reporteAnuncios.length > 0" class="mt-4">
+        <h3 class="text-center mb-4">REPORTE DE ANUNCIOS</h3>
+        
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark">
+              <tr class="text-center">
+                <th>ID</th>
+                <th>TIPO</th>
+                <th>ANUNCIANTE</th>
+                <th>MENSAJE</th>
+                <th>FECHA INICIO</th>
+                <th>FECHA FIN</th>
+                <th>DÍAS</th>
+                <th>COSTO</th>
+                <th>ESTADO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of reporteAnuncios">
+                <td class="text-center">{{ item.idAnuncio }}</td>
+                <td class="text-center">
+                  <span [class]="getBadgeClass(item.tipoAnuncio)" class="badge">
+                    {{ item.tipoAnuncio }}
+                  </span>
+                </td>
+                <td>{{ item.anunciante }}</td>
+                <td>{{ item.mensaje | slice:0:50 }}{{ item.mensaje?.length > 50 ? '...' : '' }}</td>
+                <td class="text-center">{{ item.fechaInicio | date:'dd/MM/yyyy' }}</td>
+                <td class="text-center">{{ item.fechaFin | date:'dd/MM/yyyy' }}</td>
+                <td class="text-center">{{ item.diasVigente }}</td>
+                <td class="text-success fw-bold text-center">{{ item.costo | currency:'Q ' }}</td>
+                <td class="text-center">
+                  <span [class]="item.activo ? 'badge bg-success' : 'badge bg-secondary'">
+                    {{ item.activo ? 'ACTIVO' : 'INACTIVO' }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-end mt-4 p-4 bg-light rounded shadow">
+          <h3 class="text-primary">
+            TOTAL ANUNCIOS: <strong>{{ reporteAnuncios.length }}</strong>
+          </h3>
+          <h4 class="text-success">Ingresos por anuncios: {{ getTotalAnuncios() | currency:'Q ' }}</h4>
+        </div>
+      </div>
+
+      <!-- Los demás reportes se mantienen igual -->
+      <!-- ... -->
+
+    </div>
+  </div>
+</div>

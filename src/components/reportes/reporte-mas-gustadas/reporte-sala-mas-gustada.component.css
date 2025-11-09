@@ -1,0 +1,23 @@
+.card-header {
+  background: linear-gradient(90deg, #0d6efd, #0b5ed7) !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.btn-success { background-color: #198754; }
+.btn-warning { background-color: #ffc107; color: #212529; }
+.btn-danger { background-color: #dc3545; }
+
+.table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.badge {
+  font-size: 1.1rem;
+  padding: 0.4em 0.8em;
+}
+
+.text-warning {
+  font-size: 1.2rem;
+}

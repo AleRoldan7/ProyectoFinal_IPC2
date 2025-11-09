@@ -1,49 +1,80 @@
-<div
-  *ngIf="mensaje"
-  class="alert"
-  [ngClass]="{
-    'alert-success': tipoMensaje === 'success',
-    'alert-danger': tipoMensaje === 'danger'
-  }"
->
-  {{ mensaje }}
+<!-- ENCABEZADO OFICIAL USAC -->
+<div class="encabezado-usac text-center p-4 bg-white shadow-sm border-bottom border-primary border-5">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <div class="col">
+        <h1 class="text-primary fw-bold mb-0">Crear Sala</h1>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="container mt-4">
-  <h3>Crear Sala</h3>
+<!-- MENSAJE -->
+<div *ngIf="mensaje" class="container mt-4">
+  <div class="alert" [ngClass]="{'alert-success': tipoMensaje === 'success', 'alert-danger': tipoMensaje === 'danger'}">
+    {{ mensaje }}
+  </div>
+</div>
 
-  <div class="row">
-    <div class="col-md-6">
-      <label class="form-label">Nombre de la sala:</label>
-      <input type="text" [(ngModel)]="nombreSala" class="form-control" />
-
-      <label class="form-label mt-2">Filas de asientos:</label>
-      <input type="number" [(ngModel)]="filaSala" class="form-control" (input)="actualizarVista()" />
-
-      <label class="form-label mt-2">Columnas de asientos:</label>
-      <input type="number" [(ngModel)]="columnaSala" class="form-control" (input)="actualizarVista()" />
-
-      <label class="form-label mt-2">Fecha creación:</label>
-      <input type="date" [(ngModel)]="fechaCreacion" class="form-control" />
-
-      <button class="btn btn-primary mt-3" (click)="crearSala()">Crear Sala</button>
-      <a routerLink="/admin-cine" class="cartera-back mt-2 d-block">Regresar</a>
+<!-- FORMULARIO -->
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white text-center py-4">
+      <h3 class="mb-0 fw-bold">
+        Crear Nueva Sala de Cine
+      </h3>
     </div>
+    <div class="card-body p-5">
 
-    <div class="col-md-6 text-center mt-4">
-      <h5>Vista previa de la sala</h5>
-      <div
-        class="sala-preview"
-        [style.gridTemplateRows]="'repeat(' + filaSala + ', 40px)'"
-        [style.gridTemplateColumns]="'repeat(' + columnaSala + ', 40px)'"
-      >
-        <div
-          class="asiento"
-          *ngFor="let asiento of asientos"
-        >
-          <img src="https://media.istockphoto.com/id/615615944/es/foto/rojo-teatro-licencia.jpg?s=1024x1024&w=is&k=20&c=VIQZtYNR8bnHqT9-LCJZX63THP08P3EhUD-lCkM3lFM=" alt="asiento" class="asiento-img" />
+      <form (ngSubmit)="crearSala()" #salaForm="ngForm">
+
+        <!-- NOMBRE DE LA SALA -->
+        <div class="mb-4">
+          <label class="form-label text-primary fw-bold">Nombre de la Sala</label>
+          <input type="text" class="form-control form-control-lg" [(ngModel)]="nombreSala" name="nombreSala" required
+            #nombreInput="ngModel" placeholder="Ej: Sala VIP 1"
+            [class.is-invalid]="nombreInput.invalid && nombreInput.touched">
+          <div class="invalid-feedback">
+            El nombre es obligatorio
+          </div>
         </div>
-      </div>
+
+        <!-- FILAS Y COLUMNAS -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label class="form-label text-primary fw-bold">Número de Filas</label>
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="filaSala" name="filaSala" required
+              min="1" (input)="actualizarVista()" #filaInput="ngModel">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-primary fw-bold">Número de Columnas</label>
+            <input type="number" class="form-control form-control-lg" [(ngModel)]="columnaSala" name="columnaSala"
+              required min="1" (input)="actualizarVista()" #columnaInput="ngModel">
+          </div>
+        </div>
+
+        <!-- VISTA PREVIA -->
+        <div class="bg-light p-4 rounded text-center mb-4">
+          <p class="fw-bold mb-3">
+            Vista previa de asientos: {{ filaSala * columnaSala }} asientos
+          </p>
+          <div class="d-flex flex-wrap justify-content-center gap-1">
+            <div *ngFor="let asiento of asientos" class="asiento bg-secondary rounded">
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <a routerLink="/admin-cine" class="btn btn-outline-secondary btn-lg px-4">
+            ← Regresar
+          </a>
+          <button type="submit" class="btn btn-success btn-lg px-5" [disabled]="salaForm.invalid || !nombreSala.trim()">
+            Crear Sala
+          </button>
+        </div>
+
+      </form>
     </div>
   </div>
 </div>

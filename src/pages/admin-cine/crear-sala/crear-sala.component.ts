@@ -15,20 +15,22 @@ import { Sala } from '../../../models/sala';
 export class CrearSalaComponent {
 
   nombreSala: string = '';
-  filaSala: number = 0;
-  columnaSala: number = 0;
+  filaSala: number = 10;
+  columnaSala: number = 10;
   fechaCreacion: string = new Date().toISOString().split('T')[0];
   asientos: any[] = [];
   mensaje: string = '';
   tipoMensaje: 'success' | 'danger' | '' = '';
 
-  constructor(private salaService: SalaServices, private session: SessionService) { }
+  constructor(private salaService: SalaServices,private session: SessionService) {
+    this.actualizarVista();
+  }
 
   actualizarVista() {
-    const totalAsientos = this.filaSala * this.columnaSala;
-    this.asientos = Array(totalAsientos).fill(null);
+    const total = this.filaSala * this.columnaSala;
+    this.asientos = Array(total).fill(null);
   }
-  
+
   crearSala() {
     const usuario = this.session.obtenerUser();
     if (!usuario) {
@@ -37,28 +39,37 @@ export class CrearSalaComponent {
       return;
     }
 
-    const datosSala: Sala = {
-      idSala: 0,
+    if (!this.nombreSala?.trim()) {
+      this.mensaje = 'El nombre de la sala es obligatorio';
+      this.tipoMensaje = 'danger';
+      return;
+    }
+
+    const nuevaSala = {
       idUsuario: usuario.idUsuario,
-      nombreSala: this.nombreSala,
+      nombreSala: this.nombreSala.trim(),
       filaSala: this.filaSala,
       columnaSala: this.columnaSala,
       fechaCreacion: this.fechaCreacion
     };
 
-    this.salaService.crearSala(datosSala).subscribe({
+    this.salaService.crearSala(nuevaSala).subscribe({
       next: () => {
-        this.mensaje = 'Sala creada correctamente';
+        this.mensaje = '¡Sala creada exitosamente!';
         this.tipoMensaje = 'success';
-
-        this.nombreSala = '';
-        this.filaSala = 10;
-        this.columnaSala = 10;
+        this.limpiarFormulario();
       },
       error: (err) => {
-        this.mensaje = 'Error al crear sala: ' + err.message;
+        this.mensaje = 'Error: ' + (err.error?.error || 'Verifica los datos');
         this.tipoMensaje = 'danger';
       }
     });
+  }
+
+  limpiarFormulario() {
+    this.nombreSala = '';
+    this.filaSala = 10;
+    this.columnaSala = 10;
+    this.actualizarVista();
   }
 }

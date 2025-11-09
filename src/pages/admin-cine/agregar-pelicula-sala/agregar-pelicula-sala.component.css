@@ -1,0 +1,14 @@
+.encabezado-usac {
+  background: linear-gradient(135deg, #003366 0%, #00509e 100%);
+  color: white;
+}
+.encabezado-usac h1 { color: #ffc107; }
+.card { border-radius: 20px; overflow: hidden; }
+.btn-success {
+  background: linear-gradient(90deg, #28a745, #218838);
+  border: none;
+  border-radius: 12px;
+}
+.form-control-lg, .form-select-lg {
+  border-radius: 12px;
+}

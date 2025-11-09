@@ -1,61 +1,97 @@
-<div *ngIf="mensaje" class="alert" [ngClass]="{
-    'alert-success': tipoMensaje === 'success',
-    'alert-danger': tipoMensaje === 'danger'
-}">
-  {{ mensaje }}
+<div class="encabezado-usac text-center mb-5 p-4 bg-primary text-white">
+  <h1>COMPRAR BOLETOS</h1>
+  <h2>CARTELERA EN VIVO - NOVIEMBRE 2025</h2>
 </div>
 
-<div class="container mt-4">
-  <h3>Comprar Boletos</h3>
+<div *ngIf="mensaje" class="alert text-center mx-auto w-75"
+  [ngClass]="tipoMensaje === 'success' ? 'alert-success' : 'alert-danger'">
+  <h4>{{ mensaje }}</h4>
+</div>
 
-  <!-- Cine -->
-  <div class="mb-3">
-    <label>Cine:</label>
-    <select class="form-select" [(ngModel)]="cineElegido" (change)="cargarSalasPorCine()">
-      <option [ngValue]="null">-- Selecciona --</option>
-      <option *ngFor="let cine of cines" [ngValue]="cine">{{ cine.nombreCine }}</option>
-    </select>
-  </div>
-
-  <!-- Sala -->
-  <div class="mb-3" *ngIf="cineElegido">
-    <label>Sala:</label>
-    <select class="form-select" [(ngModel)]="salaElegida" (change)="cargarPeliculasPorSalaYCine()">
-      <option [ngValue]="null">-- Selecciona --</option>
-      <option *ngFor="let sala of salas" [ngValue]="sala">{{ sala.nombreSala }}</option>
-    </select>
-  </div>
-
-  <!-- Película -->
-  <div class="mb-3" *ngIf="salaElegida && peliculasDisponibles?.length">
-    <label>Película:</label>
-    <select class="form-select" [(ngModel)]="peliculaElegida" (change)="seleccionarPelicula()">
-      <option [ngValue]="null">-- Selecciona --</option>
-      <option *ngFor="let pelicula of peliculasDisponibles" [ngValue]="pelicula.idPeliculaSala">
-        {{ pelicula.tituloPelicula }}
-      </option>
-    </select>
-  </div>
-
-  <!-- Asientos -->
-  <div *ngIf="peliculaElegida">
-    <h5 class="text-center">Asientos disponibles</h5>
-    <div class="sala-preview"
-         [style.display]="'grid'"
-         [style.gridTemplateRows]="'repeat(' + salaElegida?.filaSala + ', 40px)'"
-         [style.gridTemplateColumns]="'repeat(' + salaElegida?.columnaSala + ', 40px)'">
-      <div class="asiento"
-           *ngFor="let asiento of asientos; let i = index"
-           [class.ocupado]="ocupados[i]"
-           [class.seleccionado]="asientos[i]"
-           (click)="toggleAsiento(i)">
+<div class="container my-5">
+  <!-- BUSCADOR -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-6">
+      <div class="input-group input-group-lg shadow">
+        <input type="text" class="form-control" placeholder="Buscar película por título..." [(ngModel)]="busqueda"
+          (keyup.enter)="buscar()">
+        <button class="btn btn-success" (click)="buscar()">Buscar</button>
       </div>
     </div>
+  </div>
 
-    <div class="mt-3">
-      <p>Boletos seleccionados: {{ asientoElegido.length }}</p>
-      <p>Total a pagar: ${{ totalCompra() }}</p>
-      <button class="btn btn-primary w-100" (click)="comprarBoletos()">Comprar Boletos</button>
+  <div *ngIf="mensaje" class="alert text-center"
+    [ngClass]="tipoMensaje === 'success' ? 'alert-success' : 'alert-danger'">
+    {{ mensaje }}
+  </div>
+
+  <!-- CARTELERA GLOBAL AGRUPADA POR CINE (SIN PIPE) -->
+  <div *ngIf="!funcionSeleccionada">
+    <div *ngFor="let grupo of carteleraAgrupada" class="mb-5">
+      <h2 class="text-primary text-center fw-bold mb-4">
+        {{ grupo.cine }}
+      </h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let f of grupo.funciones">
+          <div class="card h-100 shadow-lg border-0 hover-lift">
+            <img [src]="'data:image/jpeg;base64,' + f.poster" class="card-img-top"
+              style="height: 300px; object-fit: cover;">
+            <div class="card-body text-center">
+              <h5 class="card-title text-primary fw-bold">{{ f.titulo }}</h5>
+              <p class="card-text">
+                <strong>Sala:</strong> {{ f.sala }} ({{ f.filas }}x{{ f.columnas }})<br>
+                <strong>Hora:</strong> {{ f.hora }} | {{ f.duracion }} min<br>
+                <span class="text-success fw-bold fs-3">Q{{ f.precio }}</span>
+              </p>
+              <button class="btn btn-success btn-lg w-100 mt-3" (click)="seleccionarFuncion(f)">
+                COMPRAR BOLETOS
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+  
+  <div class="container" *ngIf="funcionSeleccionada">
+    <div class="card shadow-lg border-0">
+      <div class="card-header bg-primary text-white text-center">
+        <h3 class="mb-0">{{ funcionSeleccionada.titulo }} - {{ funcionSeleccionada.hora }}</h3>
+        <p class="mb-0">{{ funcionSeleccionada.cine }} | {{ funcionSeleccionada.sala }} | Precio: Q{{
+          funcionSeleccionada.precio }}</p>
+      </div>
+      <div class="card-body">
+        <div class="pantalla text-center mb-4">
+          <div class="bg-dark text-white p-3 rounded">PANTALLA</div>
+        </div>
+
+        <div class="sala mx-auto" [style.grid-template-rows]="'repeat(' + funcionSeleccionada.filas + ', 50px)'"
+          [style.grid-template-columns]="'repeat(' + funcionSeleccionada.columnas + ', 50px)'" [style.gap]="'10px'"
+          [style.max-width]="'fit-content'">
+          <div *ngFor="let asiento of asientos; let i = index" class="asiento" [class.ocupado]="ocupados[i]"
+            [class.seleccionado]="asientos[i]" (click)="toggleAsiento(i)">
+            <span *ngIf="ocupados[i]" class="text-danger fw-bold">X</span>
+            <span *ngIf="asientos[i] && !ocupados[i]" class="text-white fw-bold">✓</span>
+            <small *ngIf="!ocupados[i] && !asientos[i]" class="text-muted">
+              {{ filaColumna(i) }}
+            </small>
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <div class="row justify-content-center">
+            <div class="col-auto">
+              <p class="fs-4 mb-2">Boletos seleccionados: <strong>{{ seleccionados.length }}</strong></p>
+              <p class="fs-2 text-success fw-bold">Total: Q{{ total() }}</p>
+            </div>
+          </div>
+          <button class="btn btn-success btn-lg px-5" (click)="comprar()" [disabled]="seleccionados.length === 0">
+            COMPRAR AHORA
+          </button>
+          <button class="btn btn-secondary btn-lg ms-3 px-5" (click)="volverCartelera()">
+            VOLVER A CARTELERA
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

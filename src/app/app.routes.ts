@@ -15,6 +15,16 @@ import { AgregarPeliculaSalaComponent } from '../pages/admin-cine/agregar-pelicu
 import { CrearAnuncioComponent } from '../components/anuncios/crear-anuncio.component';
 import { AnunciosUsuarioComponent } from '../components/anuncios/anuncios-usuario/anuncios-usuario.component';
 import { ComprarBoletosComponent } from '../components/boletos/comprar-boletos.component';
+import { ReporteBoletoComponent } from '../components/reportes/reporte-boleto/reporte-boleto.component';
+import { ComentariosComponent } from '../components/comentarios/comentarios.component';
+import { PeliculasUsuarioComponent } from '../components/peliculas-usuario/peliculas-usuario.component';
+import { ReporteSalaComentarioComponent } from '../components/reportes/reporte-comentarios-sala/reporte-sala-comentario.component';
+import { SalasUsuarioComponent } from '../components/peliculas-usuario/salas-usuario/salas-usuario.component';
+import { ReportePeliculaProyectadaComponent } from '../components/reportes/reporte-pelicula/reporte-pelicula-proyectada.component';
+import { ReporteSalaMasGustadaComponent } from '../components/reportes/reporte-mas-gustadas/reporte-sala-mas-gustada.component';
+import { ReporteSistemaComponent } from '../components/reportes/reportes-sistema/reporte-sistema.component';
+import { BloquearComponent } from '../pages/admin-cine/bloquear/bloquear.component';
+import { ActualizarSalaComponent } from '../pages/admin-cine/actualizar-salas/actualizar-sala.component';
 
 export const routes: Routes = [
     {
@@ -103,12 +113,68 @@ export const routes: Routes = [
     {
         path: 'anuncios-usuario',
         component: AnunciosUsuarioComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ANUNCIANTE'] },
     },
     {
         path: 'comprar-boleto',
         component: ComprarBoletosComponent,
         canActivate: [authGuard],
         data: { roles: ['USUARIO_COMUN'] },
+    },
+    {
+        path: 'reporte/boleto',
+        component: ReporteBoletoComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_CINE'] },
+    },
+    {
+        path: 'reporte/sala-comentario',
+        component: ReporteSalaComentarioComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_CINE'] },
+    },
+    {
+        path: 'comentario',
+        component: PeliculasUsuarioComponent,
+        canActivate: [authGuard],
+        data: { roles: ['USUARIO_COMUN', 'ADMIN_CINE', 'ADMIN_SISTEMA'] }
+    },
+    {
+        path: 'comentario/sala',
+        component: SalasUsuarioComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_CINE'] },
+    },
+    {
+        path: 'reporte/pelicula-proyectada',
+        component: ReportePeliculaProyectadaComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_CINE'] },
+    },
+    {
+        path: 'reporte/salas-gustadas',
+        component: ReporteSalaMasGustadaComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_CINE'] },
+    },
+    {
+        path: 'reporte/sistema',
+        component: ReporteSistemaComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_SISTEMA'] },
+    },
+    {
+        path: 'bloquear',
+        component: BloquearComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_CINE'] },
+    },
+    {
+        path: 'actualizar-sala',
+        component: ActualizarSalaComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN_CINE'] },
     },
     {
         path: '**',

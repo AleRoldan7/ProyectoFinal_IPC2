@@ -18,17 +18,24 @@ export class ListasComponent implements OnInit {
   constructor(private listaService: Lista) { }
 
   ngOnInit(): void {
-    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-    if (usuario && usuario.idUsuario) {
-      this.listaSalasAdmin(usuario.idUsuario);
-    } else {
-      console.warn('No hay usuario logueado o falta idUsuario');
-    }
-    this.listaAdminCine();
+    this.listaCines();
     this.listaPeliculas();
+    this.listaSalas();
+    this.listaAdminCine();
+
+    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+    if (usuario?.idUsuario) {
+      this.listaSalasAdmin(usuario.idUsuario);
+    }
   }
 
-
+  listaCines() {
+    this.listaService.obtenerCines().subscribe({
+      next: (cines) => console.log('CINES:', cines),
+      error: (e) => console.error('Error cines:', e)
+    });
+  }
+  
   listaAdminCine() {
     this.listaService.obtenerAdminCine(this.rolUsuario).subscribe({
       next: (admin) => {

@@ -1,0 +1,73 @@
+<div class="container my-5">
+  <h1 class="text-center text-primary mb-5">Salas a las que Asistí</h1>
+
+  <!-- LISTA DE SALAS DONDE EL USUARIO ASISTIÓ -->
+  <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    <div class="col" *ngFor="let s of salas">
+      <div class="card h-100 shadow hover-lift cursor-pointer" (click)="seleccionarSala(s)">
+        <img [src]="'data:image/jpeg;base64,' + s.imagenSala" class="card-img-top" style="height: 250px; object-fit: cover;">
+        <div class="card-body text-center">
+          <h5 class="card-title">Sala {{ s.nombreSala }}</h5>
+          <p class="text-muted small">
+            {{ s.cine }} <br>
+            {{ s.hora }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETALLE DE SALA -->
+  <div *ngIf="salaSeleccionada" class="card">
+    <div class="card-header bg-primary text-white">
+      <h4>Sala {{ salaSeleccionada.nombreSala }}</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        
+        <!-- imagen -->
+        <div class="col-md-4">
+          <img [src]="'data:image/jpeg;base64,' + salaSeleccionada.imagenSala" class="img-fluid rounded">
+        </div>
+
+        <div class="col-md-8">
+          <p><strong>Cine:</strong> {{ salaSeleccionada.cine }}</p>
+          <p><strong>Función:</strong> {{ salaSeleccionada.hora }}</p>
+
+          <!-- COMENTARIOS -->
+          <h5 class="mt-4">Comentarios ({{ comentarios.length }})</h5>
+
+          <div *ngFor="let c of comentarios" class="border-bottom pb-2 mb-2">
+            <strong>{{ c.usuarioNombre }}</strong>
+            <small class="text-muted"> - {{ formatearFecha(c.fecha) }}</small>
+            <p>{{ c.comentario }}</p>
+            <div>
+              <span *ngFor="let i of [1,2,3,4,5]" [class.text-warning]="i <= c.calificacion">★</span>
+            </div>
+          </div>
+
+          <!-- NUEVO COMENTARIO -->
+          <div class="mt-4">
+            <textarea
+              class="form-control mb-2"
+              rows="3"
+              [(ngModel)]="nuevoComentario.comentario"
+              placeholder="Tu comentario sobre la sala...">
+            </textarea>
+
+            <div class="d-flex justify-content-between">
+              <select class="form-select w-auto" [(ngModel)]="nuevoComentario.calificacion">
+                <option *ngFor="let n of [1,2,3,4,5]" [value]="n">{{ n }} estrella{{ n>1?'s':'' }}</option>
+              </select>
+
+              <button class="btn btn-success" (click)="enviarComentario()">Comentar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

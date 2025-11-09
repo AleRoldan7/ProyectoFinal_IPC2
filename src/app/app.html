@@ -1,3 +1,13 @@
+<div class="d-flex min-vh-100">
+  <div class="anuncio-izq" *ngIf="sessionService.sessionActivate() && sessionService.obtenerUser()?.rolUsuario !== 'ADMIN_SISTEMA'">
+    <app-vista-anuncios-cine></app-vista-anuncios-cine>
+  </div>
 
-<h1></h1>
-<router-outlet />
+  <div class="flex-grow-1 d-flex flex-column">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="anuncio-der" *ngIf="sessionService.sessionActivate() && sessionService.obtenerUser()?.rolUsuario !== 'ADMIN_SISTEMA'">
+    <app-vista-anuncios-cine></app-vista-anuncios-cine>
+  </div>
+</div>

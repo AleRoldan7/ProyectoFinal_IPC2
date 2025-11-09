@@ -1,46 +1,122 @@
-<div class="container mt-4">
-  <h2>Crear nuevo anuncio</h2>
-
-  <form (ngSubmit)="crearAnuncio()" enctype="multipart/form-data">
-    <div class="mb-3">
-      <label>Tipo de anuncio</label>
-      <select [(ngModel)]="anuncioSeleccionado" name="tipoAnuncio" class="form-select" (change)="calcularPrecio()">
-        <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
-      </select>
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-gradient bg-primary text-white text-center py-3">
+      <h2 class="mb-0 fw-bold">Crear Nuevo Anuncio</h2>
     </div>
 
-    <div class="mb-3">
-      <label>Mensaje del anuncio</label>
-      <textarea [(ngModel)]="mensajeAnuncio" name="mensajeAnuncio" class="form-control"></textarea>
-    </div>
+    <div class="card-body p-4">
+      <form (ngSubmit)="crearAnuncio()" #anuncioForm="ngForm" enctype="multipart/form-data">
 
-    <div class="mb-3">
-      <label>Fecha de inicio</label>
-      <input type="date" [(ngModel)]="fechaInicio" name="fechaInicio" class="form-control" />
-    </div>
+        <!-- TIPO DE ANUNCIO -->
+        <div class="mb-4">
+          <label class="form-label fw-bold text-primary">Tipo de Anuncio</label>
+          <select 
+            class="form-select form-select-lg shadow-sm" 
+            [(ngModel)]="anuncioSeleccionado" 
+            name="tipoAnuncio" 
+            (change)="calcularPrecio(); mostrarCampos()"
+            required>
+            <option *ngFor="let tipo of tipos" [value]="tipo">
+              {{ tipo }}
+            </option>
+          </select>
+        </div>
 
-    <div class="mb-3">
-      <label>Días de vigencia</label>
-      <input type="number" [(ngModel)]="diasVigente" name="diasVigente" class="form-control" (change)="calcularPrecio()" />
-    </div>
+        <div class="mb-4">
+          <label class="form-label fw-bold text-primary">Mensaje del Anuncio</label>
+          <textarea 
+            class="form-control shadow-sm" 
+            rows="4" 
+            [(ngModel)]="mensajeAnuncio" 
+            name="mensajeAnuncio" 
+            placeholder="Escribe un mensaje atractivo..." 
+            required>
+          </textarea>
+        </div>
 
-    <div *ngIf="anuncioSeleccionado === tipoAnuncio.TEXTO_IMAGEN" class="mb-3">
-      <label>Subir imagen</label>
-      <input type="file" (change)="fileSeleccionado($event)" class="form-control" />
-    </div>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label class="form-label fw-bold text-primary">Fecha de Inicio</label>
+            <input 
+              type="date" 
+              class="form-control shadow-sm" 
+              [(ngModel)]="fechaInicio" 
+              name="fechaInicio" 
+              [min]="hoy" 
+              required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-bold text-primary">Días de Vigencia</label>
+            <input 
+              type="number" 
+              class="form-control shadow-sm" 
+              [(ngModel)]="diasVigente" 
+              name="diasVigente" 
+              min="1" 
+              max="30" 
+              (input)="calcularPrecio()" 
+              required>
+          </div>
+        </div>
 
-    <div *ngIf="anuncioSeleccionado === tipoAnuncio.TEXTO_VIDEO" class="mb-3">
-      <label>URL del video</label>
-      <input type="text" [(ngModel)]="videoAnuncio" name="videoAnuncio" class="form-control" />
-    </div>
+        <div class="alert alert-success text-center fw-bold fs-5 mb-4 py-3">
+          Precio Total: <span class="text-primary">{{ precio | currency:'Q ' }}</span>
+        </div>
 
-    <div class="mb-3">
-      <strong>Precio total: ${{ precio }}</strong>
-    </div>
+        <div class="mb-4" *ngIf="anuncioSeleccionado === tipoAnuncio.TEXTO_IMAGEN">
+          <label class="form-label fw-bold text-primary">Subir Imagen</label>
+          <input 
+            type="file" 
+            class="form-control shadow-sm" 
+            accept="image/*" 
+            (change)="fileSeleccionado($event)" 
+            #fileInput>
+          <small class="text-muted">Máximo 2MB. Formatos: JPG, PNG, GIF</small>
 
-    <button type="submit" class="btn btn-primary">Crear anuncio</button>
-  </form>
- 
-  
-  <div class="mt-3 text-success">{{ mensaje }}</div>
+          <div class="mt-3 text-center" *ngIf="vistaPrevia">
+            <p class="fw-bold text-secondary">Vista Previa:</p>
+            <img [src]="vistaPrevia" class="img-fluid rounded border shadow-sm" style="max-height: 220px;">
+          </div>
+        </div>
+
+        <!-- VIDEO (solo si es TEXTO_VIDEO) -->
+        <div class="mb-4" *ngIf="anuncioSeleccionado === tipoAnuncio.TEXTO_VIDEO">
+          <label class="form-label fw-bold text-primary">URL del Video (YouTube)</label>
+          <input 
+            type="url" 
+            class="form-control shadow-sm" 
+            [(ngModel)]="videoAnuncio" 
+            name="videoAnuncio" 
+            placeholder="https://www.youtube.com/watch?v=..." 
+            required>
+          <small class="text-muted">Solo enlaces de YouTube</small>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="d-flex justify-content-between">
+          <button 
+            type="button" 
+            class="btn btn-outline-secondary btn-lg px-4" 
+            (click)="limpiarFormulario()"
+            [disabled]="enviando">
+            Limpiar
+          </button>
+          <button 
+            type="submit" 
+            class="btn btn-success btn-lg px-5" 
+            [disabled]="!anuncioForm.valid || enviando">
+            <span *ngIf="enviando" class="spinner-border spinner-border-sm me-2"></span>
+            {{ enviando ? 'Creando...' : 'Crear Anuncio' }}
+          </button>
+        </div>
+      </form>
+
+      <!-- MENSAJE DE ESTADO -->
+      <div class="mt-4" *ngIf="mensaje" 
+           [ngClass]="mensaje.includes('exitosamente') ? 'alert alert-success' : 'alert alert-danger'"
+           role="alert">
+        <strong>{{ mensaje }}</strong>
+      </div>
+    </div>
+  </div>
 </div>

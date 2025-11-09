@@ -1,0 +1,49 @@
+.header-custom {
+  background: linear-gradient(90deg, #20232a, #181a1f);
+  padding: 12px 0;
+  border-bottom: 1px solid #30363d;
+}
+
+.logo-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  color: #cfd8dc !important;
+  font-size: 0.95rem;
+  transition: 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 4px rgba(255,255,255,0.4);
+}
+
+.dropdown-menu-dark {
+  background-color: #1f2329 !important;
+}
+
+.dropdown-item:hover {
+  background-color: #31363f !important;
+}
+
+.search-input {
+  background-color: #2e333a !important;
+  border: 1px solid #424750 !important;
+  color: white !important;
+}
+
+.search-input::placeholder {
+  color: #b0b3b8 !important;
+}
+
+.btn-outline-light {
+  border-color: #b0b3b8 !important;
+}
+
+.btn-outline-light:hover {
+  background-color: #b0b3b8 !important;
+  color: #1f1f1f !important;
+}

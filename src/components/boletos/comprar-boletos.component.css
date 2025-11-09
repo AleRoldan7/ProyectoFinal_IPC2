@@ -1,22 +1,57 @@
-.sala-preview {
-  gap: 5px;
-  justify-content: center;
-  margin-top: 20px;
+.encabezado-usac {
+  background: linear-gradient(135deg, #003087, #0055b7);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.sala {
+  display: grid;
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 30px;
+  margin: 30px auto;
+  box-shadow: 0 0 30px rgba(0, 200, 255, 0.5);
+  border: 3px solid #00c8ff;
 }
 
 .asiento {
-  width: 35px;
-  height: 35px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  width: 50px;
+  height: 50px;
+  background: #28a745;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  font-weight: bold;
+  color: white;
 }
 
 .asiento.ocupado {
-  background-color: #e74c3c;
+  background: #dc3545 !important;
   cursor: not-allowed;
+  transform: scale(0.9);
 }
 
 .asiento.seleccionado {
-  background-color: #2ecc71;
+  background: #ffc107;
+  color: black;
+  transform: scale(1.15);
+  box-shadow: 0 0 20px #ffc107;
+}
+
+.transform-hover {
+  transition: transform 0.3s;
+}
+
+.transform-hover:hover {
+  transform: translateY(-10px);
+}
+
+.pantalla {
+  background: linear-gradient(90deg, #333, #666, #333);
+  border: 5px solid #00c8ff;
+  box-shadow: 0 0 40px rgba(0, 200, 255, 0.8);
 }

@@ -1,0 +1,66 @@
+<div class="container-fluid mt-4 px-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white text-center">
+      <h1 class="mb-0">REPORTE DE COMENTARIOS POR SALA</h1>
+      <h4>{{ nombreCine }} | ADMINISTRADOR DE CINE</h4>
+    </div>
+
+    <div class="card-body">
+      <form class="row g-3 mb-4" (ngSubmit)="generarReporte()">
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Fecha Inicio</label>
+          <input type="date" class="form-control form-control-lg" [(ngModel)]="fechaInicio" name="fechaInicio">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Fecha Fin</label>
+          <input type="date" class="form-control form-control-lg" [(ngModel)]="fechaFin" name="fechaFin">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label fw-bold">ID Sala</label>
+          <input type="number" class="form-control form-control-lg" [(ngModel)]="idSala" name="idSala" placeholder="Ej: 5">
+        </div>
+        <div class="col-md-4 d-flex align-items-end gap-2">
+          <button type="submit" class="btn btn-success btn-lg px-4">FILTRAR</button>
+          <button type="button" class="btn btn-warning btn-lg px-4" (click)="limpiarFiltros()">LIMPIAR</button>
+          <button type="button" class="btn btn-danger btn-lg px-4" (click)="descargarPDF()" [disabled]="comentarios.length === 0">
+            PDF
+          </button>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+          <thead class="table-dark">
+            <tr class="text-center">
+              <th>Sala</th>
+              <th>Comentario</th>
+              <th>Calificación</th>
+              <th>Fecha</th>
+              <th>Usuario</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of comentarios">
+              <td><strong>{{ c.nombreSala }}</strong></td>
+              <td>{{ c.comentario }}</td>
+              <td>
+                <span class="text-warning">
+                  <ng-container *ngFor="let i of [1,2,3,4,5]">
+                    <span *ngIf="i <= c.calificacion">★</span>
+                    <span *ngIf="i > c.calificacion">☆</span>
+                  </ng-container>
+                </span>
+              </td>
+              <td>{{ c.fecha | date:'dd/MM/yyyy' }}</td>
+              <td>{{ c.usuario }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-end mt-4 p-4 bg-light rounded shadow" *ngIf="comentarios.length > 0">
+        <h4>Total de comentarios: {{ comentarios.length }}</h4>
+      </div>
+    </div>
+  </div>
+</div>

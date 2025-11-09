@@ -1,41 +1,65 @@
-<header class="p-3 text-bg-dark">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
+<header class="p-3 bg-dark text-white shadow-sm sticky-top">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+      <!-- LOGO -->
+      <a routerLink="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none me-3">
+        <svg class="bi me-2" width="40" height="32" fill="currentColor">
+          <use xlink:href="assets/bootstrap-icons.svg#camera-reels" />
+        </svg>
+        <strong>CineApp</strong>
+      </a>
+
+      <!-- MENÚ -->
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a routerLink="/" class="nav-link px-2 text-white">Inicio</a></li>
+        <li><a routerLink="/lista" class="nav-link px-2 text-white">Películas</a></li>
+        <li><a routerLink="/cartera" class="nav-link px-2 text-white">Cartera</a></li>
+        <li><a routerLink="/comprar-boleto" class="nav-link px-2 text-white">Comprar Boletos</a></li>
+        <li><a routerLink="/comentario" class="nav-link px-2 text-white">Comentar</a></li>
+        <li><a routerLink="/comentario/sala" class="nav-link px-2 text-white">Comentar Sala</a></li>
+        <!-- INFORMACIÓN -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Info
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a routerLink="/cines" class="dropdown-item">Cines</a></li>
+            <li><a routerLink="/salas" class="dropdown-item">Salas</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- BUSCADOR -->
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <input type="search" class="form-control form-control-dark bg-secondary text-white"
+          placeholder="Buscar película..." aria-label="Search">
+      </form>
+
+      <!-- USUARIO -->
+      <div class="text-end">
+        <ng-container *ngIf="usuario; else noLogin">
+          <div class="dropdown d-inline">
+            <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              {{ usuario.nombre }}
             </a>
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a routerLink="/lista" class="nav-link px-2 text-white">Ver Peliculas</a></li>
-                <li><a routerLink="/cartera" class="nav-link px-2 text-white">Recargar Cartera</a></li>
-                <li><a routerLink="/comprar-boleto" class="nav-link px-2 text-white">Comprar Boletos</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Calificar</a></li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="informacionDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Información
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="informacionDropdown">
-                        <li><a class="dropdown-item" href="#">Cines</a></li>
-                        <li><a class="dropdown-item" href="#">Salas</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                    </ul>
-                </li>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+              <li><a routerLink="/perfil" class="dropdown-item">Mi Perfil</a></li>
+              <li><a routerLink="/mis-boletos" class="dropdown-item">Mis Boletos</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" routerLink="/login">Cerrar Sesión</a></li>
             </ul>
+          </div>
+        </ng-container>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
-                    aria-label="Search" />
-            </form>
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button routerLink="/login"  type="button" class="btn btn-warning">Cerrar Sesion</button>
-            </div>
-        </div>
+        <ng-template #noLogin>
+          <button routerLink="/login" class="btn btn-outline-light me-2">Login</button>
+          <button routerLink="/registro" class="btn btn-warning">Registrarse</button>
+        </ng-template>
+      </div>
     </div>
+  </div>
 </header>

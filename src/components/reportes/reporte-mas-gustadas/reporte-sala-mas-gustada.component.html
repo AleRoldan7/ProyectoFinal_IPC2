@@ -1,0 +1,51 @@
+<div class="container-fluid mt-4 px-3 px-md-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h1 class="mb-0">TOP 5 SALAS MÁS GUSTADAS</h1>
+            <h4>ADMINISTRADOR DE CINE</h4>
+        </div>
+
+        <div class="card-body">
+            <form class="row g-3 mb-4" (ngSubmit)="generarReporte()">
+                <div class="col-md-5">
+                    <label class="form-label fw-bold">Fecha Inicio (Opcional)</label>
+                    <input type="date" class="form-control form-control-lg" [(ngModel)]="fechaInicio" name="fechaInicio">
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label fw-bold">Fecha Fin (Opcional)</label>
+                    <input type="date" class="form-control form-control-lg" [(ngModel)]="fechaFin" name="fechaFin">
+                </div>
+                <div class="col-md-2 d-flex align-items-end gap-1 gap-md-2">
+                    <button type="submit" class="btn btn-success btn-lg w-100">FILTRAR</button>
+                    <button type="button" class="btn btn-warning btn-lg w-100" (click)="limpiarFiltros()">LIMPIAR</button>
+                    <button type="button" class="btn btn-danger btn-lg w-100" (click)="descargarPDF()" [disabled]="salas.length === 0">
+                        PDF
+                    </button>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr class="text-center">
+                            <th>SALA</th>
+                            <th>PROMEDIO CALIFICACIÓN</th>
+                            <th>TOTAL CALIFICACIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let s of salas">
+                            <td><strong>{{ s.nombreSala }}</strong></td>
+                            <td class="text-center">{{ s.promedioCalificacion | number:'1.1-1' }}</td>
+                            <td class="text-center">{{ s.totalCalificaciones }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-end mt-4 p-4 bg-light rounded shadow" *ngIf="salas.length > 0">
+                <h4>Total de salas: {{ salas.length }}</h4>
+            </div>
+        </div>
+    </div>
+</div>

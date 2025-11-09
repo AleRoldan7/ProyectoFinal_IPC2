@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <h3 class="text-center mb-4">Gestión de Bloqueo de Anuncios</h3>
+
+  <!-- SALDO -->
+  <div class="card mb-3">
+    <div class="card-body text-center">
+      <h5>Saldo de la Cartera del Cine</h5>
+      <h2 class="text-success">Q {{ saldo | number:'1.2-2' }}</h2>
+      <button class="btn btn-outline-primary" (click)="mostrarRecarga = !mostrarRecarga">
+        Recargar Cartera
+      </button>
+    </div>
+  </div>
+
+  <!-- RECARGA -->
+  <div class="card mb-4" *ngIf="mostrarRecarga">
+    <div class="card-body">
+      <div class="input-group">
+        <span class="input-group-text">Q</span>
+        <input type="number" [(ngModel)]="montoRecarga" class="form-control" placeholder="Monto">
+        <button class="btn btn-success" (click)="recargar()">Recargar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUEO ACTIVO -->
+  <div class="alert alert-success text-center" *ngIf="bloqueoActivo">
+    <strong>Anuncios bloqueados</strong> hasta: <br>
+    <span class="badge bg-success">{{ fechaFin | date:'medium' }}</span>
+  </div>
+
+  <!-- FORM BLOQUEO -->
+  <div class="card" *ngIf="!bloqueoActivo">
+    <div class="card-body">
+      <h5>Bloquear Anuncios</h5>
+      <div class="mb-3">
+        <label>Costo por día: <strong>Q {{ costoPorDia }}</strong></label>
+      </div>
+      <div class="input-group mb-3">
+        <input type="number" [(ngModel)]="dias" (input)="calcularTotal()" class="form-control" placeholder="Días a bloquear" min="1">
+        <button class="btn btn-danger" (click)="bloquear()" [disabled]="dias <= 0 || saldo < total">
+          Bloquear
+        </button>
+      </div>
+      <div class="text-end">
+        <strong>Total: Q {{ total | number:'1.2-2' }}</strong>
+      </div>
+    </div>
+  </div>
+</div>

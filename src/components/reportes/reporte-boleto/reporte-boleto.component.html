@@ -1,0 +1,71 @@
+<div class="container-fluid mt-4 px-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white text-center">
+      <h1 class="mb-0">REPORTE DE VENTAS DE BOLETOS</h1>
+      <h4>{{ nombreCine }} | {{ rolUsuario === 'ADMIN_CINE' ? 'ADMINISTRADOR DE CINE' : 'ADMINISTRADOR DEL SISTEMA' }}
+      </h4>
+    </div>
+
+    <div class="card-body">
+      <form class="row g-3 mb-4" (ngSubmit)="generarReporteBoleto()">
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Fecha Inicio</label>
+          <input type="date" class="form-control form-control-lg" [(ngModel)]="fechaInicio" name="fechaInicio">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">Fecha Fin</label>
+          <input type="date" class="form-control form-control-lg" [(ngModel)]="fechaFin" name="fechaFin">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label fw-bold">ID Sala</label>
+          <input type="number" class="form-control form-control-lg" [(ngModel)]="idSala" name="idSala"
+            placeholder="Ej: 4">
+        </div>
+        <div class="col-md-4 d-flex align-items-end gap-2">
+          <button type="submit" class="btn btn-success btn-lg px-4">FILTRAR</button>
+          <button type="button" class="btn btn-warning btn-lg px-4" (click)="limpiarFiltros()">LIMPIAR</button>
+          <button type="button" class="btn btn-danger btn-lg px-4" (click)="descargarPDF()"
+            [disabled]="boletos.length === 0">
+            PDF
+          </button>
+          <button type="submit" class="btn btn-info btn-lg px-4" routerLink="/admin-cine">REGRESAR</button>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+          <thead class="table-dark">
+            <tr class="text-center">
+              <th>ID Boleto</th>
+              <th>Sala</th>
+              <th>Usuario</th>
+              <th>Película</th>
+              <th>Hora</th>
+              <th>Precio</th>
+              <th>Asiento</th>
+              <th>Fecha Compra</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let b of boletos">
+              <td>{{ b.idBoleto }}</td>
+              <td><strong>{{ b.nombreSala }}</strong></td>
+              <td>{{ b.usuarioResponse?.nombre || b.usuarioResponse?.userName }}</td>
+              <td>{{ b.tituloPelicula }}</td>
+              <td>{{ b.horaPelicula }}</td>
+              <td class="text-success fw-bold">{{ b.precioBoleto | currency:'Q ' }}</td>
+              <td class="text-center">{{ b.filaAsiento }}-{{ b.columnaAsiento }}</td>
+              <td>{{ b.fechaCompra | date:'dd/MM/yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-end mt-4 p-4 bg-light rounded shadow">
+        <h2 class="text-success">
+          TOTAL RECAUDADO: <strong>{{ totalVenta | currency:'Q ' }}</strong>
+        </h2>
+        <h4>Boletos vendidos: {{ boletos.length }}</h4>
+      </div>
+    </div>
+  </div>
+</div>

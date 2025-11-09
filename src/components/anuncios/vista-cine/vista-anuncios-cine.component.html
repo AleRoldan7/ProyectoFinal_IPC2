@@ -1,0 +1,33 @@
+<div class="anuncios-container">
+  <div class="anuncio-lateral izquierdo" *ngIf="anuncioIzquierdo">
+    <p class="texto-anuncio">{{ anuncioIzquierdo.mensajeAnuncio }}</p>
+
+    <div *ngIf="anuncioIzquierdo.tipoAnuncio === 'TEXTO_IMAGEN'" class="text-center">
+      <img [src]="getImagenUrl(anuncioIzquierdo.idAnuncio)" 
+           class="img-fluid rounded" style="max-height: 120px;">
+    </div>
+
+    <div *ngIf="anuncioIzquierdo.tipoAnuncio === 'TEXTO_VIDEO' && extractYouTubeId(anuncioIzquierdo.videoAnuncio)"
+         class="ratio ratio-16x9">
+      <iframe [src]="getYouTubeEmbedUrl(anuncioIzquierdo.videoAnuncio)" 
+              frameborder="0" 
+              allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="anuncio-lateral derecho" *ngIf="anuncioDerecho">
+    <p class="texto-anuncio">{{ anuncioDerecho.mensajeAnuncio }}</p>
+
+    <div *ngIf="anuncioDerecho.tipoAnuncio === 'TEXTO_IMAGEN'" class="text-center">
+      <img [src]="getImagenUrl(anuncioDerecho.idAnuncio)" 
+           class="img-fluid rounded" style="max-height: 120px;">
+    </div>
+
+    <div *ngIf="anuncioDerecho.tipoAnuncio === 'TEXTO_VIDEO' && extractYouTubeId(anuncioDerecho.videoAnuncio)"
+         class="ratio ratio-16x9">
+      <iframe [src]="getYouTubeEmbedUrl(anuncioDerecho.videoAnuncio)" 
+              frameborder="0" 
+              allowfullscreen></iframe>
+    </div>
+  </div>
+</div>

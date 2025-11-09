@@ -1,0 +1,58 @@
+<div class="container my-5">
+  <h1 class="text-center text-primary mb-5">Mis Películas Compradas</h1>
+
+  <!-- LISTA DE PELÍCULAS COMPRADAS -->
+  <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    <div class="col" *ngFor="let p of peliculas">
+      <div class="card h-100 shadow hover-lift cursor-pointer" (click)="seleccionarPelicula(p)">
+        <img [src]="'data:image/jpeg;base64,' + p.poster" class="card-img-top" style="height: 250px; object-fit: cover;">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ p.titulo }}</h5>
+          <p class="text-muted small">
+            {{ p.cine }} - Sala {{ p.sala }}<br>
+            {{ p.hora }} | Q{{ p.precio }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="peliculaSeleccionada" class="card">
+    <div class="card-header bg-primary text-white">
+      <h4>{{ peliculaSeleccionada.titulo }}</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <img [src]="'data:image/jpeg;base64,' + peliculaSeleccionada.poster" class="img-fluid rounded">
+        </div>
+        <div class="col-md-8">
+          <p><strong>Sinopsis:</strong> {{ peliculaSeleccionada.sinopsis }}</p>
+          <p><strong>Función:</strong> {{ peliculaSeleccionada.hora }} en {{ peliculaSeleccionada.cine }} - Sala {{ peliculaSeleccionada.sala }}</p>
+
+          <!-- COMENTARIOS -->
+          <h5 class="mt-4">Comentarios ({{ comentarios.length }})</h5>
+          <div *ngFor="let c of comentarios" class="border-bottom pb-2 mb-2">
+            <strong>{{ c.usuarioNombre }}</strong>
+            <small class="text-muted"> - {{ formatearFecha(c.fecha) }}</small>
+            <p>{{ c.comentario }}</p>
+            <div>
+              <span *ngFor="let i of [1,2,3,4,5]" [class.text-warning]="i <= c.calificacion">★</span>
+            </div>
+          </div>
+
+          <!-- NUEVO COMENTARIO -->
+          <div class="mt-4">
+            <textarea class="form-control mb-2" rows="3" [(ngModel)]="nuevoComentario.comentario" placeholder="Tu comentario..."></textarea>
+            <div class="d-flex justify-content-between">
+              <select class="form-select w-auto" [(ngModel)]="nuevoComentario.calificacion">
+                <option *ngFor="let n of [1,2,3,4,5]" [value]="n">{{ n }} estrella{{ n>1?'s':'' }}</option>
+              </select>
+              <button class="btn btn-success" (click)="enviarComentario()">Comentar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

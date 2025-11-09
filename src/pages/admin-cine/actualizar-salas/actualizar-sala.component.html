@@ -1,0 +1,76 @@
+<div class="container">
+  <h2>Gestión de Salas</h2>
+  
+  <!-- Lista de Salas -->
+  <div class="salas-list" *ngIf="!mostrarFormulario">
+    <h3>Salas Disponibles</h3>
+    
+    <div *ngIf="salas.length === 0" class="no-data">
+      <p>No hay salas registradas</p>
+    </div>
+
+    <div class="sala-card" *ngFor="let sala of salas" (click)="seleccionarSala(sala)">
+      <div class="sala-info">
+        <h4>{{ sala.nombreSala }}</h4>
+        <p><strong>ID:</strong> {{ sala.idSala }}</p>
+        <p><strong>Asientos:</strong> {{ sala.filaSala }} filas × {{ sala.columnaSala }} columnas</p>
+        <p><strong>Total asientos:</strong> {{ sala.filaSala * sala.columnaSala }}</p>
+        <p><strong>Fecha creación:</strong> {{ sala.fechaCreacion | date:'dd/MM/yyyy' }}</p>
+      </div>
+      <button class="btn-editar" (click)="seleccionarSala(sala); $event.stopPropagation()">
+        Editar
+      </button>
+    </div>
+
+    <button class="btn-refresh" (click)="cargarSalas()">
+      🔄 Actualizar Lista
+    </button>
+  </div>
+
+  <!-- Formulario de Actualización -->
+  <div class="form-container" *ngIf="mostrarFormulario">
+    <h3>Actualizar Sala: {{ salaSeleccionada.nombreSala }}</h3>
+    
+    <form (ngSubmit)="actualizarSala()">
+      <div class="form-group">
+        <label>ID Sala:</label>
+        <input type="number" [(ngModel)]="salaSeleccionada.idSala" name="idSala" readonly class="readonly">
+      </div>
+
+      <div class="form-group">
+        <label>Nombre de la Sala:</label>
+        <input type="text" [(ngModel)]="salaSeleccionada.nombreSala" name="nombreSala" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Número de Filas:</label>
+          <input type="number" [(ngModel)]="salaSeleccionada.filaSala" name="filaSala" 
+                 min="1" max="20" required (change)="calcularTotalAsientos()">
+        </div>
+
+        <div class="form-group">
+          <label>Número de Columnas:</label>
+          <input type="number" [(ngModel)]="salaSeleccionada.columnaSala" name="columnaSala" 
+                 min="1" max="30" required (change)="calcularTotalAsientos()">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Total de Asientos:</label>
+        <input type="number" [value]="calcularTotalAsientos()" readonly class="readonly">
+        <small>{{ calcularTotalAsientos() }} asientos disponibles</small>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Creación:</label>
+        <input type="date" [(ngModel)]="salaSeleccionada.fechaCreacion" name="fechaCreacion" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Actualizar Sala</button>
+        <button type="button" (click)="cancelarEdicion()" class="btn-secondary">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

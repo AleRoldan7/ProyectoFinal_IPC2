@@ -24,6 +24,7 @@ export class CrearPeliculaComponent {
 
   mensaje: string = '';
   tipoMensaje: 'success' | 'danger' | '' = '';
+  cargando: boolean = false;
 
   constructor(private peliculaService: PeliculaServices) { }
 
@@ -36,7 +37,7 @@ export class CrearPeliculaComponent {
 
   agregarPelicula() {
     const formData = new FormData();
-
+    this.cargando = true;
     formData.append('tituloPelicula', this.pelicula.tituloPelicula);
     formData.append('sinopsisPelicula', this.pelicula.sinopsisPelicula);
     formData.append('duracionPelicula', this.pelicula.duracionPelicula);
@@ -57,5 +58,11 @@ export class CrearPeliculaComponent {
         this.tipoMensaje = 'danger';
       }
     });
+  }
+
+  mostrarMensaje(msg: string, tipo: 'success' | 'danger') {
+    this.mensaje = msg;
+    this.tipoMensaje = tipo;
+    setTimeout(() => this.mensaje = '', 5000);
   }
 }

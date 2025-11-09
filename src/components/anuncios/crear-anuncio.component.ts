@@ -12,8 +12,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './crear-anuncio.component.html',
   styleUrl: './crear-anuncio.component.css'
 })
-export class CrearAnuncioComponent {
 
+export class CrearAnuncioComponent {
   tipoAnuncio = tipoAnuncio;
   tipos = Object.values(tipoAnuncio);
 
@@ -25,38 +25,58 @@ export class CrearAnuncioComponent {
   videoAnuncio: string = '';
   mensaje: string = '';
   precio: number = 0;
+  enviando = false;
+  vistaPrevia: string | null = null;
+  hoy = new Date().toISOString().split('T')[0];
 
-  constructor(private anuncioService: AnuncioServices, private sessionService: SessionService) { }
+  constructor(
+    private anuncioService: AnuncioServices,
+    private sessionService: SessionService
+  ) {
+    this.calcularPrecio();
+  }
 
   fileSeleccionado(event: any) {
-    this.imagenAnuncio = event.target.files[0];
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('Solo se permiten imágenes');
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert('La imagen no debe exceder 2MB');
+      return;
+    }
+
+    this.imagenAnuncio = file;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => this.vistaPrevia = e.target.result;
+    reader.readAsDataURL(file);
   }
 
   calcularPrecio() {
-    let precioBase = 0;
-    switch (this.anuncioSeleccionado) {
-      case tipoAnuncio.TEXTO:
-        precioBase = 10;
-        break;
-      case tipoAnuncio.TEXTO_IMAGEN:
-        precioBase = 20;
-        break;
-      case tipoAnuncio.TEXTO_VIDEO:
-        precioBase = 30;
-        break;
-    }
-    this.precio = precioBase * this.diasVigente;
+    const precios: Record<tipoAnuncio, number> = {
+      [tipoAnuncio.TEXTO]: 10,
+      [tipoAnuncio.TEXTO_IMAGEN]: 20,
+      [tipoAnuncio.TEXTO_VIDEO]: 30
+    };
+    this.precio = (precios[this.anuncioSeleccionado] || 0) * this.diasVigente;
   }
 
   crearAnuncio() {
     const usuario = this.sessionService.obtenerUser();
     if (!usuario) {
-      alert('Debes iniciar sesión para crear anuncios');
+      alert('Debes iniciar sesión');
       return;
     }
 
-    const formData = new FormData();
+    this.enviando = true;
+    this.mensaje = '';
 
+    const formData = new FormData();
     formData.append('tipoAnuncio', this.anuncioSeleccionado);
     formData.append('mensajeAnuncio', this.mensajeAnuncio);
     formData.append('nombreAnunciante', usuario.idUsuario.toString());
@@ -64,24 +84,22 @@ export class CrearAnuncioComponent {
     formData.append('diasVigente', this.diasVigente.toString());
 
     if (this.imagenAnuncio) {
-      formData.append('imagenAnuncio', this.imagenAnuncio);
+      formData.append('imagenAnuncio', this.imagenAnuncio, this.imagenAnuncio.name);
     }
-
     if (this.videoAnuncio) {
       formData.append('videoAnuncio', this.videoAnuncio);
     }
 
-
     this.anuncioService.crearAnuncio(formData).subscribe({
-      next: (response) => {
-        this.mensaje = 'Se creo anuncio';
+      next: () => {
+        this.mensaje = '¡Anuncio creado exitosamente!';
         this.limpiarFormulario();
       },
       error: (e) => {
-        console.log('No funciono', e);
-        this.mensaje = 'No jala';
-      }
-    })
+        this.mensaje = e.error?.error || 'Error al crear el anuncio';
+      },
+      complete: () => this.enviando = false
+    });
   }
 
   limpiarFormulario() {
@@ -91,5 +109,14 @@ export class CrearAnuncioComponent {
     this.diasVigente = 1;
     this.imagenAnuncio = null;
     this.videoAnuncio = '';
+    this.vistaPrevia = null;
+    this.calcularPrecio();
+  }
+
+  mostrarCampos() {
+    this.vistaPrevia = null;
+    this.imagenAnuncio = null;
+    this.videoAnuncio = '';
+    this.calcularPrecio();
   }
 }

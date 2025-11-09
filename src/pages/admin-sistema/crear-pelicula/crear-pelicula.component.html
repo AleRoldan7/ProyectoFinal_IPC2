@@ -1,38 +1,131 @@
-<div *ngIf="mensaje" class="alert" [ngClass]="{
-    'alert-success': tipoMensaje === 'success',
-    'alert-danger': tipoMensaje === 'danger'
-  }">
-    {{ mensaje }}
+<!-- ENCABEZADO OFICIAL DEL PROYECTO -->
+<div class="report-header text-center mb-5 p-4 bg-white shadow-sm">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <img src="https://cdn.logojoy.com/wp-content/uploads/20230413150238/fairytail-anime-logo.png" alt="USAC" width="80">
+      </div>
+      <div class="col text-start">
+        <h1 class="mb-0 fw-bold text-primary">Agregar Pelicula</h1>
+      </div>
+    </div>
+  </div>
 </div>
 
-<form (ngSubmit)="agregarPelicula()" #peliculaForm="ngForm">
-    <div class="container mt-4">
-        <h3>Asignar Cine a Administrador</h3>
+<div *ngIf="mensaje" class="container mb-4">
+  <div class="alert" [ngClass]="{
+      'alert-success': tipoMensaje === 'success',
+      'alert-danger': tipoMensaje === 'danger',
+      'border-0': true
+    }" role="alert">
+    <strong>{{ tipoMensaje === 'success' ? 'Éxito' : 'Error' }}:</strong> {{ mensaje }}
+  </div>
+</div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <label for="titulo">Título:</label>
-                <input id="titulo" name="tituloPelicula" type="text" [(ngModel)]="pelicula.tituloPelicula" required />
-
-                <label for="sinopsis">Sinopsis:</label>
-                <textarea id="sinopsis" name="sinopsisPelicula" [(ngModel)]="pelicula.sinopsisPelicula"
-                    required></textarea>
-                <label for="duracion">Duración:</label>
-                <input id="duracion" name="duracionPelicula" type="time" [(ngModel)]="pelicula.duracionPelicula"
-                    required />
-                <label for="cast">Cast:</label>
-                <input id="cast" name="castPelicula" type="text" [(ngModel)]="pelicula.castPelicula" required />
-                <label for="director">Director:</label>
-                <input id="director" name="directorPelicula" type="text" [(ngModel)]="pelicula.directorPelicula"
-                    required />
-                <label for="poster">Poster:</label>
-                <input id="poster" type="file" (change)="onFileSelected($event)" accept="image/*" />
-
-                <button type="submit" [disabled]="!peliculaForm.form.valid">
-                    Crear Película
-                </button>
-                <a routerLink="/admin-sistema" class="cartera-back mt-2">Regresar</a>
-            </div>
-        </div>
+<div class="container">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white text-center py-3">
+      <h3 class="mb-0 fw-bold">
+        <i class="bi bi-film me-2"></i> Registrar Nueva Película
+      </h3>
     </div>
-</form>
+    <div class="card-body p-5">
+
+      <form (ngSubmit)="agregarPelicula()" #peliculaForm="ngForm" class="needs-validation" novalidate>
+
+        <div class="row g-4">
+          <div class="col-md-6">
+            <label for="titulo" class="form-label fw-semibold text-primary">
+              <i class="bi bi-card-heading"></i> Título de la Película
+            </label>
+            <input id="titulo" name="tituloPelicula" type="text"
+                   class="form-control form-control-lg" 
+                   [(ngModel)]="pelicula.tituloPelicula" 
+                   required #titulo="ngModel"
+                   [class.is-invalid]="titulo.invalid && titulo.touched">
+            <div *ngIf="titulo.invalid && titulo.touched" class="text-danger small mt-1">
+              <span *ngIf="titulo.errors?.['required']">El título es obligatorio.</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="duracion" class="form-label fw-semibold text-primary">
+              <i class="bi bi-clock"></i> Duración
+            </label>
+            <input id="duracion" name="duracionPelicula" type="time"
+                   class="form-control form-control-lg"
+                   [(ngModel)]="pelicula.duracionPelicula" 
+                   required #duracion="ngModel"
+                   [class.is-invalid]="duracion.invalid && duracion.touched">
+            <div *ngIf="duracion.invalid && duracion.touched" class="text-danger small mt-1">
+              <span *ngIf="duracion.errors?.['required']">La duración es obligatoria.</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="sinopsis" class="form-label fw-semibold text-primary">
+              <i class="bi bi-file-text"></i> Sinopsis
+            </label>
+            <textarea id="sinopsis" name="sinopsisPelicula" rows="4"
+                      class="form-control form-control-lg"
+                      [(ngModel)]="pelicula.sinopsisPelicula" 
+                      required #sinopsis="ngModel"
+                      [class.is-invalid]="sinopsis.invalid && sinopsis.touched"></textarea>
+            <div *ngIf="sinopsis.invalid && sinopsis.touched" class="text-danger small mt-1">
+              <span *ngIf="sinopsis.errors?.['required']">La sinopsis es obligatoria.</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="cast" class="form-label fw-semibold text-primary">
+              <i class="bi bi-people"></i> Reparto (Cast)
+            </label>
+            <input id="cast" name="castPelicula" type="text"
+                   class="form-control form-control-lg"
+                   [(ngModel)]="pelicula.castPelicula" 
+                   required #cast="ngModel"
+                   [class.is-invalid]="cast.invalid && cast.touched">
+            <div *ngIf="cast.invalid && cast.touched" class="text-danger small mt-1">
+              <span *ngIf="cast.errors?.['required']">El reparto es obligatorio.</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="director" class="form-label fw-semibold text-primary">
+              <i class="bi bi-person-video2"></i> Director
+            </label>
+            <input id="director" name="directorPelicula" type="text"
+                   class="form-control form-control-lg"
+                   [(ngModel)]="pelicula.directorPelicula" 
+                   required #director="ngModel"
+                   [class.is-invalid]="director.invalid && director.touched">
+            <div *ngIf="director.invalid && director.touched" class="text-danger small mt-1">
+              <span *ngIf="director.errors?.['required']">El director es obligatorio.</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="poster" class="form-label fw-semibold text-primary">
+              <i class="bi bi-image"></i> Poster de la Película
+            </label>
+            <input id="poster" type="file" class="form-control form-control-lg"
+                   (change)="onFileSelected($event)" accept="image/*">
+            <small class="text-muted">Formatos permitidos: JPG, PNG (máx. 2MB)</small>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5">
+          <a routerLink="/admin-sistema" class="btn btn-outline-secondary btn-lg px-4">
+            <i class="bi bi-arrow-left"></i> Regresar
+          </a>
+          <button type="submit" class="btn btn-success btn-lg px-5"
+                  [disabled]="!peliculaForm.form.valid || cargando">
+            <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
+            <i class="bi bi-check-circle"></i> Crear Película
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

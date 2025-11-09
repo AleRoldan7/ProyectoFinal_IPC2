@@ -1,0 +1,66 @@
+<div class="container mt-4" *ngIf="pelicula">
+  <!-- COMENTARIOS EXISTENTES -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5>Comentarios ({{ comentarios.length }})</h5>
+    </div>
+    <div class="card-body">
+      <div *ngFor="let c of comentarios" class="border-bottom pb-3 mb-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <strong>{{ c.usuarioNombre }}</strong>
+            <small class="text-muted"> - {{ c.fecha | date:'short' }}</small>
+            <p>{{ c.comentario }}</p>
+          </div>
+          <div>
+            <span *ngFor="let i of [1,2,3,4,5]" 
+                  [class.text-warning]="i <= c.calificacion" 
+                  class="fs-5">★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="isLoggedIn">
+    <div class="card-body">
+      <textarea 
+        class="form-control mb-2" 
+        rows="3" 
+        placeholder="Escribe tu comentario..." 
+        [(ngModel)]="nuevoComentario.comentario">
+      </textarea>
+      <div class="d-flex justify-content-between align-items-center">
+        <select class="form-select w-auto" [(ngModel)]="nuevoComentario.calificacion">
+          <option *ngFor="let n of [1,2,3,4,5]" [value]="n">{{ n }} estrella{{ n > 1 ? 's' : '' }}</option>
+        </select>
+        <button class="btn btn-primary" (click)="enviarComentario()">
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3" *ngIf="isAdminCine">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <button class="btn w-100" 
+                  [class.btn-danger]="sala.bloqueada_comentarios"
+                  [class.btn-success]="!sala.bloqueada_comentarios"
+                  (click)="toggleBloqueoComentarios()">
+            {{ sala.bloqueada_comentarios ? 'Desbloquear Comentarios' : 'Bloquear Comentarios' }}
+          </button>
+        </div>
+        <div class="col">
+          <button class="btn w-100" 
+                  [class.btn-secondary]="!sala.bloqueada_visibilidad"
+                  [class.btn-dark]="sala.bloqueada_visibilidad"
+                  (click)="toggleVisibilidad()">
+            {{ sala.bloqueada_visibilidad ? 'Hacer Visible' : 'Ocultar Sala' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+/* vista-anuncios-cine.component.css */
+.anuncios-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.anuncio-lateral {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 180px;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  text-align: center;
+  pointer-events: auto;
+}
+
+.anuncio-lateral.izquierdo {
+  left: 20px;
+}
+
+.anuncio-lateral.derecho {
+  right: 20px;
+}
+
+.texto-anuncio {
+  font-weight: bold;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.anuncio-lateral .ratio {
+  max-height: 100px;
+  margin: 10px 0;
+}
+
+.anuncio-lateral iframe {
+  border-radius: 8px;
+}

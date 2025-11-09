@@ -1,89 +1,52 @@
-.container {
-  background-color: #f8f9fa; /* gris claro */
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+.report-header {
+  background: linear-gradient(135deg, #003366 0%, #004080 100%);
+  color: white;
+  border-bottom: 5px solid #ffc107;
 }
 
-h3 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #343a40;
+.report-header h1 {
+  font-size: 1.8rem;
+  color: #ffc107;
+}
+
+.report-header p {
+  line-height: 1.3;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(90deg, #003366, #00509e);
+}
+
+.form-label {
+  color: #003366;
+}
+
+.form-control-lg {
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+.btn-success {
+  background: linear-gradient(90deg, #28a745, #218838);
+  border: none;
+  border-radius: 10px;
   font-weight: 600;
 }
 
-label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 500;
-  color: #495057;
+.btn-outline-secondary {
+  border-radius: 10px;
+  font-weight: 600;
 }
 
-input[type="text"],
-input[type="time"],
-textarea,
-input[type="file"] {
-  width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.25rem;
-  border-radius: 0.5rem;
-  border: 1px solid #ced4da;
-  font-size: 1rem;
-}
-
-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-button[type="submit"] {
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: #007bff;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-button[disabled] {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
-
-.cartera-back {
-  display: inline-block;
-  margin-top: 1rem;
-  color: #007bff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.cartera-back:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
-.alert {
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.alert-success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.alert-danger {
-  background-color: #f8d7da;
-  color: #721c24;
-}
+.text-primary { color: #003366 !important; }
+.text-success { color: #28a745 !important; }

@@ -1,17 +1,44 @@
-<div *ngFor="let anuncio of anuncios" class="anuncio">
-  <h3>{{ anuncio.mensajeAnuncio }}</h3>
+<div class="container mt-5">
+  <h2 class="text-center mb-4 text-primary fw-bold">Mis Anuncios</h2>
 
-  <div *ngIf="anuncio.tipoAnuncio === 'TEXTO'">
-    {{ anuncio.mensajeAnuncio }}
+  <div *ngIf="anuncios.length === 0" class="text-center py-5">
+    <p class="text-muted fs-5">No has creado ningún anuncio</p>
+    <a routerLink="/crear-anuncio" class="btn btn-success">Crear Anuncio</a>
   </div>
 
-  <div *ngIf="anuncio.tipoAnuncio === 'TEXTO_IMAGEN'">
-    <img [src]="getImagenUrl(anuncio.idAnuncio)" alt="Imagen Anuncio" width="200" />
-  </div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div *ngFor="let anuncio of anuncios" class="col">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+          <span class="badge bg-primary">{{ anuncio.tipoAnuncio }}</span>
+          <span class="badge" [ngClass]="esActivo(anuncio) ? 'bg-success' : 'bg-secondary'">
+            {{ esActivo(anuncio) ? 'Activo' : 'Inactivo' }}
+          </span>
+        </div>
 
-  <div *ngIf="anuncio.tipoAnuncio === 'TEXTO_VIDEO'">
-    <video width="320" height="240" controls>
-      <source [src]="anuncio.videoAnuncio" type="video/mp4" />
-    </video>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-primary">{{ anuncio.mensajeAnuncio }}</h5>
+
+          <div *ngIf="anuncio.tipoAnuncio === 'TEXTO_IMAGEN' && anuncio.imagenUrl" class="text-center my-3">
+            <img [src]="anuncio.imagenUrl" alt="Imagen del anuncio" class="img-fluid rounded shadow-sm"
+              style="max-height: 180px; object-fit: cover" />
+          </div>
+
+          <div *ngIf="
+              anuncio.tipoAnuncio === 'TEXTO_VIDEO' &&
+              anuncio.videoAnuncio &&
+              extractYouTubeId(anuncio.videoAnuncio)
+            " class="ratio ratio-16x9 my-3">
+            <iframe [src]="getYouTubeEmbedUrl(anuncio.videoAnuncio)" allowfullscreen></iframe>
+          </div>
+
+          <div class="mt-auto small text-muted">
+            <div><strong>Inicio:</strong> {{ anuncio.fechaInicio }}</div>
+            <div><strong>Vigencia:</strong> {{ anuncio.diasVigencia }} días</div>
+            <div class="text-end fw-bold text-success mt-2">Precio: Q {{ anuncio.precio }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
