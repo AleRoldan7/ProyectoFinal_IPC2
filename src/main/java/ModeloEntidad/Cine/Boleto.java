@@ -14,7 +14,7 @@ public class Boleto {
 
     private Integer idBoleto;
     private int idUsuario;
-    private int idPeliculaSala;
+    private int idProyeccion;
     private double precioBoleto;
     private int filaAsiento;
     private int columnaAsiento;
@@ -23,20 +23,20 @@ public class Boleto {
     public Boleto() {
     }
 
-    public Boleto(Integer idBoleto, int idUsuario, int idPeliculaSala, double precioBoleto, int filaAsiento, int columnaAsiento,
+    public Boleto(Integer idBoleto, int idUsuario, int idProyeccion, double precioBoleto, int filaAsiento, int columnaAsiento,
             LocalDate fechaCompra) {
         this.idBoleto = idBoleto;
         this.idUsuario = idUsuario;
-        this.idPeliculaSala = idPeliculaSala;
+        this.idProyeccion = idProyeccion;
         this.precioBoleto = precioBoleto;
         this.filaAsiento = filaAsiento;
         this.columnaAsiento = columnaAsiento;
         this.fechaCompra = fechaCompra;
     }
 
-    public Boleto(int idUsuario, int idPeliculaSala, double precioBoleto, int filaAsiento, int columnaAsiento, LocalDate fechaCompra) {
+    public Boleto(int idUsuario, int idProyeccion, double precioBoleto, int filaAsiento, int columnaAsiento, LocalDate fechaCompra) {
         this.idUsuario = idUsuario;
-        this.idPeliculaSala = idPeliculaSala;
+        this.idProyeccion = idProyeccion;
         this.precioBoleto = precioBoleto;
         this.filaAsiento = filaAsiento;
         this.columnaAsiento = columnaAsiento;
@@ -60,12 +60,12 @@ public class Boleto {
         this.idUsuario = idUsuario;
     }
 
-    public int getIdPeliculaSala() {
-        return idPeliculaSala;
+    public int getIdProyeccion() {
+        return idProyeccion;
     }
 
-    public void setIdPeliculaSala(int idPeliculaSala) {
-        this.idPeliculaSala = idPeliculaSala;
+    public void setIdProyeccion(int idProyeccion) {
+        this.idProyeccion = idProyeccion;
     }
 
     public double getPrecioBoleto() {

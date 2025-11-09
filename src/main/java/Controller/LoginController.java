@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import ConexionDBA.UsuarioDBA;
 import Dtos.Usuario.LoginResponse;
 import Dtos.Usuario.NewLoginRequest;
 import Dtos.Usuario.UsuarioResponse;
@@ -33,7 +34,6 @@ public class LoginController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response loginUsuario(NewLoginRequest newLoginRequest) {
-        
 
         try {
             LoginService loginService = new LoginService();
@@ -43,7 +43,15 @@ public class LoginController {
             );
 
             if (usuario != null) {
-                return Response.ok(new UsuarioResponse(usuario)).build();
+                UsuarioResponse response = new UsuarioResponse(usuario);
+
+                if ("ADMIN_CINE".equals(usuario.getRolUsuario())) {
+                    UsuarioDBA usuarioDBA = new UsuarioDBA();
+                    Integer idCine = usuarioDBA.obtenerCineUsuario(usuario.getIdUsuario());
+                    response.setIdCine(idCine);
+                }
+
+                return Response.ok(response).build();
 
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED)
@@ -51,7 +59,7 @@ public class LoginController {
                         .build();
             }
         } catch (Exception e) {
-              return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("{\"error\": \"" + e.getMessage() + "\"}")
                     .build();
         }

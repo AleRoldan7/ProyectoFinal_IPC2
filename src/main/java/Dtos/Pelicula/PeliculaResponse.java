@@ -25,7 +25,6 @@ public class PeliculaResponse {
     private LocalTime duracionPelicula;
     private String castPelicula;
     private String directorPelicula;
-    private InputStream posterPelicula;
 
     public PeliculaResponse(Pelicula pelicula) {
         this.idPelicula = pelicula.getIdPelicula();
@@ -34,7 +33,6 @@ public class PeliculaResponse {
         this.duracionPelicula = pelicula.getDuracionPelicula();
         this.castPelicula = pelicula.getCastPelicula();
         this.directorPelicula = pelicula.getDirectorPelicula();
-        this.posterPelicula = pelicula.getPosterPelicula();
     }
 
     public Integer getIdPelicula() {
@@ -84,15 +82,5 @@ public class PeliculaResponse {
     public void setDirectorPelicula(String directorPelicula) {
         this.directorPelicula = directorPelicula;
     }
-
-    public InputStream getPosterPelicula() {
-        return posterPelicula;
-    }
-
-    public void setPosterPelicula(InputStream posterPelicula) {
-        this.posterPelicula = posterPelicula;
-    }
-
-    
 
 }

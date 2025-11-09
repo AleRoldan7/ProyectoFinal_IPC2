@@ -68,6 +68,7 @@ public class ListasController {
 
     }
 
+    
     @GET
     @Path("/peliculas")
     @Produces(MediaType.APPLICATION_JSON)
@@ -80,7 +81,8 @@ public class ListasController {
 
         return Response.ok(peliculaLista).build();
     }
-
+   
+    
     @GET
     @Path("/salas")
     @Produces(MediaType.APPLICATION_JSON)
@@ -209,4 +211,15 @@ public class ListasController {
         }
     }
 
+    @GET
+    @Path("/lista/anuncios/{idUsuario}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAnunciosUsuario(@PathParam("idUsuario") int idUsuario) {
+        try {
+            List<AnuncioResponse> anuncios = listaService.getAnuncioPorUsuario(idUsuario);
+            return Response.ok(anuncios).build();
+        } catch (Exception e) {
+            return Response.status(500).entity("Error al obtener anuncios").build();
+        }
+    }
 }

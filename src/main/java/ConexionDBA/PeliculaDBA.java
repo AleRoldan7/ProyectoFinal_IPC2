@@ -39,7 +39,7 @@ public class PeliculaDBA {
             insert.setTime(3, Time.valueOf(pelicula.getDuracionPelicula()));
             insert.setString(4, pelicula.getCastPelicula());
             insert.setString(5, pelicula.getDirectorPelicula());
-            insert.setBinaryStream(6, pelicula.getPosterPelicula());
+            insert.setBytes(6, pelicula.getPosterPelicula());
             insert.executeUpdate();
 
         } catch (SQLException e) {

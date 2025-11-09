@@ -28,7 +28,9 @@ public class UsuarioDBA {
     private static final String VERIFICAR_USUARIO_QUERY = "SELECT * FROM usuario WHERE user_name = ? AND password = ?";
     private static final String DESCONTAR_DINERO_ANUNCIO_QUERY = "UPDATE usuario SET dinero_cartera = dinero_cartera - ? WHERE id_usuario = ? "
             + "AND dinero_cartera >= ?";
-
+    
+    private static final String CINE_ASIGNADO_USUARIO_QUERY = "SELECT id_cine FROM cine WHERE id_usuario = ?";
+    
     public void agregarUsuario(Usuario usuario) {
 
         try (Connection connection = Conexion.getInstance().getConnect(); PreparedStatement insert = connection.prepareStatement(CREAR_USUARIO_QUERY)) {
@@ -206,4 +208,25 @@ public class UsuarioDBA {
         }
     }
 
+    public Integer obtenerCineUsuario(int idUsuario) {
+        
+        try (Connection connection = Conexion.getInstance().getConnect();
+                PreparedStatement query = connection.prepareStatement(CINE_ASIGNADO_USUARIO_QUERY)){
+            
+            query.setInt(1, idUsuario);
+            
+            try (ResultSet resultSet = query.executeQuery()){
+                
+                if (resultSet.next()) {
+                    return resultSet.getInt("id_cine");
+                }
+                
+            } 
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
 }

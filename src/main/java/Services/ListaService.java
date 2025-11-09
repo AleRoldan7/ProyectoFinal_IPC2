@@ -5,6 +5,7 @@
 package Services;
 
 import ConexionDBA.ListasDBA;
+import Dtos.Anuncio.AnuncioResponse;
 import Dtos.Anuncio.NewAnuncioRequest;
 import EnumOptions.Rol;
 import ModeloEntidad.Anuncio.Anuncio;
@@ -13,6 +14,7 @@ import ModeloEntidad.Cine.Pelicula;
 import ModeloEntidad.Cine.Sala;
 import ModeloEntidad.Usuario.Usuario;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -35,11 +37,13 @@ public class ListaService {
 
     }
 
+    
     public List<Pelicula> obtenerPeliculas() {
 
         return listasDBA.listaPeliculas();
     }
-
+    
+    
     public List<Sala> obtenerSalaAdmin(Integer idUsuario) {
 
         return listasDBA.listaSalasAdmin(idUsuario);
@@ -79,4 +83,8 @@ public class ListaService {
         }
     }
 
+    public List<AnuncioResponse> getAnuncioPorUsuario(int idUsuario) throws SQLException {
+        
+        return listasDBA.getAnunciosPorUsuario(idUsuario);
+    }
 }

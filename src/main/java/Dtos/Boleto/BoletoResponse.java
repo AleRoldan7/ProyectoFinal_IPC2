@@ -27,7 +27,7 @@ public class BoletoResponse {
 
     public BoletoResponse(Boleto boleto) {
         this.idUsuario = boleto.getIdUsuario();
-        this.idPeliculaSala = boleto.getIdPeliculaSala();
+        this.idPeliculaSala = boleto.getIdProyeccion();
         this.precioBoleto = boleto.getPrecioBoleto();
         this.filaAsiento = boleto.getFilaAsiento();
         this.columnaAsiento = boleto.getColumnaAsiento();

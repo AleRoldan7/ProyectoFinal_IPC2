@@ -20,10 +20,10 @@ public class Pelicula {
     private LocalTime duracionPelicula;
     private String castPelicula;
     private String directorPelicula;
-    private InputStream posterPelicula;
+    private byte[] posterPelicula;
 
-    public Pelicula(String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula, String castPelicula, String directorPelicula, 
-            InputStream posterPelicula) {
+    public Pelicula(String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula, String castPelicula, String directorPelicula,
+            byte[] posterPelicula) {
         this.tituloPelicula = tituloPelicula;
         this.sinopsisPelicula = sinopsisPelicula;
         this.duracionPelicula = duracionPelicula;
@@ -32,13 +32,12 @@ public class Pelicula {
         this.posterPelicula = posterPelicula;
     }
 
-   
     public Pelicula() {
 
     }
 
-    public Pelicula(Integer idPelicula, String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula, String castPelicula, 
-            String directorPelicula, InputStream posterPelicula) {
+    public Pelicula(Integer idPelicula, String tituloPelicula, String sinopsisPelicula, LocalTime duracionPelicula, String castPelicula,
+            String directorPelicula, byte[] posterPelicula) {
         this.idPelicula = idPelicula;
         this.tituloPelicula = tituloPelicula;
         this.sinopsisPelicula = sinopsisPelicula;
@@ -96,11 +95,11 @@ public class Pelicula {
         this.directorPelicula = directorPelicula;
     }
 
-    public InputStream getPosterPelicula() {
+    public byte[] getPosterPelicula() {
         return posterPelicula;
     }
 
-    public void setPosterPelicula(InputStream posterPelicula) {
+    public void setPosterPelicula(byte[] posterPelicula) {
         this.posterPelicula = posterPelicula;
     }
 
