@@ -4,6 +4,7 @@
  */
 package ConexionDBA;
 
+import Dtos.Anuncio.AnuncioResponse;
 import Dtos.Anuncio.NewAnuncioRequest;
 import EnumOptions.Rol;
 import EnumOptions.TipoAnuncio;
@@ -43,15 +44,15 @@ public class ListasDBA {
             + "INNER JOIN sala_cine sc ON s.id_sala = sc.id_sala "
             + "WHERE sc.id_cine = ?";
 
-    private static final String OBTENER_PELICULAS_QUERY =
-        "SELECT psc.id_pelicula_sala, p.id_pelicula, p.titulo_pelicula, s.nombre_sala, c.nombre_cine " +
-        "FROM pelicula_sala_cine psc " +
-        "JOIN sala_cine sc ON psc.id_sala_cine = sc.id_sala_cine " +
-        "JOIN sala s ON sc.id_sala = s.id_sala " +
-        "JOIN cine c ON sc.id_cine = c.id_cine " +
-        "JOIN pelicula p ON psc.id_pelicula = p.id_pelicula " +
-        "WHERE sc.id_sala = ? AND sc.id_cine = ?";
-    
+    private static final String OBTENER_PELICULAS_QUERY
+            = "SELECT psc.id_pelicula_sala, p.id_pelicula, p.titulo_pelicula, s.nombre_sala, c.nombre_cine "
+            + "FROM pelicula_sala_cine psc "
+            + "JOIN sala_cine sc ON psc.id_sala_cine = sc.id_sala_cine "
+            + "JOIN sala s ON sc.id_sala = s.id_sala "
+            + "JOIN cine c ON sc.id_cine = c.id_cine "
+            + "JOIN pelicula p ON psc.id_pelicula = p.id_pelicula "
+            + "WHERE sc.id_sala = ? AND sc.id_cine = ?";
+
     public List<Usuario> listaUsuarios() {
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -140,6 +141,7 @@ public class ListasDBA {
         return salas;
     }
 
+    
     public List<Pelicula> listaPeliculas() {
 
         List<Pelicula> peliculas = new ArrayList<>();
@@ -156,7 +158,7 @@ public class ListasDBA {
                         LocalTime.parse(resultSet.getString("duracion")),
                         resultSet.getString("cast_pelicula"),
                         resultSet.getString("director_pelicula"),
-                        resultSet.getBinaryStream("poster_pelicula")
+                        resultSet.getBytes("poster_pelicula")
                 );
                 peliculas.add(pelicula);
                 System.out.println("Encontradas" + peliculas.size());
@@ -168,7 +170,7 @@ public class ListasDBA {
         System.out.println("Salas:" + peliculas.size());
         return peliculas;
     }
-
+    
     public List<Sala> listaSalasAdmin(Integer idUsuario) {
 
         List<Sala> salas = new ArrayList<>();
@@ -257,8 +259,6 @@ public class ListasDBA {
 
         try (Connection connection = Conexion.getInstance().getConnect(); PreparedStatement query = connection.prepareStatement(LISTA_CINES_QUERY)) {
 
-            
-            
             try (ResultSet resultset = query.executeQuery()) {
 
                 while (resultset.next()) {
@@ -321,12 +321,11 @@ public class ListasDBA {
         System.out.println("Sala en cine " + idCine + salaCine.size());
         return salaCine;
     }
-    
+
     public List<Map<String, Object>> obtenerPeliculasPorSalaYCine(int idSala, int idCine) throws Exception {
         List<Map<String, Object>> peliculas = new ArrayList<>();
 
-        try (Connection conn = Conexion.getInstance().getConnect();
-             PreparedStatement stmt = conn.prepareStatement(OBTENER_PELICULAS_QUERY)) {
+        try (Connection conn = Conexion.getInstance().getConnect(); PreparedStatement stmt = conn.prepareStatement(OBTENER_PELICULAS_QUERY)) {
 
             stmt.setInt(1, idSala);
             stmt.setInt(2, idCine);
@@ -344,5 +343,33 @@ public class ListasDBA {
         }
 
         return peliculas;
+    }
+
+    public List<AnuncioResponse> getAnunciosPorUsuario(int idUsuario) throws SQLException {
+        String sql = "SELECT id_anuncio, tipo_anuncio, mensaje_anuncio, video_anuncio, "
+                + "nombre_anunciante, fecha_inicio, dias_vigente, precio "
+                + "FROM anuncio WHERE nombre_anunciante = ?";
+
+        List<AnuncioResponse> lista = new ArrayList<>();
+        try (Connection conn = Conexion.getInstance().getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    AnuncioResponse a = new AnuncioResponse(
+                            rs.getInt("id_anuncio"),
+                            TipoAnuncio.valueOf(rs.getString("tipo_anuncio")),
+                            rs.getString("mensaje_anuncio"),
+                            rs.getString("video_anuncio"),
+                            rs.getInt("nombre_anunciante"),
+                            rs.getDate("fecha_inicio").toLocalDate(),
+                            rs.getInt("dias_vigente"),
+                            rs.getDouble("precio")
+                    );
+                    lista.add(a);
+                }
+            }
+        }
+        return lista;
     }
 }

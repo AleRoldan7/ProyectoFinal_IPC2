@@ -5,11 +5,9 @@
 package Dtos.Anuncio;
 
 import EnumOptions.TipoAnuncio;
-import ModeloEntidad.Anuncio.Anuncio;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import java.io.InputStream;
 import java.time.LocalDate;
 
 /**
@@ -17,10 +15,10 @@ import java.time.LocalDate;
  * @author alejandro
  */
 public class AnuncioResponse {
-    
+
+    private int idAnuncio;
     private TipoAnuncio tipoAnuncio;
     private String mensajeAnuncio;
-    private InputStream imagenAnuncio;
     private String videoAnuncio;
     private int nombreAnunciante;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -28,17 +26,31 @@ public class AnuncioResponse {
     private LocalDate fechaInicio;
     private int diasVigencia;
     private double precio;
+    public boolean anuncioActivo;
+    public boolean anuncioVencido;
 
-    public AnuncioResponse(TipoAnuncio tipoAnuncio, String mensajeAnuncio, InputStream imagenAnuncio, String videoAnuncio, 
-            int nombreAnunciante, LocalDate fechaInicio, int diasVigencia, double precio) {
+    public AnuncioResponse(int idAnuncio, TipoAnuncio tipoAnuncio, String mensajeAnuncio,
+            String videoAnuncio, int nombreAnunciante, LocalDate fechaInicio,
+            int diasVigencia, double precio) {
+        this.idAnuncio = idAnuncio;
         this.tipoAnuncio = tipoAnuncio;
         this.mensajeAnuncio = mensajeAnuncio;
-        this.imagenAnuncio = imagenAnuncio;
         this.videoAnuncio = videoAnuncio;
         this.nombreAnunciante = nombreAnunciante;
         this.fechaInicio = fechaInicio;
         this.diasVigencia = diasVigencia;
         this.precio = precio;
+    }
+
+    public AnuncioResponse() {
+    }
+
+    public int getIdAnuncio() {
+        return idAnuncio;
+    }
+
+    public void setIdAnuncio(int idAnuncio) {
+        this.idAnuncio = idAnuncio;
     }
 
     public TipoAnuncio getTipoAnuncio() {
@@ -55,14 +67,6 @@ public class AnuncioResponse {
 
     public void setMensajeAnuncio(String mensajeAnuncio) {
         this.mensajeAnuncio = mensajeAnuncio;
-    }
-
-    public InputStream getImagenAnuncio() {
-        return imagenAnuncio;
-    }
-
-    public void setImagenAnuncio(InputStream imagenAnuncio) {
-        this.imagenAnuncio = imagenAnuncio;
     }
 
     public String getVideoAnuncio() {
@@ -105,7 +109,20 @@ public class AnuncioResponse {
         this.precio = precio;
     }
 
-    
-    
-    
+    public boolean isAnuncioActivo() {
+        return anuncioActivo;
+    }
+
+    public void setAnuncioActivo(boolean anuncioActivo) {
+        this.anuncioActivo = anuncioActivo;
+    }
+
+    public boolean isAnuncioVencido() {
+        return anuncioVencido;
+    }
+
+    public void setAnuncioVencido(boolean anuncioVencido) {
+        this.anuncioVencido = anuncioVencido;
+    }
+
 }

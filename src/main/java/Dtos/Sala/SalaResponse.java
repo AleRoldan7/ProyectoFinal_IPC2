@@ -25,6 +25,10 @@ public class SalaResponse {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate fechaCreacion;
 
+    public SalaResponse() {
+    }
+
+    
     public SalaResponse(Sala sala) {
         this.idSala = sala.getIdSala();
         this.idUsuario = sala.getIdUsuario();

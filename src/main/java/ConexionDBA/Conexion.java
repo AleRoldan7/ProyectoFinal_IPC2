@@ -82,9 +82,9 @@ public class Conexion {
     public void cerrarPool() {
     if (dataSource != null) {
         try {
-            dataSource.close();  // Cierra todas las conexiones activas y el pool
+            dataSource.close();  
             dataSource = null;
-            instance = null;     // Reinicia la instancia singleton
+            instance = null;     
             System.out.println("Pool de conexiones cerrado correctamente.");
         } catch (Exception e) {
             e.printStackTrace();

@@ -13,6 +13,7 @@ import Excepciones.EntityExists;
 import Services.PeliculaService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
@@ -98,7 +99,7 @@ public class PeliculaController {
         }
     }
 
-    @POST
+    @PUT
     @Path("/actualizar-pelicula")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)

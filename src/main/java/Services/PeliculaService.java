@@ -15,6 +15,7 @@ import Excepciones.EntidadNotFound;
 import Excepciones.EntityExists;
 import ModeloEntidad.Cine.Pelicula;
 import ModeloEntidad.Cine.SalaCine;
+import java.io.ByteArrayOutputStream;
 
 /**
  *
@@ -42,14 +43,26 @@ public class PeliculaService {
     private Pelicula extraer(NewPeliculaRequest newPeliculaRequest) throws DatosInvalidos {
 
         try {
+            byte[] imagen = null;
+            if (newPeliculaRequest.getPosterPelicula() != null) {
 
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                int datosRead;
+                byte[] data = new byte[16384];
+
+                while ((datosRead = newPeliculaRequest.getPosterPelicula().read(data, 0, data.length)) != -1) {
+                    byteArrayOutputStream.write(data, 0, datosRead);
+                }
+                byteArrayOutputStream.flush();
+                imagen = byteArrayOutputStream.toByteArray();
+            }
             Pelicula entPelicula = new Pelicula(
                     newPeliculaRequest.getTituloPelicula(),
                     newPeliculaRequest.getSinopsisPelicula(),
                     newPeliculaRequest.getDuracionPelicula(),
                     newPeliculaRequest.getCastPelicula(),
                     newPeliculaRequest.getDirectorPelicula(),
-                    newPeliculaRequest.getPosterPelicula()
+                    imagen
             );
 
             if (!entPelicula.esValido()) {

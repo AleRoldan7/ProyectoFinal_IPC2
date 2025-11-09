@@ -4,6 +4,7 @@
  */
 package Dtos.Usuario;
 
+import ConexionDBA.UsuarioDBA;
 import EnumOptions.Rol;
 import ModeloEntidad.Usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -20,21 +21,30 @@ public class UsuarioResponse {
     private Integer idUsuario;
     private String nombre;
     private String userName;
-    private String password;
     private Rol rolUsuario;
     private double dineroCartera;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate fechaRegistro;
+    private Integer idCine;
+    private String nombreCine;
 
     public UsuarioResponse(Usuario usuario) {
         this.idUsuario = usuario.getIdUsuario();
         this.nombre = usuario.getNombre();
         this.userName = usuario.getUserName();
-        this.password = usuario.getPassword();
         this.rolUsuario = usuario.getRolUsuario();
         this.dineroCartera = usuario.getDineroCartera();
         this.fechaRegistro = usuario.getFechaRegistro();
+
+        if (usuario.getRolUsuario() == Rol.ADMIN_CINE) {
+            UsuarioDBA usuarioDBA = new UsuarioDBA();
+            Integer cineAsociando = usuarioDBA.obtenerCineUsuario(usuario.getIdUsuario());
+            this.idCine = cineAsociando;
+        }
+    }
+
+    public UsuarioResponse() {
     }
 
     public Integer getIdUsuario() {
@@ -44,7 +54,7 @@ public class UsuarioResponse {
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -59,14 +69,6 @@ public class UsuarioResponse {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Rol getRolUsuario() {
@@ -91,6 +93,22 @@ public class UsuarioResponse {
 
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public Integer getIdCine() {
+        return idCine;
+    }
+
+    public void setIdCine(Integer idCine) {
+        this.idCine = idCine;
+    }
+
+    public String getNombreCine() {
+        return nombreCine;
+    }
+
+    public void setNombreCine(String nombreCine) {
+        this.nombreCine = nombreCine;
     }
 
 }

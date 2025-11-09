@@ -65,13 +65,13 @@ public class BoletoService {
 
     }
 
-    public List<Map<String, Object>> obtenerPeliculasPorCine(int idCine) throws SQLException {
-        return boletoDBA.obtenerPeliculasPorCine(idCine);
+    public List<Map<String, Object>> obtenerPeliculasPorCine(String buscar) throws SQLException {
+        return boletoDBA.obtenerPeliculasPorCine(buscar);
     }
 
     public void actualizarBoleto(UpdateBoletoRequest updateBoletoRequest) throws DatosInvalidos, EntidadNotFound, EntityExists {
 
-        if (updateBoletoRequest.getIdBoleto()== null || updateBoletoRequest.getIdBoleto()<= 0) {
+        if (updateBoletoRequest.getIdBoleto() == null || updateBoletoRequest.getIdBoleto() <= 0) {
             throw new DatosInvalidos("El ID de la película no es válido.");
         }
 
@@ -83,5 +83,9 @@ public class BoletoService {
 
         boletoDBA.actualizarBoleto(updateBoletoRequest);
 
+    }
+
+    public List<Map<String, Object>> obtenerPeliculasCompradas(int idUsuario) {
+        return new BoletoDBA().obtenerPeliculasCompradas(idUsuario);
     }
 }

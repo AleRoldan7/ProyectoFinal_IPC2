@@ -6,15 +6,18 @@ package Services;
 
 import ConexionDBA.AnuncioDBA;
 import ConexionDBA.UsuarioDBA;
+import Dtos.Anuncio.AnuncioResponse;
 import Dtos.Anuncio.NewAnuncioRequest;
 import EnumOptions.TipoAnuncio;
 import Excepciones.DatosInvalidos;
+import ModeloEntidad.Anuncio.Anuncio;
 import ModeloEntidad.Anuncio.AnuncioImagen;
 import ModeloEntidad.Anuncio.AnuncioTexto;
 import ModeloEntidad.Anuncio.AnuncioVideo;
 import ModeloEntidad.Usuario.Usuario;
 import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -24,20 +27,20 @@ public class AnuncioService {
 
     private AnuncioDBA anuncioDBA = new AnuncioDBA();
     private UsuarioDBA usuarioDBA = new UsuarioDBA();
-    
+
     public void crearAnuncio(NewAnuncioRequest newAnuncioRequest) throws DatosInvalidos {
 
         try {
-            
+
             double precio = calcularPrecio(newAnuncioRequest.getTipoAnuncio(), newAnuncioRequest.getDiasVigencia());
             newAnuncioRequest.setPrecio(precio);
-            
+
             boolean tieneDinero = usuarioDBA.comprarAnuncio(newAnuncioRequest.getNombreAnunciante(), precio);
-            
+
             if (!tieneDinero) {
                 throw new DatosInvalidos("No hay suficiente dinero en la cartera para crear el anuncio");
             }
-            
+
             switch (newAnuncioRequest.getTipoAnuncio()) {
                 case TEXTO:
                     AnuncioTexto anuncioTexto = new AnuncioTexto(
@@ -102,9 +105,9 @@ public class AnuncioService {
     }
 
     private double calcularPrecio(TipoAnuncio tipoAnuncio, int diasVigencia) {
-        
+
         double precioBase;
-        
+
         switch (tipoAnuncio) {
             case TEXTO:
                 precioBase = 10;
@@ -118,7 +121,29 @@ public class AnuncioService {
             default:
                 precioBase = 0;
         }
-        return precioBase * diasVigencia; 
+        return precioBase * diasVigencia;
     }
 
+    public byte[] getImagenAnuncio(int idAnuncio) throws Exception {
+        return anuncioDBA.obtenerImagenId(idAnuncio);
+    }
+
+    public void toggleAnuncio(int idAnuncio, boolean activo, int idUsuario) throws DatosInvalidos {
+        AnuncioResponse anuncio = anuncioDBA.obtenerAnuncioPorId(idAnuncio);
+        if (anuncio == null) {
+            throw new DatosInvalidos("Anuncio no encontrado");
+        }
+        if (anuncio.getNombreAnunciante() != idUsuario) {
+            throw new DatosInvalidos("No tienes permiso para modificar este anuncio");
+        }
+        anuncioDBA.toggleAnuncioActivo(idAnuncio, activo);
+    }
+
+    public List<AnuncioResponse> obtenerAnunciosActivos() {
+        return anuncioDBA.obtenerAnunciosActivos();
+    }
+
+    public List<AnuncioResponse> obtenerAnunciosVisibles() {
+        return anuncioDBA.obtenerAnunciosVisibles();
+    }
 }
