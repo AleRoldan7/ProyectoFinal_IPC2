@@ -104,5 +104,9 @@ public class PeliculaService {
         peliculaDBA.actualizarPelicula(updatePeliculaRequest);
 
     }
+    
+    public void eliminarPelicula(int idPelicula) throws DatosInvalidos, EntidadNotFound {
+        peliculaDBA.eliminarPelicula(idPelicula);
+    }
 
 }

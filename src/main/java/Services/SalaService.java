@@ -85,4 +85,7 @@ public class SalaService {
 
     }
 
+    public void eliminarSala(int idSala) throws DatosInvalidos, EntidadNotFound {
+        salaDBA.eliminarSala(idSala);
+    }
 }

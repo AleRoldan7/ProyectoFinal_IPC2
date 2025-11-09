@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import ConexionDBA.Conexion;
 import Dtos.Pelicula.NewPeliculaRequest;
 import Dtos.Cine.NewPeliculaSalaRequest;
 import Dtos.Pelicula.UpdatePeliculaRequest;
@@ -12,9 +13,12 @@ import Excepciones.EntidadNotFound;
 import Excepciones.EntityExists;
 import Services.PeliculaService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
@@ -22,7 +26,13 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -121,7 +131,7 @@ public class PeliculaController {
             }
 
             LocalTime duracion = LocalTime.parse(duracionPelicula);
-            
+
             UpdatePeliculaRequest updatePeliculaRequest = new UpdatePeliculaRequest();
             updatePeliculaRequest.setIdPelicula(idPelicula);
             updatePeliculaRequest.setTituloPelicula(tituloPelicula);
@@ -148,4 +158,127 @@ public class PeliculaController {
         }
     }
 
+    @GET
+    @Path("/{idPelicula}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPelicula(@PathParam("idPelicula") int idPelicula) {
+        try {
+            String sql = "SELECT id_pelicula, titulo_pelicula, sinopsis, duracion, cast_pelicula, director_pelicula "
+                    + "FROM pelicula WHERE id_pelicula = ?";
+
+            try (Connection conn = Conexion.getInstance().getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ps.setInt(1, idPelicula);
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    Map<String, Object> pelicula = new HashMap<>();
+                    pelicula.put("idPelicula", rs.getInt("id_pelicula"));
+                    pelicula.put("tituloPelicula", rs.getString("titulo_pelicula"));
+                    pelicula.put("sinopsisPelicula", rs.getString("sinopsis"));
+                    pelicula.put("duracionPelicula", rs.getTime("duracion").toString());
+                    pelicula.put("castPelicula", rs.getString("cast_pelicula"));
+                    pelicula.put("directorPelicula", rs.getString("director_pelicula"));
+
+                    return Response.ok(pelicula).build();
+                } else {
+                    return Response.status(Response.Status.NOT_FOUND)
+                            .entity(Map.of("error", "Película no encontrada"))
+                            .build();
+                }
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(Map.of("error", "Error al obtener película: " + e.getMessage()))
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("/listar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerTodasLasPeliculas() {
+        try {
+            String sql = "SELECT id_pelicula, titulo_pelicula, sinopsis, duracion, cast_pelicula, director_pelicula "
+                    + "FROM pelicula ORDER BY titulo_pelicula";
+
+            try (Connection conn = Conexion.getInstance().getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ResultSet rs = ps.executeQuery();
+
+                List<Map<String, Object>> peliculas = new ArrayList<>();
+
+                while (rs.next()) {
+                    Map<String, Object> pelicula = new HashMap<>();
+                    pelicula.put("idPelicula", rs.getInt("id_pelicula"));
+                    pelicula.put("tituloPelicula", rs.getString("titulo_pelicula"));
+                    pelicula.put("sinopsisPelicula", rs.getString("sinopsis"));
+                    pelicula.put("duracionPelicula", rs.getTime("duracion").toString().substring(0, 5));
+                    pelicula.put("castPelicula", rs.getString("cast_pelicula"));
+                    pelicula.put("directorPelicula", rs.getString("director_pelicula"));
+
+                    peliculas.add(pelicula);
+                }
+
+                return Response.ok(peliculas).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(Map.of("error", "Error al obtener películas: " + e.getMessage()))
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("/buscar/{titulo}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarPeliculas(@PathParam("titulo") String titulo) {
+        try {
+            String sql = "SELECT id_pelicula, titulo_pelicula, sinopsis, duracion, cast_pelicula, director_pelicula "
+                    + "FROM pelicula WHERE titulo_pelicula LIKE ? ORDER BY titulo_pelicula";
+
+            try (Connection conn = Conexion.getInstance().getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ps.setString(1, "%" + titulo + "%");
+                ResultSet rs = ps.executeQuery();
+
+                List<Map<String, Object>> peliculas = new ArrayList<>();
+
+                while (rs.next()) {
+                    Map<String, Object> pelicula = new HashMap<>();
+                    pelicula.put("idPelicula", rs.getInt("id_pelicula"));
+                    pelicula.put("tituloPelicula", rs.getString("titulo_pelicula"));
+                    pelicula.put("sinopsisPelicula", rs.getString("sinopsis"));
+                    pelicula.put("duracionPelicula", rs.getTime("duracion").toString().substring(0, 5));
+                    pelicula.put("castPelicula", rs.getString("cast_pelicula"));
+                    pelicula.put("directorPelicula", rs.getString("director_pelicula"));
+
+                    peliculas.add(pelicula);
+                }
+
+                return Response.ok(peliculas).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(Map.of("error", "Error al buscar películas: " + e.getMessage()))
+                    .build();
+        }
+    }
+
+    @DELETE
+    @Path("/{idPelicula}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response eliminarPelicula(@PathParam("idPelicula") int idPelicula) {
+        try {
+            peliculaService.eliminarPelicula(idPelicula);
+            return Response.ok(Map.of("mensaje", "Película eliminada exitosamente")).build();
+
+        } catch (EntidadNotFound e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error al eliminar película: " + e.getMessage())
+                    .build();
+        }
+    }
 }

@@ -14,6 +14,7 @@ import Excepciones.EntityExists;
 import ModeloEntidad.Cine.Sala;
 import Services.SalaService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -252,6 +253,23 @@ public class SalaController {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity(Map.of("error", "Error al obtener salas: " + e.getMessage()))
+                    .build();
+        }
+    }
+
+    @DELETE
+    @Path("/{idSala}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response eliminarSala(@PathParam("idSala") int idSala) {
+        try {
+            salaService.eliminarSala(idSala);
+            return Response.ok(Map.of("mensaje", "Sala eliminada exitosamente")).build();
+
+        } catch (EntidadNotFound e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error al eliminar sala: " + e.getMessage())
                     .build();
         }
     }
